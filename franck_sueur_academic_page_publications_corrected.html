@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Academic webpage of Franck Sueur, Full Professor in Mathematics at the University of Luxembourg.">
+  <title>Franck Sueur</title>
+
+  <style>
+    :root {
+      --text: #222;
+      --muted: #666;
+      --line: #d7d7d1;
+      --background: #ececea;
+      --paper: #f7f7f4;
+      --link: #0645ad;
+      --tag: #eeeeea;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      line-height: 1.6;
+      color: var(--text);
+      background: var(--background);
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 48px 28px 72px;
+      background: var(--paper);
+      min-height: 100vh;
+    }
+
+    header {
+      padding-bottom: 26px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 34px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 2.35rem;
+      font-weight: normal;
+      line-height: 1.2;
+    }
+
+    h2 {
+      margin: 42px 0 16px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--line);
+      font-size: 1.42rem;
+      font-weight: normal;
+    }
+
+    h3 {
+      margin: 28px 0 8px;
+      font-size: 1.08rem;
+    }
+
+    p {
+      margin: 0 0 1em;
+    }
+
+    a {
+      color: var(--link);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .subtitle {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 1.08rem;
+    }
+
+    .links {
+      margin-top: 16px;
+    }
+
+    .links a {
+      display: inline-block;
+      margin: 0 14px 6px 0;
+    }
+
+
+    .jump-menu {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: -8px 0 30px;
+      padding: 10px 0 12px;
+      border-bottom: 1px solid var(--line);
+      background: var(--paper);
+    }
+
+    .jump-menu label {
+      color: var(--muted);
+      font-size: 0.96rem;
+      white-space: nowrap;
+    }
+
+    .jump-menu select {
+      width: min(100%, 360px);
+      padding: 7px 10px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #fff;
+      color: var(--text);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 0.98rem;
+    }
+
+    section,
+    footer,
+    details[id] {
+      scroll-margin-top: 72px;
+    }
+
+    .keywords {
+      margin-top: 14px;
+    }
+
+    .keywords span {
+      display: inline-block;
+      margin: 4px 8px 4px 0;
+      padding: 2px 9px;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      background: var(--tag);
+      color: #444;
+      font-size: 0.92rem;
+    }
+
+    .paper {
+      margin-bottom: 23px;
+    }
+
+    .paper-title {
+      font-weight: bold;
+    }
+
+    .paper-meta {
+      color: var(--muted);
+    }
+
+    .paper-links a {
+      margin-right: 12px;
+    }
+
+
+    #publications .paper {
+      margin-bottom: 18px;
+    }
+
+    #publications h3 {
+      margin-top: 34px;
+    }
+
+    .publication-note {
+      color: var(--muted);
+      font-size: 0.96rem;
+      margin-bottom: 22px;
+    }
+
+
+    .publication-instruction {
+      color: var(--muted);
+      font-size: 0.96rem;
+      margin-bottom: 18px;
+    }
+
+    .publication-group {
+      margin: 16px 0;
+      padding: 0 0 6px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .publication-group summary {
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 0;
+      font-size: 1.08rem;
+      font-weight: bold;
+    }
+
+    .publication-group summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .publication-group summary::before {
+      content: "+";
+      display: inline-block;
+      width: 1.2em;
+      color: var(--muted);
+      font-weight: normal;
+    }
+
+    .publication-group[open] summary::before {
+      content: "−";
+    }
+
+    .summary-title {
+      flex: 1;
+    }
+
+    .summary-count {
+      color: var(--muted);
+      font-size: 0.92rem;
+      font-weight: normal;
+      white-space: nowrap;
+    }
+
+    ul {
+      margin-top: 8px;
+      padding-left: 22px;
+    }
+
+    footer {
+      margin-top: 50px;
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.96rem;
+    }
+
+    .small {
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    @media (max-width: 650px) {
+      .page {
+        padding: 34px 18px 56px;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      .jump-menu {
+        align-items: stretch;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .jump-menu select {
+        width: 100%;
+      }
+
+      .publication-group summary {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 2px;
+      }
+
+      .publication-group summary::before {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page">
+    <header>
+      <h1>Franck Sueur</h1>
+
+      <div class="subtitle">
+        Full Professor in Mathematics<br>
+        Partial Differential Equations and Analysis<br>
+        Department of Mathematics, University of Luxembourg
+      </div>
+
+      <div class="links" aria-label="Academic links">
+        <a href="mailto:franck.sueur@uni.lu">Email</a>
+        <a href="https://www.uni.lu/fstm-en/people/franck-sueur/">University profile</a>
+        <a href="https://www.uni.lu/fstm-en/research-groups/analysis-and-controllability-of-partial-differential-equations/">Research group</a>
+        <a href="https://cv.hal.science/franck-sueur">HAL</a>
+        <a href="https://scholar.google.com/citations?user=1tSZ8zcAAAAJ">Google Scholar</a>
+        <a href="https://orcid.org/0000-0002-8413-4545">ORCID</a>
+        <a href="https://arxiv.org/search/math?searchtype=author&amp;query=Sueur%2C+F">arXiv</a>
+      </div>
+    </header>
+
+    <nav class="jump-menu" aria-label="Page navigation">
+      <label for="section-select">Jump to</label>
+      <select id="section-select" onchange="if (this.value) { var el = document.getElementById(this.value); if (el && el.tagName.toLowerCase() === 'details') { el.open = true; } location.hash = this.value; this.selectedIndex = 0; }">
+        <option value="">Select a section</option>
+        <option value="research-interests">Research interests</option>
+        <option value="publications">Publications</option>
+        <option value="preprints">Preprints</option>
+        <option value="published-papers">Published and accepted papers</option>
+        <option value="book-chapter-and-proceedings">Book chapter and proceedings</option>
+        <option value="research-themes">Research themes</option>
+        <option value="teaching">Teaching</option>
+        <option value="outreach">Outreach</option>
+        <option value="editorial-boards">Editorial boards</option>
+        <option value="contact">Contact</option>
+      </select>
+    </nav>
+
+    <section id="research-interests">
+      <h2>Research interests</h2>
+
+      <p>
+        My research concerns the analysis and controllability of partial differential equations.
+        A large part of my work is motivated by mathematical fluid mechanics, in particular the
+        Euler and Navier&ndash;Stokes equations, fluid-structure interactions, multiscale phenomena,
+        asymptotic analysis, and the control of flows by suitable external actions.
+      </p>
+
+      <p>
+        I am also interested in PDEs arising from physics, including magnetohydrodynamics and
+        micromagnetism, and in methods related to Runge-type approximation, unique continuation,
+        and fractional elliptic problems.
+      </p>
+
+      <div class="keywords">
+        <span>Partial differential equations</span>
+        <span>Mathematical fluid mechanics</span>
+        <span>Euler equations</span>
+        <span>Navier&ndash;Stokes equations</span>
+        <span>Fluid-structure interaction</span>
+        <span>Controllability</span>
+        <span>Lagrangian controllability</span>
+        <span>Asymptotic analysis</span>
+        <span>Runge approximation</span>
+        <span>Fractional Laplacian</span>
+      </div>
+    </section>
+
+    <section id="publications">
+      <h2>Publications</h2>
+
+      <p>
+        Complete external lists are available on
+        <a href="https://cv.hal.science/franck-sueur">HAL</a>,
+        <a href="https://orbilu.uni.lu/profile?uid=50088346">ORBilu</a>, and
+        <a href="https://scholar.google.com/citations?user=1tSZ8zcAAAAJ">Google Scholar</a>.
+      </p>
+
+      <p class="publication-note">
+        The list below is a non-duplicated bibliography. When a preprint later appeared as a paper,
+        the published version is listed with its DOI and the arXiv version when available.
+      </p>
+
+      <p class="publication-instruction">Open the groups below, or use the menu above to jump directly to a later section.</p>
+
+      <details class="publication-group" id="preprints">
+        <summary><span class="summary-title">Preprints</span><span class="summary-count">1 entry</span></summary>
+      <div class="paper">
+        <div class="paper-title">Motion of a massive rigid loop in a 3D perfect incompressible flow</div>
+        <div class="paper-meta">with Olivier Glass and David Meyer, preprint, 2025.</div>
+        <div class="paper-links">
+          <a href="https://doi.org/10.48550/arXiv.2509.17881">DOI</a>
+          <a href="https://arxiv.org/abs/2509.17881">arXiv</a>
+        </div>
+      </div>
+      </details>
+
+      <details class="publication-group" id="published-papers">
+        <summary><span class="summary-title">Published and accepted papers</span><span class="summary-count">52 entries</span></summary>
+      <div class="paper">
+        <div class="paper-title">A Lions' type formula for some reproducing kernel Hilbert spaces of fractional harmonic functions</div>
+        <div class="paper-meta">with Sidy M. Djitte, Zeitschrift f&uuml;r Analysis und ihre Anwendungen, 2026.</div>
+        <div class="paper-links">
+          <a href="https://doi.org/10.48550/arXiv.2602.09669">DOI</a>
+          <a href="https://arxiv.org/abs/2602.09669">arXiv</a>
+          <a href="https://hdl.handle.net/10993/67770">ORBilu</a>
+        </div>
+      </div>
+      <div class="paper">
+        <div class="paper-title">Pointwise Hadamard variational formula for the fractional Laplacian</div>
+        <div class="paper-meta">with Sidy M. Djitte, Annales de la Facult&eacute; des Sciences de Toulouse, 2026.</div>
+        <div class="paper-links">
+          <a href="https://doi.org/10.48550/arXiv.2602.07214">DOI</a>
+          <a href="https://arxiv.org/abs/2602.07214">arXiv</a>
+          <a href="https://hdl.handle.net/10993/67761">ORBilu</a>
+        </div>
+      </div>
+      <div class="paper">
+        <div class="paper-title">Dynamics of several rigid bodies in a two-dimensional ideal fluid and convergence to vortex systems</div>
+        <div class="paper-meta">with Olivier Glass, Bulletin de la Soci&eacute;t&eacute; Math&eacute;matique de France 154, no. 1, pp. 1&ndash;106, 2026.</div>
+        <div class="paper-links">
+          <a href="https://doi.org/10.24033/bsmf.2917">DOI</a>
+          <a href="https://arxiv.org/abs/1910.03158">arXiv</a>
+          <a href="https://hal.science/hal-02309070">HAL</a>
+        </div>
+      </div>
+      <div class="paper">
+        <div class="paper-title">A Brezis and Peletier type result for the fractional Robin function</div>
+        <div class="paper-meta">with Sidy M. Djitte, Potential Analysis 64, article 21, 2026.</div>
+        <div class="paper-links">
+          <a href="https://doi.org/10.1007/s11118-025-10240-1">DOI</a>
+          <a href="https://arxiv.org/abs/2602.07221">arXiv</a>
+          <a href="https://hdl.handle.net/10993/67762">ORBilu</a>
+        </div>
+      </div>
+      <div class="paper">
+        <div class="paper-title">Global small-time approximate null and Lagrangian controllability of the viscous non-resistive MHD system in a 3D domain with Navier type boundary conditions</div>
+        <div class="paper-meta">with Jiajiang Liao and Ping Zhang, Journal of Mathematical Fluid Mechanics 28, article 31, 2026.</div>
+        <div class="paper-links">
+          <a href="https://doi.org/10.1007/s00021-026-01012-x">DOI</a>
+          <a href="https://arxiv.org/abs/2505.07366">arXiv</a>
+        </div>
+      </div>
+      <div class="paper">
+        <div class="paper-title">Lagrangian controllability in perforated domains</div>
+        <div class="paper-meta">with Mitsuo Higaki and Jiajiang Liao, Annali della Scuola Normale Superiore di Pisa, forthcoming.</div>
+        <div class="paper-links">
+          <a href="https://doi.org/10.2422/2036-2145.202510_002">DOI</a>
+          <a href="https://arxiv.org/abs/2509.14913">arXiv</a>
+        </div>
+      </div>
+      <div class="paper">
+        <div class="paper-title">A Runge-type approximation theorem for the 3D unsteady Stokes system</div>
+        <div class="paper-meta">with Mitsuo Higaki, Communications in Mathematical Physics 406, article 180, 2025.</div>
+        <div class="paper-links">
+          <a href="https://doi.org/10.1007/s00220-025-05364-9">DOI</a>
+          <a href="https://arxiv.org/abs/2408.17228">arXiv</a>
+        </div>
+      </div>
+      <div class="paper">
+        <div class="paper-title">Local exact Lagrangian controllability for the one-dimensional barotropic compressible Navier&ndash;Stokes equations</div>
+        <div class="paper-meta">with Kai Koike and Gast&oacute;n Vergara-Hermosilla, SIAM Journal on Control and Optimization, 2025.</div>
+        <div class="paper-links">
+          <a href="https://doi.org/10.1137/24M1680611">DOI</a>
+          <a href="https://arxiv.org/abs/2407.19210">arXiv</a>
+        </div>
+      </div>
+      <div class="paper">
+        <div class="paper-title">On the analyticity of the flow map for the AHT equations</div>
+        <div class="paper-meta">with Amina Mecherbet, Quarterly of Applied Mathematics 83, 2025.</div>
+        <div class="paper-links">
+          <a href="https://doi.org/10.1090/qam/1713">DOI</a>
+          <a href="https://arxiv.org/abs/2412.09273">arXiv</a>
+        </div>
+      </div>
+      <div class="paper">
+        <div class="paper-title">A new look at the controllability cost of linear evolution systems with a long gaze at localized data</div>
+        <div class="paper-meta">with Roberta Bianchini and Vincent Laheurte, Comptes Rendus Math&eacute;matique 363, pp. 241&ndash;266, 2025.</div>
+        <div class="paper-links">
+          <a href="https://doi.org/10.5802/crmath.725">DOI</a>
+          <a href="https://arxiv.org/abs/2401.07285">arXiv</a>
+        </div>
+      </div>
+      <div class="paper">
+        <div class="paper-title">A few remarks on the transport-Stokes system</div>
+        <div class="paper-meta">with Amina Mecherbet, Annales Henri Lebesgue 7, pp. 1367&ndash;1408, 2024.</div>
+        <div class="paper-links">
+          <a href="https://doi.org/10.5802/ahl.222">DOI</a>
+          <a href="https://arxiv.org/abs/2209.11637">arXiv</a>
+        </div>
+      </div>
+      <div class="paper">
+        <div class="paper-title">Uniqueness of Yudovich's solutions to the 2D incompressible Euler equation despite the presence of sources and sinks</div>
+        <div class="paper-meta">with Florent Noisette, Revista Matem&aacute;tica Iberoamericana 39, pp. 731&ndash;760, 2022.</div>
+        <div class="paper-links">
+          <a href="https://doi.org/10.4171/RMI/1370">DOI</a>
+          <a href="https://arxiv.org/abs/2106.11556">arXiv</a>
+          <a href="https://hal.science/hal-04856106">HAL</a>
+        </div>
+      </div>
+      <div class="paper">
+        <div class="paper-title">Existence of weak solutions to the two-dimensional incompressible Euler equations in the presence of sources and sinks</div>
+        <div class="paper-meta">with Marco Bravin, Advances in Differential Equations 27, no. 11/12, pp. 683&ndash;734, 2022.</div>
+        <div class="paper-links">
+          <a href="https://doi.org/10.57262/ade027-1112-683">DOI</a>
+          <a href="https://arxiv.org/abs/2103.13912">arXiv</a>
+          <a href="https://projecteuclid.org/journals/advances-in-differential-equations/volume-27/issue-11_2f_12/Existence-of-weak-solutions-to-the-two-dimensional-incompressible-Euler/ade027-1112-683.full">Journal</a>
+        </div>
+      </div>
+      <div class="paper">
+        <div class="paper-title">Global controllability of the Navier&ndash;Stokes equations in the presence of curved boundary with no-slip conditions</div>
+        <div class="paper-meta">with Jiajiang Liao and Ping Zhang, Journal of Mathematical Fluid Mechanics 24, article 71, 2022.</div>
+        <div class="paper-links">
+          <a href="https://doi.org/10.1007/s00021-022-00689-0">DOI</a>
+        </div>
+      </div>
+      <div class="paper">
+        <div class="paper-title">Smooth controllability of the Navier&ndash;Stokes equation with Navier conditions: application to Lagrangian controllability</div>
+        <div class="paper-meta">with Jiajiang Liao and Ping Zhang, Archive for Rational Mechanics and Analysis 243, pp. 869&ndash;941, 2022.</div>
+        <div class="paper-links">
+          <a href="https://doi.org/10.1007/s00205-021-01744-2">DOI</a>
+          <a href="https://arxiv.org/abs/2004.04358">arXiv</a>
+        </div>
+      </div>
+      <div class="paper">
+        <div class="paper-title">Motion of several slender rigid filaments in a Stokes flow</div>
+        <div class="paper-meta">with Richard M. H&ouml;fer and Christophe Prange, Journal de l'&Eacute;cole polytechnique &mdash; Math&eacute;matiques, 2022.</div>
+        <div class="paper-links">
+          <a href="https://doi.org/10.5802/jep.184">DOI</a>
+          <a href="https://arxiv.org/abs/2106.03447">arXiv</a>
+          <a href="https://hal.science/hal-03264956">HAL</a>
+        </div>
+      </div>
+      <div class="paper">
+        <div class="paper-title">Remote trajectory tracking of rigid bodies immersed in a 2D perfect incompressible fluid</div>
+        <div class="paper-meta">with Olivier Glass and J&oacute;zsef J. Kolumb&aacute;n, Pure and Applied Analysis 3, pp. 613&ndash;652, 2021.</div>
+        <div class="paper-links">
+          <a href="https://doi.org/10.2140/paa.2021.3.613">DOI</a>
+          <a href="https://arxiv.org/abs/2007.05235">arXiv</a>
+          <a href="https://hal.science/hal-02893582">HAL</a>
+        </div>
+      </div>
+      <div class="paper">
+        <div class="paper-title">On the 2D viscous incompressible fluid + rigid body system with Navier conditions</div>
+        <div class="paper-meta">with Marco Bravin, Comptes Rendus Math&eacute;matique 358, pp. 303&ndash;319, 2020.</div>
+        <div class="paper-links">
+          <a href="https://doi.org/10.5802/crmath.36">DOI</a>
+          <a href="https://arxiv.org/abs/1810.01168">arXiv</a>
+        </div>
+      </div>
+      <div class="paper">
+        <div class="paper-title">Weak vorticity formulation for the incompressible Euler equations in domains with boundary</div>
+        <div class="paper-meta">with Drago&#537; Iftimie, Milton Lopes Filho and Helena Nussenzveig Lopes, Communications in Partial Differential Equations 45, pp. 1094&ndash;1141, 2020.</div>
+        <div class="paper-links">
+          <a href="https://doi.org/10.1080/03605302.2019.1663433">DOI</a>
+          <a href="https://arxiv.org/abs/1305.0905">arXiv</a>
+          <a href="https://hal.science/hal-00820998">HAL</a>
+        </div>
+      </div>
+      <div class="paper">
+        <div class="paper-title">Small-time global exact controllability of the Navier&ndash;Stokes equation with Navier slip-with-friction boundary conditions</div>
+        <div class="paper-meta">with Jean-Michel Coron and Fr&eacute;d&eacute;ric Marbach, Journal of the European Mathematical Society 22, pp. 1625&ndash;1673, 2020.</div>
+        <div class="paper-links">
+          <a href="https://doi.org/10.4171/JEMS/952">DOI</a>
+          <a href="https://arxiv.org/abs/1612.08087">arXiv</a>
+          <a href="https://hal.science/hal-01422161">HAL</a>
+        </div>
+      </div>
+      <div class="paper">
+        <div class="paper-title">External boundary control of the motion of a rigid body immersed in a perfect two-dimensional fluid</div>
+        <div class="paper-meta">with Olivier Glass and J&oacute;zsef J. Kolumb&aacute;n, Analysis &amp; PDE 13, pp. 651&ndash;684, 2020.</div>
+        <div class="paper-links">
+          <a href="https://doi.org/10.2140/apde.2020.13.651">DOI</a>
+          <a href="https://arxiv.org/abs/1707.05093">arXiv</a>
+          <a href="https://hal.science/hal-01562320">HAL</a>
+        </div>
+      </div>
+      <div class="paper">
+        <div class="paper-title">Zero-viscosity limit of the incompressible Navier&ndash;Stokes equations with sharp vorticity gradient</div>
+        <div class="paper-meta">with Jiajiang Liao and Ping Zhang, Journal of Differential Equations, 2019.</div>
+        <div class="paper-links">
+          <a href="https://doi.org/10.1016/j.jde.2019.11.018">DOI</a>
+          <a href="https://hal.science/hal-02483825">HAL</a>
+        </div>
+      </div>
+      <div class="paper">
+        <div class="paper-title">Dynamics of rigid bodies in a two dimensional incompressible perfect fluid</div>
+        <div class="paper-meta">with Olivier Glass, Christophe Lacave and Alexandre Munnier, Journal of Differential Equations 267, no. 6, pp. 3561&ndash;3577, 2019.</div>
+        <div class="paper-links">
+          <a href="https://doi.org/10.1016/j.jde.2019.04.017">DOI</a>
+          <a href="https://arxiv.org/abs/1902.07082">arXiv</a>
+          <a href="https://hal.science/hal-02024104">HAL</a>
+        </div>
+      </div>
+      <div class="paper">
+        <div class="paper-title">Dynamics of a rigid body in a two-dimensional incompressible perfect fluid and the zero-radius limit</div>
+        <div class="paper-meta">Science China Mathematics 62, pp. 1205&ndash;1218, 2019.</div>
+        <div class="paper-links">
+          <a href="https://doi.org/10.1007/s11425-018-9505-8">DOI</a>
+          <a href="https://hal.science/hal-02483826">HAL</a>
+        </div>
+      </div>
+      <div class="paper">
+        <div class="paper-title">On the effect of polydispersity and rotation on the Brinkman force induced by a cloud of particles on a viscous incompressible flow</div>
+        <div class="paper-meta">with Matthieu Hillairet and Ayman Moussa, Kinetic and Related Models 12, pp. 681&ndash;701, 2019.</div>
+        <div class="paper-links">
+          <a href="https://doi.org/10.3934/krm.2019026">DOI</a>
+          <a href="https://arxiv.org/abs/1705.08628">arXiv</a>
+          <a href="https://hal.science/hal-02483822">HAL</a>
+        </div>
+      </div>
+      <div class="paper">
+        <div class="paper-title">Controllability of the Navier&ndash;Stokes equation in a rectangle with a little help of a distributed phantom force</div>
+        <div class="paper-meta">with Jean-Michel Coron, Fr&eacute;d&eacute;ric Marbach and Ping Zhang, Annals of PDE 5, article 17, 2019.</div>
+        <div class="paper-links">
+          <a href="https://doi.org/10.1007/s40818-019-0073-4">DOI</a>
+          <a href="https://arxiv.org/abs/1901.01525">arXiv</a>
+          <a href="https://hal.science/hal-01676663">HAL</a>
+        </div>
+      </div>
+      <div class="paper">
+        <div class="paper-title">Point vortex dynamics as zero-radius limit of the motion of a rigid body in an irrotational fluid</div>
+        <div class="paper-meta">with Olivier Glass and Alexandre Munnier, Inventiones Mathematicae 214, pp. 171&ndash;287, 2018.</div>
+        <div class="paper-links">
+          <a href="https://doi.org/10.1007/s00222-018-0802-4">DOI</a>
+          <a href="https://arxiv.org/abs/1402.5387">arXiv</a>
+          <a href="https://hal.science/hal-00950544">HAL</a>
+        </div>
+      </div>
+      <div class="paper">
+        <div class="paper-title">Uniqueness results for weak solutions of two-dimensional fluid-solid systems</div>
+        <div class="paper-meta">with Olivier Glass, Archive for Rational Mechanics and Analysis 218, pp. 907&ndash;944, 2015.</div>
+        <div class="paper-links">
+          <a href="https://doi.org/10.1007/s00205-015-0876-8">DOI</a>
+          <a href="https://arxiv.org/abs/1203.2894">arXiv</a>
+          <a href="https://hal.science/hal-00678687">HAL</a>
+        </div>
+      </div>
+      <div class="paper">
+        <div class="paper-title">On the motion of a small light body immersed in a two-dimensional incompressible perfect fluid with vorticity</div>
+        <div class="paper-meta">with Olivier Glass and Christophe Lacave, Communications in Mathematical Physics 341, pp. 1015&ndash;1065, 2015.</div>
+        <div class="paper-links">
+          <a href="https://doi.org/10.1007/s00220-015-2489-3">DOI</a>
+          <a href="https://arxiv.org/abs/1410.6062">arXiv</a>
+          <a href="https://hal.science/hal-01076950">HAL</a>
+        </div>
+      </div>
+      <div class="paper">
+        <div class="paper-title">Viscous profiles of vortex patches</div>
+        <div class="paper-meta">Journal of the Institute of Mathematics of Jussieu 14, pp. 1&ndash;68, 2015.</div>
+        <div class="paper-links">
+          <a href="https://doi.org/10.1017/S1474748013000285">DOI</a>
+        </div>
+      </div>
+      <div class="paper">
+        <div class="paper-title">Low regularity solutions for the two-dimensional rigid body + incompressible Euler system</div>
+        <div class="paper-meta">with Olivier Glass, Differential and Integral Equations 27, pp. 625&ndash;642, 2014.</div>
+        <div class="paper-links">
+          <a href="https://doi.org/10.48550/arXiv.1203.5988">DOI</a>
+          <a href="https://arxiv.org/abs/1203.5988">arXiv</a>
+          <a href="https://hal.science/hal-00682976">HAL</a>
+        </div>
+      </div>
+      <div class="paper">
+        <div class="paper-title">On the weak solutions to the Maxwell&ndash;Landau&ndash;Lifshitz equations and to the Hall-Magneto-Hydrodynamic equations</div>
+        <div class="paper-meta">with Eric Dumas, Communications in Mathematical Physics 330, pp. 1179&ndash;1225, 2014.</div>
+        <div class="paper-links">
+          <a href="https://doi.org/10.1007/s00220-014-1924-1">DOI</a>
+          <a href="https://arxiv.org/abs/1304.5694">arXiv</a>
+          <a href="https://hal.science/hal-00816222">HAL</a>
+        </div>
+      </div>
+      <div class="paper">
+        <div class="paper-title">On the viscous incompressible fluid + rigid body system with Navier conditions</div>
+        <div class="paper-meta">with Gabriela Planas, Annales de l'Institut Henri Poincar&eacute; C, Analyse non lin&eacute;aire 31, pp. 55&ndash;80, 2014.</div>
+        <div class="paper-links">
+          <a href="https://doi.org/10.1016/j.anihpc.2013.01.004">DOI</a>
+          <a href="https://arxiv.org/abs/1206.0029">arXiv</a>
+        </div>
+      </div>
+      <div class="paper">
+        <div class="paper-title">On the motion of a small body immersed in a two-dimensional incompressible perfect fluid</div>
+        <div class="paper-meta">with Olivier Glass and Christophe Lacave, Bulletin de la Soci&eacute;t&eacute; Math&eacute;matique de France 142, pp. 489&ndash;536, 2014.</div>
+        <div class="paper-links">
+          <a href="https://doi.org/10.24033/bsmf.2672">DOI</a>
+          <a href="https://arxiv.org/abs/1104.5404">arXiv</a>
+          <a href="https://hal.science/hal-00589499">HAL</a>
+        </div>
+      </div>
+      <div class="paper">
+        <div class="paper-title">On the motion of a rigid body in a two-dimensional ideal flow with vortex sheet initial data</div>
+        <div class="paper-meta">Annales de l'Institut Henri Poincar&eacute; C, Analyse non lin&eacute;aire 30, pp. 401&ndash;417, 2013.</div>
+        <div class="paper-links">
+          <a href="https://doi.org/10.1016/j.anihpc.2012.09.001">DOI</a>
+          <a href="https://arxiv.org/abs/1112.3152">arXiv</a>
+        </div>
+      </div>
+      <div class="paper">
+        <div class="paper-title">On the inviscid limit for the compressible Navier&ndash;Stokes system in an impermeable bounded domain</div>
+        <div class="paper-meta">Journal of Mathematical Fluid Mechanics 16, pp. 163&ndash;178, 2013.</div>
+        <div class="paper-links">
+          <a href="https://doi.org/10.1007/s00021-013-0145-2">DOI</a>
+          <a href="https://hal.science/hal-00681843">HAL</a>
+        </div>
+      </div>
+      <div class="paper">
+        <div class="paper-title">A 2D spray model with gyroscopic effects</div>
+        <div class="paper-meta">with Ayman Moussa, Asymptotic Analysis 81, pp. 53&ndash;91, 2013.</div>
+        <div class="paper-links">
+          <a href="https://doi.org/10.3233/ASY-2012-1123">DOI</a>
+          <a href="https://arxiv.org/abs/1112.3514">arXiv</a>
+          <a href="https://hal.science/hal-00713683">HAL</a>
+        </div>
+      </div>
+      <div class="paper">
+        <div class="paper-title">Smoothness of the flow map for low-regularity solutions of the Camassa&ndash;Holm equations</div>
+        <div class="paper-meta">with Olivier Glass, Discrete and Continuous Dynamical Systems - Series S 33, pp. 2791&ndash;2808, 2013.</div>
+        <div class="paper-links">
+          <a href="https://doi.org/10.3934/dcds.2013.33.2791">DOI</a>
+          <a href="https://hal.science/hal-00678729">HAL</a>
+        </div>
+      </div>
+      <div class="paper">
+        <div class="paper-title">Boundary-layer interactions in the plane-parallel incompressible flows</div>
+        <div class="paper-meta">with Toan Nguyen, Nonlinearity 25, pp. 3327&ndash;3342, 2012.</div>
+        <div class="paper-links">
+          <a href="https://doi.org/10.1088/0951-7715/25/12/3327">DOI</a>
+          <a href="https://hal.science/hal-04856110">HAL</a>
+        </div>
+      </div>
+      <div class="paper">
+        <div class="paper-title">The movement of a solid in an incompressible perfect fluid as a geodesic flow</div>
+        <div class="paper-meta">with Olivier Glass, Proceedings of the American Mathematical Society 140, pp. 2155&ndash;2168, 2012.</div>
+        <div class="paper-links">
+          <a href="https://doi.org/10.1090/S0002-9939-2011-11219-X">DOI</a>
+          <a href="https://arxiv.org/abs/1102.1380">arXiv</a>
+          <a href="https://hal.science/hal-00564114">HAL</a>
+        </div>
+      </div>
+      <div class="paper">
+        <div class="paper-title">Smoothness of the motion of a rigid body immersed in an incompressible perfect fluid</div>
+        <div class="paper-meta">with Olivier Glass and Tak&eacute;o Takahashi, Annales Scientifiques de l'&Eacute;cole Normale Sup&eacute;rieure 45, pp. 1&ndash;51, 2012.</div>
+        <div class="paper-links">
+          <a href="https://doi.org/10.24033/asens.2159">DOI</a>
+          <a href="https://arxiv.org/abs/1003.4172">arXiv</a>
+          <a href="https://hal.science/hal-00466265">HAL</a>
+        </div>
+      </div>
+      <div class="paper">
+        <div class="paper-title">On the motion of a rigid body in a two-dimensional irregular ideal flow</div>
+        <div class="paper-meta">with Olivier Glass, SIAM Journal on Mathematical Analysis 44, pp. 3101&ndash;3126, 2012.</div>
+        <div class="paper-links">
+          <a href="https://doi.org/10.1137/110839539">DOI</a>
+          <a href="https://arxiv.org/abs/1107.0575">arXiv</a>
+          <a href="https://hal.science/hal-00605763">HAL</a>
+        </div>
+      </div>
+      <div class="paper">
+        <div class="paper-title">Cauchy problem and quasi-stationary limit for the Maxwell&ndash;Landau&ndash;Lifschitz and Maxwell&ndash;Bloch equations</div>
+        <div class="paper-meta">with Eric Dumas, Annali della Scuola Normale Superiore di Pisa, Classe di Scienze 11, pp. 503&ndash;543, 2012.</div>
+        <div class="paper-links">
+          <a href="https://doi.org/10.2422/2036-2145.201006_004">DOI</a>
+          <a href="https://arxiv.org/abs/1006.3642">arXiv</a>
+          <a href="https://hal.science/hal-04856348">HAL</a>
+        </div>
+      </div>
+      <div class="paper">
+        <div class="paper-title">A Kato type theorem for the inviscid limit of the Navier&ndash;Stokes equations with a moving rigid body</div>
+        <div class="paper-meta">Communications in Mathematical Physics 316, pp. 783&ndash;808, 2012.</div>
+        <div class="paper-links">
+          <a href="https://doi.org/10.1007/s00220-012-1516-x">DOI</a>
+          <a href="https://arxiv.org/abs/1110.6065">arXiv</a>
+          <a href="https://hal.science/hal-04856109">HAL</a>
+        </div>
+      </div>
+      <div class="paper">
+        <div class="paper-title">Smoothness of the trajectories of ideal fluid particles with Yudovich vorticities in a planar bounded domain</div>
+        <div class="paper-meta">Journal of Differential Equations 251, pp. 3421&ndash;3449, 2011.</div>
+        <div class="paper-links">
+          <a href="https://doi.org/10.1016/j.jde.2011.07.035">DOI</a>
+          <a href="https://arxiv.org/abs/1004.1718">arXiv</a>
+          <a href="https://hal.science/hal-04856112">HAL</a>
+        </div>
+      </div>
+      <div class="paper">
+        <div class="paper-title">Viscous boundary layers for the Navier&ndash;Stokes equations with the Navier slip conditions</div>
+        <div class="paper-meta">with Drago&#537; Iftimie, Archive for Rational Mechanics and Analysis 199, pp. 145&ndash;175, 2011.</div>
+        <div class="paper-links">
+          <a href="https://doi.org/10.1007/s00205-010-0320-z">DOI</a>
+          <a href="https://hal.science/hal-00865912">HAL</a>
+        </div>
+      </div>
+      <div class="paper">
+        <div class="paper-title">Couches limites semilin&eacute;aires</div>
+        <div class="paper-meta">Annales de la Facult&eacute; des Sciences de Toulouse 15, pp. 323&ndash;380, 2008.</div>
+        <div class="paper-links">
+          <a href="https://doi.org/10.5802/afst.1124">DOI</a>
+          <a href="https://hal.science/hal-00002138">HAL</a>
+        </div>
+      </div>
+      <div class="paper">
+        <div class="paper-title">On 3D domain walls for the Landau&ndash;Lifshitz equations</div>
+        <div class="paper-meta">with Olivier Gu&egrave;s, Dynamics of Partial Differential Equations 4, pp. 143&ndash;165, 2007.</div>
+        <div class="paper-links">
+          <a href="https://doi.org/10.4310/DPDE.2007.v4.n2.a3">DOI</a>
+          <a href="https://hal.science/hal-04856114">HAL</a>
+        </div>
+      </div>
+      <div class="paper">
+        <div class="paper-title">Viscous approach of discontinuous solutions of semilinear symmetric hyperbolic systems</div>
+        <div class="paper-meta">Annales de l'Institut Fourier 56, pp. 183&ndash;245, 2006.</div>
+        <div class="paper-links">
+          <a href="https://doi.org/10.5802/aif.2177">DOI</a>
+          <a href="https://hal.science/hal-00002136">HAL</a>
+        </div>
+      </div>
+      <div class="paper">
+        <div class="paper-title">Couches limites : un probl&egrave;me inverse</div>
+        <div class="paper-meta">Communications in Partial Differential Equations 31, pp. 123&ndash;194, 2006.</div>
+        <div class="paper-links">
+          <a href="https://doi.org/10.1080/03605300500299927">DOI</a>
+          <a href="https://hal.science/hal-00002137">HAL</a>
+        </div>
+      </div>
+      <div class="paper">
+        <div class="paper-title">Entropy boundary layers</div>
+        <div class="paper-meta">Asymptotic Analysis 49, pp. 109&ndash;171, 2006.</div>
+        <div class="paper-links">
+          <a href="https://doi.org/10.3233/ASY-2006-770">DOI</a>
+          <a href="https://arxiv.org/abs/math/0511564">arXiv</a>
+          <a href="https://hal.science/hal-00009619">HAL</a>
+        </div>
+      </div>
+      <div class="paper">
+        <div class="paper-title">A few remarks on a theorem by J. Rauch</div>
+        <div class="paper-meta">Indiana University Mathematics Journal 54, pp. 1107&ndash;1143, 2005.</div>
+        <div class="paper-links">
+          <a href="https://hal.science/hal-00002195">HAL</a>
+          <a href="https://www.jstor.org/stable/24902314">Journal</a>
+        </div>
+      </div>
+      </details>
+
+      <details class="publication-group" id="book-chapter-and-proceedings">
+        <summary><span class="summary-title">Book chapter and proceedings</span><span class="summary-count">7 entries</span></summary>
+      <div class="paper">
+        <div class="paper-title">Motion of a particle immersed in a two-dimensional incompressible perfect fluid and point vortex dynamics</div>
+        <div class="paper-meta">book chapter, Particles in Flows, Springer, pp. 139&ndash;216, 2017.</div>
+        <div class="paper-links">
+          <a href="https://doi.org/10.1007/978-3-319-60282-0_3">DOI</a>
+          <a href="https://arxiv.org/abs/1702.06288">arXiv</a>
+          <a href="https://hal.science/hal-01476727">HAL</a>
+        </div>
+      </div>
+      <div class="paper">
+        <div class="paper-title">On the controllability of the Navier&ndash;Stokes equation in a rectangle, with a little help of a distributed phantom force</div>
+        <div class="paper-meta">with Jean-Michel Coron, Fr&eacute;d&eacute;ric Marbach and Ping Zhang, Journ&eacute;es &Eacute;quations aux D&eacute;riv&eacute;es Partielles, 2018.</div>
+        <div class="paper-links">
+          <a href="https://arxiv.org/abs/1901.01525">arXiv</a>
+          <a href="https://hal.science/hal-01970878">HAL</a>
+        </div>
+      </div>
+      <div class="paper">
+        <div class="paper-title">On the controllability of the Navier&ndash;Stokes equation in spite of boundary layers</div>
+        <div class="paper-meta">with Jean-Michel Coron and Fr&eacute;d&eacute;ric Marbach, Mathematical Analysis of Viscous Incompressible Fluid, Kyoto, pp. 162&ndash;180, 2016.</div>
+        <div class="paper-links">
+          <a href="https://arxiv.org/abs/1703.07265">arXiv</a>
+          <a href="https://hal.science/hal-01492722">HAL</a>
+        </div>
+      </div>
+      <div class="paper">
+        <div class="paper-title">Dynamics of a small rigid body in a perfect incompressible fluid</div>
+        <div class="paper-meta">with Olivier Glass and Christophe Lacave, Journ&eacute;es &Eacute;quations aux D&eacute;riv&eacute;es Partielles, article no. 6, 2014.</div>
+        <div class="paper-links">
+          <a href="https://doi.org/10.5802/jedp.106">DOI</a>
+        </div>
+      </div>
+      <div class="paper">
+        <div class="paper-title">Sur la dynamique de corps solides immerg&eacute;s dans un fluide incompressible</div>
+        <div class="paper-meta">S&eacute;minaire Laurent Schwartz, 2013.</div>
+        <div class="paper-links">
+          <a href="https://doi.org/10.5802/slsedp.39">DOI</a>
+          <a href="https://hal.science/hal-00789493">HAL</a>
+        </div>
+      </div>
+      <div class="paper">
+        <div class="paper-title">Vorticity internal transition layers for the Navier&ndash;Stokes equations</div>
+        <div class="paper-meta">Journ&eacute;es &Eacute;quations aux D&eacute;riv&eacute;es Partielles, article no. 8, 2008.</div>
+        <div class="paper-links">
+          <a href="https://doi.org/10.5802/jedp.52">DOI</a>
+          <a href="https://arxiv.org/abs/0812.2145">arXiv</a>
+        </div>
+      </div>
+      <div class="paper">
+        <div class="paper-title">A few remarks about a theorem by J. Rauch</div>
+        <div class="paper-meta">book chapter, Hyperbolic Problems: Theory, Numerics, Applications, Springer, 2008.</div>
+        <div class="paper-links">
+          <a href="https://doi.org/10.1007/978-3-540-75712-2_108">DOI</a>
+        </div>
+      </div>
+      </details>
+    </section>
+
+    <section id="research-themes">
+      <h2>Research themes</h2>
+
+      <h3>Analysis of PDEs from fluid mechanics</h3>
+      <p>
+        This direction concerns incompressible and viscous fluid models, especially the
+        Euler and Navier&ndash;Stokes equations. The main questions involve well-posedness,
+        qualitative properties of solutions, asymptotic regimes, singular limits, and
+        multiscale phenomena.
+      </p>
+
+      <h3>Fluid-structure interaction</h3>
+      <p>
+        This theme studies the motion of rigid bodies, particles, filaments, and loops
+        immersed in incompressible fluids. A recurring problem is to derive effective
+        dynamics when some geometric parameter tends to zero, for instance in
+        zero-radius or slender-body limits.
+      </p>
+
+      <h3>Controllability of PDEs and fluid flows</h3>
+      <p>
+        This direction investigates how a PDE system can be driven toward a desired
+        configuration by means of boundary controls, distributed controls, or remote
+        actions. It includes small-time controllability problems and Lagrangian
+        controllability questions for fluid flows.
+      </p>
+
+      <h3>Approximation and fractional problems</h3>
+      <p>
+        Recent directions include Runge-type approximation for fluid equations and
+        representation or variational formulas related to fractional elliptic equations.
+      </p>
+    </section>
+
+    <section id="teaching">
+      <h2>Teaching</h2>
+
+      <p>
+        Teaching at the University of Luxembourg includes the following courses.
+      </p>
+
+      <ul>
+        <li>
+          <a href="https://www.uni.lu/fstm-en/study-programs/master-in-mathematics-general-mathematics/programme/">Numerical solution of partial differential equations and applications</a>
+        </li>
+        <li>
+          <a href="https://www.uni.lu/fstm-en/study-programs/bachelor-in-mathematics/programme/">Measure theory and integration</a>
+        </li>
+      </ul>
+    </section>
+
+    <section id="outreach">
+      <h2>Outreach</h2>
+
+      <ul>
+        <li>
+          <a href="https://www.larecherche.fr/prix-la-recherche-2019-publications/contr%C3%B4ler-le-mouvement-des-fluides">Contr&ocirc;ler le mouvement des fluides</a>,
+          with Jean-Michel Coron and Fr&eacute;d&eacute;ric Marbach,
+          <em>La Recherche</em>, no. 547, May 2019, pp. 60&ndash;62.
+        </li>
+        <li>
+          <a href="https://theconversation.com/une-breve-histoire-de-la-prevision-du-temps-223023">Une br&egrave;ve histoire de la pr&eacute;vision du temps</a>,
+          <em>The Conversation</em>, 29 February 2024.
+        </li>
+      </ul>
+    </section>
+
+    <section id="editorial-boards">
+      <h2>Editorial boards</h2>
+
+      <ul>
+        <li>
+          Member of the editorial board of
+          <a href="https://global-sci.com/index.php/cmr/about/editorialMasthead">Communications in Mathematical Research</a>.
+        </li>
+        <li>
+          Member of the editorial board of
+          <a href="https://www.aimsciences.org/mcrf/editorialboard">Mathematical Control and Related Fields</a>
+          (MCRF).
+        </li>
+      </ul>
+    </section>
+    <footer id="contact">
+      <p>
+        <strong>Contact</strong><br>
+        Email: franck.sueur [at] uni.lu<br>
+        Office: MNO, E06 0625070<br>
+        Department of Mathematics, University of Luxembourg<br>
+        Maison du Nombre, 6 avenue de la Fonte, L-4364 Esch-sur-Alzette, Luxembourg
+      </p>
+
+      <p class="small">Last updated: May 2026.</p>
+    </footer>
+  </main>
+</body>
+</html>
