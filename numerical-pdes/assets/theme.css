@@ -1,0 +1,143 @@
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --text: #e6e9ed;
+  --ink: #e6e9ed;
+  --muted: #b1bac6;
+  --line: #46515e;
+  --rule: #46515e;
+  --background: #12161b;
+  --ground: #12161b;
+  --paper: #1d2229;
+  --link: #91b8ff;
+  --tag: #29323d;
+  --theme-surface: #252e38;
+  --theme-hover: #323e4c;
+  --theme-definition: #22302a;
+  --theme-definition-border: #739583;
+  --theme-proposition: #332d24;
+  --theme-proposition-border: #b8a482;
+  --theme-theorem: #302c28;
+  --theme-theorem-border: #a99c88;
+  --theme-lemma: #332931;
+  --theme-lemma-border: #b190a5;
+}
+:root[data-theme="light"] { color-scheme: light; }
+
+.site-header-line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  flex-shrink: 0;
+  min-height: 40px;
+  padding: 7px 12px;
+  border: 1px solid var(--line, var(--rule, #d7d7d1));
+  border-radius: 4px;
+  background: var(--paper, #f7f7f4);
+  color: var(--ink, var(--text, #222));
+  font: 14px/1.4 Georgia, "Times New Roman", serif;
+  cursor: pointer;
+}
+.theme-toggle[hidden] { display: none; }
+.theme-toggle:hover { border-color: var(--link, #0645ad); }
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--link, #0645ad);
+  outline-offset: 3px;
+}
+.theme-toggle [data-theme-icon] { font-size: 18px; line-height: 1; }
+.course-header .course-meta { margin-left: auto; }
+.course-header .theme-toggle { margin-left: 0; }
+
+html[data-theme="dark"] .jump-menu select,
+html[data-theme="dark"] .chapter-picker {
+  background: var(--theme-surface);
+  color: var(--ink);
+  border-color: var(--rule);
+}
+html[data-theme="dark"] .keywords span { color: var(--ink); }
+html[data-theme="dark"] .toc-link:hover,
+html[data-theme="dark"] .toc-link[aria-current="location"] {
+  background: var(--theme-hover);
+  color: var(--link);
+}
+html[data-theme="dark"] .statement,
+html[data-theme="dark"] .statement-green {
+  background: var(--theme-definition);
+  border-color: var(--theme-definition-border);
+}
+html[data-theme="dark"] .statement-orange {
+  background: var(--theme-proposition);
+  border-color: var(--theme-proposition-border);
+}
+html[data-theme="dark"] .statement-brown {
+  background: var(--theme-theorem);
+  border-color: var(--theme-theorem-border);
+}
+html[data-theme="dark"] .statement-pink {
+  background: var(--theme-lemma);
+  border-color: var(--theme-lemma-border);
+}
+html[data-theme="dark"] .data-table th { background: var(--theme-surface); }
+html[data-theme="dark"] .data-table tr { border-color: var(--rule) !important; }
+html[data-theme="dark"] .fbox,
+html[data-theme="dark"] .boxed,
+html[data-theme="dark"] table[rules],
+html[data-theme="dark"] .hline,
+html[data-theme="dark"] .hline hr,
+html[data-theme="dark"] .cline hr,
+html[data-theme="dark"] .array-hline,
+html[data-theme="dark"] .array-cline { border-color: var(--rule) !important; }
+html[data-theme="dark"] mjx-container { color: var(--ink); }
+html[data-theme="dark"] mjx-container svg a { fill: var(--link); stroke: var(--link); }
+
+/* Preserve the original arrow colours, labels and portrait photographs. */
+html[data-theme] .diagram { filter: none !important; }
+html[data-theme="dark"] .figure-link {
+  background: #f7f7f4;
+  padding: 12px;
+  border-radius: 3px;
+}
+html[data-theme="dark"] .diagram {
+  mix-blend-mode: normal;
+  background: #fff;
+}
+
+@media (max-width: 850px) {
+  .course-header .course-meta { order: 3; flex-basis: 100%; margin-left: 0; }
+  .course-header .theme-toggle { order: 2; margin-left: auto; }
+}
+@media print {
+  html[data-theme] { color-scheme: light !important; }
+  :root[data-theme] {
+    color-scheme: light;
+    --text: #222;
+    --ink: #222;
+    --muted: #666;
+    --line: #bbb;
+    --rule: #bbb;
+    --background: #fff;
+    --ground: #fff;
+    --paper: #fff;
+    --link: #0645ad;
+    --tag: #eee;
+    --theme-surface: #eee;
+    --theme-hover: #eee;
+    --theme-definition: #eff1e9;
+    --theme-definition-border: #8d9687;
+    --theme-proposition: #f2eee6;
+    --theme-proposition-border: #b7a287;
+    --theme-theorem: #efede7;
+    --theme-theorem-border: #a49a8b;
+    --theme-lemma: #f2ebeb;
+    --theme-lemma-border: #b3a0a3;
+  }
+  .theme-toggle { display: none !important; }
+  html[data-theme="dark"] .figure-link { background: white; padding: 0; }
+}

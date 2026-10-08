@@ -1,0 +1,874 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><script src="assets/theme.js"></script><link rel="stylesheet" href="assets/theme.css"><title>The Lax–Richtmyer theorem · Franck Sueur</title><meta name="description" content="The Lax–Richtmyer theorem. Numerical PDE lecture notes by Franck Sueur, University of Luxembourg."><link rel="canonical" href="https://franck-sueur.github.io/.github.io/numerical-pdes/chapter-06.html"><link rel="stylesheet" href="reading.css"><link rel="stylesheet" href="course.css"><script src="assets/mathjax-config.js"></script><script defer src="assets/mathjax-v4/mml-svg-nofont.js"></script><script defer src="reading.js"></script></head><body><a class="skip-link" href="#chapter">Skip to content</a><header class="course-header"><a class="author" href="../">Franck Sueur</a><span class="course-meta">University of Luxembourg · Lecture notes</span><button class="theme-toggle" type="button" data-theme-toggle hidden aria-label="Switch to dark mode"><span data-theme-icon aria-hidden="true">☾</span><span data-theme-label>Dark mode</span></button></header><div class="reading-layout"><aside class="sidebar"><p class="course-label">Lecture notes</p><a class="course-name" href="index.html">Numerical solutions of PDEs<br> and applications</a><label class="picker-label" for="chapter-picker">Choose a chapter</label><select class="chapter-picker" id="chapter-picker" aria-label="Choose a chapter"><option value="index.html">Course contents</option><option value="chapter-01.html">1. The Lax–Milgram theorem and Stampacchia’s extension</option><option value="chapter-02.html">2. Sobolev spaces</option><option value="chapter-03.html">3. Lax–Milgram in action for a few elliptic problems</option><option value="chapter-04.html">4. One-dimensional P₁ finite elements</option><option value="chapter-05.html">5. Two-dimensional finite elements</option><option value="chapter-06.html" selected>6. The Lax–Richtmyer theorem</option><option value="chapter-07.html">7. Finite difference methods for hyperbolic equations</option><option value="chapter-08.html">8. Solutions of the exercises</option><option value="bibliography.html">Bibliography</option></select><div class="course-links"><a href="index.html">All chapters</a><a href="course.pdf">Full course PDF</a><a href="bibliography.html">Bibliography</a></div><details class="contents" open><summary>On this page</summary><nav aria-label="Page contents"><a class="toc-link section" href="#Ch6.S1"><span class="toc-number">6.1</span><span>Operator equations and discretizations</span></a><a class="toc-link section" href="#Ch6.S2"><span class="toc-number">6.2</span><span>The fixed-space operator version</span></a><a class="toc-link section" href="#Ch6.S3"><span class="toc-number">6.3</span><span>A reminder on the open mapping theorem</span></a><a class="toc-link section" href="#Ch6.S4"><span class="toc-number">6.4</span><span>A reminder on the uniform boundedness principle (Banach–Steinhaus)</span></a><a class="toc-link section" href="#Ch6.S5"><span class="toc-number">6.5</span><span>Stability of time-discrete evolutions</span></a><a class="toc-link section" href="#Ch6.S6"><span class="toc-number">6.6</span><span>An error estimate for discrete evolutions</span></a><a class="toc-link section" href="#Ch6.S7"><span class="toc-number">6.7</span><span>Lax–Richtmyer equivalence on changing grid spaces</span></a><a class="toc-link section" href="#Ch6.S8"><span class="toc-number">6.8</span><span>Exercises</span></a></nav></details><p class="sidebar-note">Master in Mathematics<br>University of Luxembourg</p></aside><main class="chapter" id="chapter" tabindex="-1"><span id="ref-chap-lax-equivalence" class="reference-anchor" aria-hidden="true"></span><section id="Ch6" class="ltx_chapter">
+<h1 class="ltx_title ltx_title_chapter">
+<span class="ltx_tag ltx_tag_chapter titlemark">Chapter 6 </span>The Lax–Richtmyer theorem</h1>
+
+<div id="Ch6.p1" class="ltx_para">
+<p class="ltx_p">The finite element chapters converted approximation estimates into error bounds
+using coercivity and Céa’s lemma. We now examine consistency, stability, and
+convergence before applying these ideas to time-dependent finite difference
+schemes in Chapter <a href="chapter-07.html#ref-chap-hyperbolic-fd" title="Chapter 7 Finite difference methods for hyperbolic equations ‣ Numerical solutions of PDEs and applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">7</span></a>. We first prove a simple
+fixed-space operator version. We then give an evolution error estimate and a
+Lax–Richtmyer equivalence theorem that explicitly connects continuous data
+with changing grid spaces.</p>
+</div>
+<section id="Ch6.S1" class="ltx_section">
+<h2 class="ltx_title ltx_title_section sectionHead">
+<span class="ltx_tag ltx_tag_section titlemark">6.1 </span>Operator equations and discretizations</h2>
+
+<div id="Ch6.S1.p1" class="ltx_para">
+<p class="ltx_p">We model a general situation in the numerical solution of PDEs by an operator equation of the form</p>
+<div class="math-display"><span id="ref-eq-cont" class="reference-anchor" aria-hidden="true"></span><table id="Ch6.E1" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch6.E1.m1" class="ltx_Math" alttext="Lx=y," display="block"><semantics><mrow><mrow><mrow><mi>L</mi><mo>⁢</mo><mi>x</mi></mrow><mo>=</mo><mi>y</mi></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">Lx=y,</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(6.1)</span></td>
+</tr></tbody>
+</table>
+</div><p class="ltx_p">where <math id="Ch6.S1.p1.m1" class="ltx_Math" alttext="y" display="inline"><semantics><mi>y</mi><annotation encoding="application/x-tex">y</annotation></semantics></math> is given in <math id="Ch6.S1.p1.m2" class="ltx_Math" alttext="Y" display="inline"><semantics><mi>Y</mi><annotation encoding="application/x-tex">Y</annotation></semantics></math>, and the unknown is <math id="Ch6.S1.p1.m3" class="ltx_Math" alttext="x" display="inline"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math> in <math id="Ch6.S1.p1.m4" class="ltx_Math" alttext="X" display="inline"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math>, where <math id="Ch6.S1.p1.m5" class="ltx_Math" alttext="X" display="inline"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math> and <math id="Ch6.S1.p1.m6" class="ltx_Math" alttext="Y" display="inline"><semantics><mi>Y</mi><annotation encoding="application/x-tex">Y</annotation></semantics></math> are two Banach spaces.</p>
+</div>
+<div id="Ch6.Thmtheorem1" class="ltx_theorem ltx_theorem_definition statement">
+<h6 class="ltx_title ltx_runin ltx_title_theorem">
+<span class="ltx_tag ltx_tag_theorem titlemark"><span class="ltx_text ltx_font_bold">Definition 6.1</span></span><span class="ltx_text ltx_font_bold">.</span>
+</h6>
+<div id="Ch6.Thmtheorem1.p1" class="ltx_para">
+<p class="ltx_p">Let <math id="Ch6.Thmtheorem1.p1.m1" class="ltx_Math" alttext="X" display="inline"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math> and <math id="Ch6.Thmtheorem1.p1.m2" class="ltx_Math" alttext="Y" display="inline"><semantics><mi>Y</mi><annotation encoding="application/x-tex">Y</annotation></semantics></math> be Banach spaces and let <math id="Ch6.Thmtheorem1.p1.m3" class="ltx_Math" alttext="L" display="inline"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math> be in <math id="Ch6.Thmtheorem1.p1.m4" class="ltx_Math" alttext="\mathcal{L}(X,Y)" display="inline"><semantics><mrow><mi class="ltx_font_mathcaligraphic">ℒ</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>X</mi><mo>,</mo><mi>Y</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathcal{L}(X,Y)</annotation></semantics></math>, that is a bounded linear operator from <math id="Ch6.Thmtheorem1.p1.m5" class="ltx_Math" alttext="X" display="inline"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math> to <math id="Ch6.Thmtheorem1.p1.m6" class="ltx_Math" alttext="Y" display="inline"><semantics><mi>Y</mi><annotation encoding="application/x-tex">Y</annotation></semantics></math>.
+We say that <math id="Ch6.Thmtheorem1.p1.m7" class="ltx_Math" alttext="L" display="inline"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math> is <em class="ltx_emph ltx_font_italic">well posed</em> if for each <math id="Ch6.Thmtheorem1.p1.m8" class="ltx_Math" alttext="y" display="inline"><semantics><mi>y</mi><annotation encoding="application/x-tex">y</annotation></semantics></math> in <math id="Ch6.Thmtheorem1.p1.m9" class="ltx_Math" alttext="Y" display="inline"><semantics><mi>Y</mi><annotation encoding="application/x-tex">Y</annotation></semantics></math> there exists a unique <math id="Ch6.Thmtheorem1.p1.m10" class="ltx_Math" alttext="x" display="inline"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math> in <math id="Ch6.Thmtheorem1.p1.m11" class="ltx_Math" alttext="X" display="inline"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math> solving (<a href="#ref-eq-cont" title="In 6.1 Operator equations and discretizations ‣ Chapter 6 The Lax–Richtmyer theorem ‣ Numerical solutions of PDEs and applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">6.1</span></a>).</p>
+</div>
+</div>
+<div id="Ch6.S1.p2" class="ltx_para">
+<p class="ltx_p">Equivalently, <math id="Ch6.S1.p2.m1" class="ltx_Math" alttext="L" display="inline"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math> is bijective and, by the open mapping theorem recalled in Section <a href="#ref-sec-open-mapping" title="6.3 A reminder on the open mapping theorem ‣ Chapter 6 The Lax–Richtmyer theorem ‣ Numerical solutions of PDEs and applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">6.3</span></a>, <math id="Ch6.S1.p2.m2" class="ltx_Math" alttext="L^{-1}" display="inline"><semantics><msup><mi>L</mi><mrow><mo>−</mo><mn>1</mn></mrow></msup><annotation encoding="application/x-tex">L^{-1}</annotation></semantics></math> belongs to <math id="Ch6.S1.p2.m3" class="ltx_Math" alttext="\mathcal{L}(Y,X)" display="inline"><semantics><mrow><mi class="ltx_font_mathcaligraphic">ℒ</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>Y</mi><mo>,</mo><mi>X</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathcal{L}(Y,X)</annotation></semantics></math>.</p>
+</div>
+<div id="Ch6.S1.p3" class="ltx_para">
+<p class="ltx_p">Throughout this section, assume that <math id="Ch6.S1.p3.m1" class="ltx_Math" alttext="L\in\mathcal{L}(X,Y)" display="inline"><semantics><mrow><mi>L</mi><mo>∈</mo><mrow><mi class="ltx_font_mathcaligraphic">ℒ</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>X</mi><mo>,</mo><mi>Y</mi><mo stretchy="false">)</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">L\in\mathcal{L}(X,Y)</annotation></semantics></math> is bijective.
+Let <math id="Ch6.S1.p3.m2" class="ltx_Math" alttext="H\subset(0,+\infty)" display="inline"><semantics><mrow><mi>H</mi><mo>⊂</mo><mrow><mo stretchy="false">(</mo><mn>0</mn><mo>,</mo><mrow><mo>+</mo><mi mathvariant="normal">∞</mi></mrow><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">H\subset(0,+\infty)</annotation></semantics></math> be a set of admissible discretization parameters
+with <math id="Ch6.S1.p3.m3" class="ltx_Math" alttext="0" display="inline"><mn>0</mn></math> as an accumulation point. All limits <math id="Ch6.S1.p3.m4" class="ltx_Math" alttext="h\to 0" display="inline"><semantics><mrow><mi>h</mi><mo stretchy="false">→</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">h\to 0</annotation></semantics></math> are taken within <math id="Ch6.S1.p3.m5" class="ltx_Math" alttext="H" display="inline"><semantics><mi>H</mi><annotation encoding="application/x-tex">H</annotation></semantics></math>.
+We consider a family <math id="Ch6.S1.p3.m6" class="ltx_Math" alttext="(L_{h})_{h\in H}" display="inline"><semantics><msub><mrow><mo stretchy="false">(</mo><msub><mi>L</mi><mi>h</mi></msub><mo stretchy="false">)</mo></mrow><mrow><mi>h</mi><mo>∈</mo><mi>H</mi></mrow></msub><annotation encoding="application/x-tex">(L_{h})_{h\in H}</annotation></semantics></math> in <math id="Ch6.S1.p3.m7" class="ltx_Math" alttext="\mathcal{L}(X,Y)" display="inline"><semantics><mrow><mi class="ltx_font_mathcaligraphic">ℒ</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>X</mi><mo>,</mo><mi>Y</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathcal{L}(X,Y)</annotation></semantics></math> and, for each <math id="Ch6.S1.p3.m8" class="ltx_Math" alttext="h" display="inline"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>,
+the discrete problem</p>
+<div class="math-display"><span id="ref-eq-disc" class="reference-anchor" aria-hidden="true"></span><table id="Ch6.E2" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch6.E2.m1" class="ltx_Math" alttext="L_{h}x_{h}=y." display="block"><semantics><mrow><mrow><mrow><msub><mi>L</mi><mi>h</mi></msub><mo>⁢</mo><msub><mi>x</mi><mi>h</mi></msub></mrow><mo>=</mo><mi>y</mi></mrow><mo lspace="0em">.</mo></mrow><annotation encoding="application/x-tex">L_{h}x_{h}=y.</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(6.2)</span></td>
+</tr></tbody>
+</table>
+</div></div>
+<div id="Ch6.S1.p4" class="ltx_para">
+<p class="ltx_p">We assume (<a href="#ref-eq-disc" title="In 6.1 Operator equations and discretizations ‣ Chapter 6 The Lax–Richtmyer theorem ‣ Numerical solutions of PDEs and applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">6.2</span></a>) is well posed for every <math id="Ch6.S1.p4.m1" class="ltx_Math" alttext="h" display="inline"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math> in <math id="Ch6.S1.p4.m2" class="ltx_Math" alttext="H" display="inline"><semantics><mi>H</mi><annotation encoding="application/x-tex">H</annotation></semantics></math>, so that <math id="Ch6.S1.p4.m3" class="ltx_Math" alttext="L_{h}" display="inline"><semantics><msub><mi>L</mi><mi>h</mi></msub><annotation encoding="application/x-tex">L_{h}</annotation></semantics></math> is bijective and <math id="Ch6.S1.p4.m4" class="ltx_Math" alttext="L_{h}^{-1}" display="inline"><semantics><msubsup><mi>L</mi><mi>h</mi><mrow><mo>−</mo><mn>1</mn></mrow></msubsup><annotation encoding="application/x-tex">L_{h}^{-1}</annotation></semantics></math> belongs to <math id="Ch6.S1.p4.m5" class="ltx_Math" alttext="\mathcal{L}(Y,X)" display="inline"><semantics><mrow><mi class="ltx_font_mathcaligraphic">ℒ</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>Y</mi><mo>,</mo><mi>X</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathcal{L}(Y,X)</annotation></semantics></math>.</p>
+</div>
+<div id="Ch6.Thmtheorem2" class="ltx_theorem ltx_theorem_definition statement">
+<h6 class="ltx_title ltx_runin ltx_title_theorem">
+<span class="ltx_tag ltx_tag_theorem titlemark"><span class="ltx_text ltx_font_bold">Definition 6.2</span></span><span class="ltx_text ltx_font_bold">.</span>
+</h6>
+<div id="Ch6.Thmtheorem2.p1" class="ltx_para">
+<p class="ltx_p">The discretization <math id="Ch6.Thmtheorem2.p1.m1" class="ltx_Math" alttext="(L_{h})_{h\in H}" display="inline"><semantics><msub><mrow><mo stretchy="false">(</mo><msub><mi>L</mi><mi>h</mi></msub><mo stretchy="false">)</mo></mrow><mrow><mi>h</mi><mo>∈</mo><mi>H</mi></mrow></msub><annotation encoding="application/x-tex">(L_{h})_{h\in H}</annotation></semantics></math> is:</p>
+<ul id="Ch6.S1.I1" class="ltx_itemize">
+<li id="Ch6.S1.I1.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="Ch6.S1.I1.i1.p1" class="ltx_para">
+<p class="ltx_p"><em class="ltx_emph ltx_font_italic">stable</em> if there exist constants <math id="Ch6.S1.I1.i1.p1.m1" class="ltx_Math" alttext="C&gt;0" display="inline"><semantics><mrow><mi>C</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">C&gt;0</annotation></semantics></math> and <math id="Ch6.S1.I1.i1.p1.m2" class="ltx_Math" alttext="h_{0}&gt;0" display="inline"><semantics><mrow><msub><mi>h</mi><mn>0</mn></msub><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">h_{0}&gt;0</annotation></semantics></math> such that</p>
+<div class="math-display"><span id="ref-eq-stability" class="reference-anchor" aria-hidden="true"></span><table id="Ch6.E3" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch6.E3.m1" class="ltx_Math" alttext="\left\|L_{h}^{-1}\right\|_{Y\to X}\leq C\qquad\text{for all $h\in H$ with $h&lt;h%
+_{0}$.}" display="block"><semantics><mrow><msub><mrow><mo>‖</mo><msubsup><mi>L</mi><mi>h</mi><mrow><mo>−</mo><mn>1</mn></mrow></msubsup><mo>‖</mo></mrow><mrow><mi>Y</mi><mo stretchy="false">→</mo><mi>X</mi></mrow></msub><mo>≤</mo><mrow><mi>C</mi><mspace width="2em"></mspace><mrow><mtext>for all </mtext><mrow><mi>h</mi><mo>∈</mo><mi>H</mi></mrow><mtext> with </mtext><mrow><mi>h</mi><mo>&lt;</mo><msub><mi>h</mi><mn>0</mn></msub></mrow><mtext>.</mtext></mrow></mrow></mrow><annotation encoding="application/x-tex">\left\|L_{h}^{-1}\right\|_{Y\to X}\leq C\qquad\text{for all $h\in H$ with $h&lt;h%
+_{0}$.}</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(6.3)</span></td>
+</tr></tbody>
+</table>
+</div></div>
+</li>
+<li id="Ch6.S1.I1.i2" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="Ch6.S1.I1.i2.p1" class="ltx_para">
+<p class="ltx_p"><em class="ltx_emph ltx_font_italic">consistent</em> if for every <math id="Ch6.S1.I1.i2.p1.m1" class="ltx_Math" alttext="x" display="inline"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math> in <math id="Ch6.S1.I1.i2.p1.m2" class="ltx_Math" alttext="X" display="inline"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math>,</p>
+<div class="math-display"><span id="ref-eq-consistency" class="reference-anchor" aria-hidden="true"></span><table id="Ch6.E4" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch6.E4.m1" class="ltx_Math" alttext="\left\|Lx-L_{h}x\right\|_{Y}\to 0\qquad\text{as $h\to 0$.}" display="block"><semantics><mrow><msub><mrow><mo>‖</mo><mrow><mrow><mi>L</mi><mo>⁢</mo><mi>x</mi></mrow><mo>−</mo><mrow><msub><mi>L</mi><mi>h</mi></msub><mo>⁢</mo><mi>x</mi></mrow></mrow><mo>‖</mo></mrow><mi>Y</mi></msub><mo stretchy="false">→</mo><mrow><mn>0</mn><mspace width="2em"></mspace><mrow><mtext>as </mtext><mrow><mi>h</mi><mo stretchy="false">→</mo><mn>0</mn></mrow><mtext>.</mtext></mrow></mrow></mrow><annotation encoding="application/x-tex">\left\|Lx-L_{h}x\right\|_{Y}\to 0\qquad\text{as $h\to 0$.}</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(6.4)</span></td>
+</tr></tbody>
+</table>
+</div></div>
+</li>
+<li id="Ch6.S1.I1.i3" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="Ch6.S1.I1.i3.p1" class="ltx_para">
+<p class="ltx_p"><em class="ltx_emph ltx_font_italic">convergent</em> if for every <math id="Ch6.S1.I1.i3.p1.m1" class="ltx_Math" alttext="y" display="inline"><semantics><mi>y</mi><annotation encoding="application/x-tex">y</annotation></semantics></math> in <math id="Ch6.S1.I1.i3.p1.m2" class="ltx_Math" alttext="Y" display="inline"><semantics><mi>Y</mi><annotation encoding="application/x-tex">Y</annotation></semantics></math>, letting <math id="Ch6.S1.I1.i3.p1.m3" class="ltx_Math" alttext="x:=L^{-1}y" display="inline"><semantics><mrow><mi>x</mi><mo lspace="0.278em" rspace="0.278em">:=</mo><mrow><msup><mi>L</mi><mrow><mo>−</mo><mn>1</mn></mrow></msup><mo>⁢</mo><mi>y</mi></mrow></mrow><annotation encoding="application/x-tex">x:=L^{-1}y</annotation></semantics></math> solve (<a href="#ref-eq-cont" title="In 6.1 Operator equations and discretizations ‣ Chapter 6 The Lax–Richtmyer theorem ‣ Numerical solutions of PDEs and applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">6.1</span></a>)
+and <math id="Ch6.S1.I1.i3.p1.m4" class="ltx_Math" alttext="x_{h}:=L_{h}^{-1}y" display="inline"><semantics><mrow><msub><mi>x</mi><mi>h</mi></msub><mo lspace="0.278em" rspace="0.278em">:=</mo><mrow><msubsup><mi>L</mi><mi>h</mi><mrow><mo>−</mo><mn>1</mn></mrow></msubsup><mo>⁢</mo><mi>y</mi></mrow></mrow><annotation encoding="application/x-tex">x_{h}:=L_{h}^{-1}y</annotation></semantics></math> solve (<a href="#ref-eq-disc" title="In 6.1 Operator equations and discretizations ‣ Chapter 6 The Lax–Richtmyer theorem ‣ Numerical solutions of PDEs and applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">6.2</span></a>), we have</p>
+<div class="math-display"><span id="ref-eq-convergence" class="reference-anchor" aria-hidden="true"></span><table id="Ch6.E5" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch6.E5.m1" class="ltx_Math" alttext="\left\|x-x_{h}\right\|_{X}\to 0\qquad\text{as $h\to 0$.}" display="block"><semantics><mrow><msub><mrow><mo>‖</mo><mrow><mi>x</mi><mo>−</mo><msub><mi>x</mi><mi>h</mi></msub></mrow><mo>‖</mo></mrow><mi>X</mi></msub><mo stretchy="false">→</mo><mrow><mn>0</mn><mspace width="2em"></mspace><mrow><mtext>as </mtext><mrow><mi>h</mi><mo stretchy="false">→</mo><mn>0</mn></mrow><mtext>.</mtext></mrow></mrow></mrow><annotation encoding="application/x-tex">\left\|x-x_{h}\right\|_{X}\to 0\qquad\text{as $h\to 0$.}</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(6.5)</span></td>
+</tr></tbody>
+</table>
+</div></div>
+</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="Ch6.S2" class="ltx_section">
+<h2 class="ltx_title ltx_title_section sectionHead">
+<span class="ltx_tag ltx_tag_section titlemark">6.2 </span>The fixed-space operator version</h2>
+
+<span id="ref-thm-lax-equivalence" class="reference-anchor" aria-hidden="true"></span><div id="Ch6.Thmtheorem3" class="ltx_theorem ltx_theorem_theorem statement statement-brown">
+<h6 class="ltx_title ltx_runin ltx_title_theorem">
+<span class="ltx_tag ltx_tag_theorem titlemark"><span class="ltx_text ltx_font_bold">Theorem 6.3</span></span><span class="ltx_text ltx_font_bold">.</span>
+</h6>
+<div id="Ch6.Thmtheorem3.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_italic">Let <math id="Ch6.Thmtheorem3.p1.m1" class="ltx_Math" alttext="X,Y" display="inline"><semantics><mrow><mi>X</mi><mo>,</mo><mi>Y</mi></mrow><annotation encoding="application/x-tex">X,Y</annotation></semantics></math> be Banach spaces, and assume that <math id="Ch6.Thmtheorem3.p1.m2" class="ltx_Math" alttext="L" display="inline"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math> and every <math id="Ch6.Thmtheorem3.p1.m3" class="ltx_Math" alttext="L_{h}" display="inline"><semantics><msub><mi>L</mi><mi>h</mi></msub><annotation encoding="application/x-tex">L_{h}</annotation></semantics></math> are
+bounded linear bijections from <math id="Ch6.Thmtheorem3.p1.m4" class="ltx_Math" alttext="X" display="inline"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math> to <math id="Ch6.Thmtheorem3.p1.m5" class="ltx_Math" alttext="Y" display="inline"><semantics><mi>Y</mi><annotation encoding="application/x-tex">Y</annotation></semantics></math>. Assume that <math id="Ch6.Thmtheorem3.p1.m6" class="ltx_Math" alttext="(L_{h})_{h\in H}" display="inline"><semantics><msub><mrow><mo stretchy="false">(</mo><msub><mi>L</mi><mi>h</mi></msub><mo stretchy="false">)</mo></mrow><mrow><mi>h</mi><mo>∈</mo><mi>H</mi></mrow></msub><annotation encoding="application/x-tex">(L_{h})_{h\in H}</annotation></semantics></math>
+is consistent, i.e. (<a href="#ref-eq-consistency" title="In 2nd item ‣ Definition 6.2. ‣ 6.1 Operator equations and discretizations ‣ Chapter 6 The Lax–Richtmyer theorem ‣ Numerical solutions of PDEs and applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">6.4</span></a>) holds for all <math id="Ch6.Thmtheorem3.p1.m7" class="ltx_Math" alttext="x" display="inline"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math> in <math id="Ch6.Thmtheorem3.p1.m8" class="ltx_Math" alttext="X" display="inline"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math>.
+Then stability (<a href="#ref-eq-stability" title="In 1st item ‣ Definition 6.2. ‣ 6.1 Operator equations and discretizations ‣ Chapter 6 The Lax–Richtmyer theorem ‣ Numerical solutions of PDEs and applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">6.3</span></a>) is equivalent to convergence (<a href="#ref-eq-convergence" title="In 3rd item ‣ Definition 6.2. ‣ 6.1 Operator equations and discretizations ‣ Chapter 6 The Lax–Richtmyer theorem ‣ Numerical solutions of PDEs and applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">6.5</span></a>).</span></p>
+</div>
+</div>
+<div class="ltx_proof proof">
+<h6 class="ltx_title ltx_runin ltx_font_italic ltx_title_proof">Proof.</h6>
+<div id="Ch6.S2.p1" class="ltx_para">
+<p class="ltx_p">Let <math id="Ch6.S2.p1.m1" class="ltx_Math" alttext="y" display="inline"><semantics><mi>y</mi><annotation encoding="application/x-tex">y</annotation></semantics></math> be fixed in <math id="Ch6.S2.p1.m2" class="ltx_Math" alttext="Y" display="inline"><semantics><mi>Y</mi><annotation encoding="application/x-tex">Y</annotation></semantics></math>, and set <math id="Ch6.S2.p1.m3" class="ltx_Math" alttext="x:=L^{-1}y" display="inline"><semantics><mrow><mi>x</mi><mo lspace="0.278em" rspace="0.278em">:=</mo><mrow><msup><mi>L</mi><mrow><mo>−</mo><mn>1</mn></mrow></msup><mo>⁢</mo><mi>y</mi></mrow></mrow><annotation encoding="application/x-tex">x:=L^{-1}y</annotation></semantics></math> and <math id="Ch6.S2.p1.m4" class="ltx_Math" alttext="x_{h}:=L_{h}^{-1}y" display="inline"><semantics><mrow><msub><mi>x</mi><mi>h</mi></msub><mo lspace="0.278em" rspace="0.278em">:=</mo><mrow><msubsup><mi>L</mi><mi>h</mi><mrow><mo>−</mo><mn>1</mn></mrow></msubsup><mo>⁢</mo><mi>y</mi></mrow></mrow><annotation encoding="application/x-tex">x_{h}:=L_{h}^{-1}y</annotation></semantics></math>.
+We use <math id="Ch6.S2.p1.m5" class="ltx_Math" alttext="L_{h}x_{h}=y=Lx" display="inline"><semantics><mrow><mrow><msub><mi>L</mi><mi>h</mi></msub><mo>⁢</mo><msub><mi>x</mi><mi>h</mi></msub></mrow><mo>=</mo><mi>y</mi><mo>=</mo><mrow><mi>L</mi><mo>⁢</mo><mi>x</mi></mrow></mrow><annotation encoding="application/x-tex">L_{h}x_{h}=y=Lx</annotation></semantics></math> to write</p>
+<div class="math-display"><table id="Ch8.S7.EGx69" class="ltx_equationgroup ltx_eqn_align ltx_eqn_table">
+
+<tbody id="Ch6.Ex1"><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_td ltx_align_right ltx_eqn_cell"><math id="Ch6.Ex1.m1" class="ltx_Math" alttext="\displaystyle x-x_{h}" display="inline"><semantics><mrow><mi>x</mi><mo>−</mo><msub><mi>x</mi><mi>h</mi></msub></mrow><annotation encoding="application/x-tex">\displaystyle x-x_{h}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left ltx_eqn_cell"><math id="Ch6.Ex1.m2" class="ltx_Math" alttext="\displaystyle=L_{h}^{-1}(L_{h}x-L_{h}x_{h})" display="inline"><semantics><mrow><mi></mi><mo>=</mo><mrow><msubsup><mi>L</mi><mi>h</mi><mrow><mo>−</mo><mn>1</mn></mrow></msubsup><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mrow><mrow><msub><mi>L</mi><mi>h</mi></msub><mo>⁢</mo><mi>x</mi></mrow><mo>−</mo><mrow><msub><mi>L</mi><mi>h</mi></msub><mo>⁢</mo><msub><mi>x</mi><mi>h</mi></msub></mrow></mrow><mo stretchy="false">)</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">\displaystyle=L_{h}^{-1}(L_{h}x-L_{h}x_{h})</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+</tr></tbody>
+<span id="ref-eq-error-identity" class="reference-anchor" aria-hidden="true"></span><tbody id="Ch6.E6"><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_td ltx_eqn_cell"></td>
+<td class="ltx_td ltx_align_left ltx_eqn_cell"><math id="Ch6.E6.m1" class="ltx_Math" alttext="\displaystyle=L_{h}^{-1}(L_{h}x-Lx)." display="inline"><semantics><mrow><mrow><mi></mi><mo>=</mo><mrow><msubsup><mi>L</mi><mi>h</mi><mrow><mo>−</mo><mn>1</mn></mrow></msubsup><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mrow><mrow><msub><mi>L</mi><mi>h</mi></msub><mo>⁢</mo><mi>x</mi></mrow><mo>−</mo><mrow><mi>L</mi><mo>⁢</mo><mi>x</mi></mrow></mrow><mo stretchy="false">)</mo></mrow></mrow></mrow><mo lspace="0em">.</mo></mrow><annotation encoding="application/x-tex">\displaystyle=L_{h}^{-1}(L_{h}x-Lx).</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(6.6)</span></td>
+</tr></tbody>
+</table>
+</div></div>
+<div id="Ch6.S2.p2" class="ltx_para ltx_noindent">
+<p class="ltx_p"><em class="ltx_emph ltx_font_italic">Stability <math id="Ch6.S2.p2.m1" class="ltx_Math" alttext="\Rightarrow" display="inline"><semantics><mo stretchy="false">⇒</mo><annotation encoding="application/x-tex">\Rightarrow</annotation></semantics></math> convergence.</em>
+Assume (<a href="#ref-eq-stability" title="In 1st item ‣ Definition 6.2. ‣ 6.1 Operator equations and discretizations ‣ Chapter 6 The Lax–Richtmyer theorem ‣ Numerical solutions of PDEs and applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">6.3</span></a>).
+Taking norms in (<a href="#ref-eq-error-identity" title="In 6.2 The fixed-space operator version ‣ Chapter 6 The Lax–Richtmyer theorem ‣ Numerical solutions of PDEs and applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">6.6</span></a>) yields</p>
+<div class="math-display"><table id="Ch6.E7" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch6.E7.m1" class="ltx_Math" alttext="\left\|x-x_{h}\right\|_{X}\leq\left\|L_{h}^{-1}\right\|_{Y\to X}\,\left\|L_{h}%
+x-Lx\right\|_{Y}\leq C\,\left\|L_{h}x-Lx\right\|_{Y}." display="block"><semantics><mrow><mrow><msub><mrow><mo>‖</mo><mrow><mi>x</mi><mo>−</mo><msub><mi>x</mi><mi>h</mi></msub></mrow><mo>‖</mo></mrow><mi>X</mi></msub><mo>≤</mo><mrow><msub><mrow><mo>‖</mo><msubsup><mi>L</mi><mi>h</mi><mrow><mo>−</mo><mn>1</mn></mrow></msubsup><mo>‖</mo></mrow><mrow><mi>Y</mi><mo stretchy="false">→</mo><mi>X</mi></mrow></msub><mo>⁢</mo><msub><mrow><mo>‖</mo><mrow><mrow><msub><mi>L</mi><mi>h</mi></msub><mo>⁢</mo><mi>x</mi></mrow><mo>−</mo><mrow><mi>L</mi><mo>⁢</mo><mi>x</mi></mrow></mrow><mo>‖</mo></mrow><mi>Y</mi></msub></mrow><mo>≤</mo><mrow><mi>C</mi><mo lspace="0.170em">⁢</mo><msub><mrow><mo>‖</mo><mrow><mrow><msub><mi>L</mi><mi>h</mi></msub><mo>⁢</mo><mi>x</mi></mrow><mo>−</mo><mrow><mi>L</mi><mo>⁢</mo><mi>x</mi></mrow></mrow><mo>‖</mo></mrow><mi>Y</mi></msub></mrow></mrow><mo lspace="0em">.</mo></mrow><annotation encoding="application/x-tex">\left\|x-x_{h}\right\|_{X}\leq\left\|L_{h}^{-1}\right\|_{Y\to X}\,\left\|L_{h}%
+x-Lx\right\|_{Y}\leq C\,\left\|L_{h}x-Lx\right\|_{Y}.</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(6.7)</span></td>
+</tr></tbody>
+</table>
+</div><p class="ltx_p">By consistency, the right-hand side tends to <math id="Ch6.S2.p2.m2" class="ltx_Math" alttext="0" display="inline"><mn>0</mn></math> as <math id="Ch6.S2.p2.m3" class="ltx_Math" alttext="h\to 0" display="inline"><semantics><mrow><mi>h</mi><mo stretchy="false">→</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">h\to 0</annotation></semantics></math>, hence (<a href="#ref-eq-convergence" title="In 3rd item ‣ Definition 6.2. ‣ 6.1 Operator equations and discretizations ‣ Chapter 6 The Lax–Richtmyer theorem ‣ Numerical solutions of PDEs and applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">6.5</span></a>) holds.</p>
+</div>
+<div id="Ch6.S2.p3" class="ltx_para ltx_noindent">
+<p class="ltx_p"><em class="ltx_emph ltx_font_italic">Convergence <math id="Ch6.S2.p3.m1" class="ltx_Math" alttext="\Rightarrow" display="inline"><semantics><mo stretchy="false">⇒</mo><annotation encoding="application/x-tex">\Rightarrow</annotation></semantics></math> stability.</em>
+Assume (<a href="#ref-eq-convergence" title="In 3rd item ‣ Definition 6.2. ‣ 6.1 Operator equations and discretizations ‣ Chapter 6 The Lax–Richtmyer theorem ‣ Numerical solutions of PDEs and applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">6.5</span></a>) holds for every <math id="Ch6.S2.p3.m2" class="ltx_Math" alttext="y" display="inline"><semantics><mi>y</mi><annotation encoding="application/x-tex">y</annotation></semantics></math> in <math id="Ch6.S2.p3.m3" class="ltx_Math" alttext="Y" display="inline"><semantics><mi>Y</mi><annotation encoding="application/x-tex">Y</annotation></semantics></math>.
+Equivalently, for every <math id="Ch6.S2.p3.m4" class="ltx_Math" alttext="y" display="inline"><semantics><mi>y</mi><annotation encoding="application/x-tex">y</annotation></semantics></math> in <math id="Ch6.S2.p3.m5" class="ltx_Math" alttext="Y" display="inline"><semantics><mi>Y</mi><annotation encoding="application/x-tex">Y</annotation></semantics></math> we have</p>
+<div class="math-display"><span id="ref-eq-pointwise-conv-inverse" class="reference-anchor" aria-hidden="true"></span><table id="Ch6.E8" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch6.E8.m1" class="ltx_Math" alttext="L_{h}^{-1}y\to L^{-1}y\qquad\text{in $X$ as $h\to 0$.}" display="block"><semantics><mrow><mrow><msubsup><mi>L</mi><mi>h</mi><mrow><mo>−</mo><mn>1</mn></mrow></msubsup><mo>⁢</mo><mi>y</mi></mrow><mo stretchy="false">→</mo><mrow><mrow><msup><mi>L</mi><mrow><mo>−</mo><mn>1</mn></mrow></msup><mo>⁢</mo><mi>y</mi></mrow><mspace width="2em"></mspace><mrow><mtext>in </mtext><mi>X</mi><mtext> as </mtext><mrow><mi>h</mi><mo stretchy="false">→</mo><mn>0</mn></mrow><mtext>.</mtext></mrow></mrow></mrow><annotation encoding="application/x-tex">L_{h}^{-1}y\to L^{-1}y\qquad\text{in $X$ as $h\to 0$.}</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(6.8)</span></td>
+</tr></tbody>
+</table>
+</div><p class="ltx_p">Suppose, for a contradiction, that no uniform inverse bound holds for
+sufficiently small <math id="Ch6.S2.p3.m6" class="ltx_Math" alttext="h" display="inline"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>. We can then choose <math id="Ch6.S2.p3.m7" class="ltx_Math" alttext="h_{m}\in H" display="inline"><semantics><mrow><msub><mi>h</mi><mi>m</mi></msub><mo>∈</mo><mi>H</mi></mrow><annotation encoding="application/x-tex">h_{m}\in H</annotation></semantics></math> with <math id="Ch6.S2.p3.m8" class="ltx_Math" alttext="h_{m}&lt;1/m" display="inline"><semantics><mrow><msub><mi>h</mi><mi>m</mi></msub><mo>&lt;</mo><mrow><mn>1</mn><mo>/</mo><mi>m</mi></mrow></mrow><annotation encoding="application/x-tex">h_{m}&lt;1/m</annotation></semantics></math>
+and <math id="Ch6.S2.p3.m9" class="ltx_Math" alttext="\left\|L_{h_{m}}^{-1}\right\|_{Y\to X}&gt;m" display="inline"><semantics><mrow><msub><mrow><mo>‖</mo><msubsup><mi>L</mi><msub><mi>h</mi><mi>m</mi></msub><mrow><mo>−</mo><mn>1</mn></mrow></msubsup><mo>‖</mo></mrow><mrow><mi>Y</mi><mo stretchy="false">→</mo><mi>X</mi></mrow></msub><mo>&gt;</mo><mi>m</mi></mrow><annotation encoding="application/x-tex">\left\|L_{h_{m}}^{-1}\right\|_{Y\to X}&gt;m</annotation></semantics></math>. For each fixed <math id="Ch6.S2.p3.m10" class="ltx_Math" alttext="y\in Y" display="inline"><semantics><mrow><mi>y</mi><mo>∈</mo><mi>Y</mi></mrow><annotation encoding="application/x-tex">y\in Y</annotation></semantics></math>,
+the sequence <math id="Ch6.S2.p3.m11" class="ltx_Math" alttext="L_{h_{m}}^{-1}y" display="inline"><semantics><mrow><msubsup><mi>L</mi><msub><mi>h</mi><mi>m</mi></msub><mrow><mo>−</mo><mn>1</mn></mrow></msubsup><mo>⁢</mo><mi>y</mi></mrow><annotation encoding="application/x-tex">L_{h_{m}}^{-1}y</annotation></semantics></math> converges, and hence is bounded.
+The uniform boundedness principle recalled in
+Section <a href="#ref-sec-uniform-boundedness" title="6.4 A reminder on the uniform boundedness principle (Banach–Steinhaus) ‣ Chapter 6 The Lax–Richtmyer theorem ‣ Numerical solutions of PDEs and applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">6.4</span></a>, applied to this sequence, gives
+<math id="Ch6.S2.p3.m12" class="ltx_Math" alttext="\sup_{m}\left\|L_{h_{m}}^{-1}\right\|_{Y\to X}&lt;+\infty" display="inline"><semantics><mrow><mrow><msub><mo>sup</mo><mi>m</mi></msub><msub><mrow><mo lspace="0em">‖</mo><msubsup><mi>L</mi><msub><mi>h</mi><mi>m</mi></msub><mrow><mo>−</mo><mn>1</mn></mrow></msubsup><mo>‖</mo></mrow><mrow><mi>Y</mi><mo stretchy="false">→</mo><mi>X</mi></mrow></msub></mrow><mo>&lt;</mo><mrow><mo>+</mo><mi mathvariant="normal">∞</mi></mrow></mrow><annotation encoding="application/x-tex">\sup_{m}\left\|L_{h_{m}}^{-1}\right\|_{Y\to X}&lt;+\infty</annotation></semantics></math>, a contradiction.
+Thus (<a href="#ref-eq-stability" title="In 1st item ‣ Definition 6.2. ‣ 6.1 Operator equations and discretizations ‣ Chapter 6 The Lax–Richtmyer theorem ‣ Numerical solutions of PDEs and applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">6.3</span></a>) holds for sufficiently small <math id="Ch6.S2.p3.m13" class="ltx_Math" alttext="h" display="inline"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>.
+∎</p>
+</div>
+</div>
+<div id="Ch6.Thmtheorem4" class="ltx_theorem ltx_theorem_remark statement">
+<h6 class="ltx_title ltx_runin ltx_title_theorem">
+<span class="ltx_tag ltx_tag_theorem titlemark"><span class="ltx_text ltx_font_italic">Remark 6.4</span></span><span class="ltx_text ltx_font_italic">.</span>
+</h6>
+<div id="Ch6.Thmtheorem4.p1" class="ltx_para">
+<p class="ltx_p">The theorem is often paraphrased as: for a consistent discretization, the only missing ingredient for convergence is stability (and conversely). A classical reference is <cite class="ltx_cite ltx_citemacro_cite">[<a href="bibliography.html#bib.bib3" title="" class="ltx_ref">3</a>, Theorem 1.1]</cite>.</p>
+</div>
+</div>
+</section>
+<span id="ref-sec-open-mapping" class="reference-anchor" aria-hidden="true"></span><section id="Ch6.S3" class="ltx_section">
+<h2 class="ltx_title ltx_title_section sectionHead">
+<span class="ltx_tag ltx_tag_section titlemark">6.3 </span>A reminder on the open mapping theorem</h2>
+
+<div id="Ch6.Thmtheorem5" class="ltx_theorem ltx_theorem_theorem statement statement-brown">
+<h6 class="ltx_title ltx_runin ltx_title_theorem">
+<span class="ltx_tag ltx_tag_theorem titlemark"><span class="ltx_text ltx_font_bold">Theorem 6.5</span></span><span class="ltx_text ltx_font_bold">.</span>
+</h6>
+<div id="Ch6.Thmtheorem5.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_italic">Let <math id="Ch6.Thmtheorem5.p1.m1" class="ltx_Math" alttext="X" display="inline"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math> and <math id="Ch6.Thmtheorem5.p1.m2" class="ltx_Math" alttext="Y" display="inline"><semantics><mi>Y</mi><annotation encoding="application/x-tex">Y</annotation></semantics></math> be Banach spaces and let <math id="Ch6.Thmtheorem5.p1.m3" class="ltx_Math" alttext="L\in\mathcal{L}(X,Y)" display="inline"><semantics><mrow><mi>L</mi><mo>∈</mo><mrow><mi class="ltx_font_mathcaligraphic">ℒ</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>X</mi><mo>,</mo><mi>Y</mi><mo stretchy="false">)</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">L\in\mathcal{L}(X,Y)</annotation></semantics></math> be surjective.
+Then <math id="Ch6.Thmtheorem5.p1.m4" class="ltx_Math" alttext="L" display="inline"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math> is an open map: if <math id="Ch6.Thmtheorem5.p1.m5" class="ltx_Math" alttext="U\subset X" display="inline"><semantics><mrow><mi>U</mi><mo>⊂</mo><mi>X</mi></mrow><annotation encoding="application/x-tex">U\subset X</annotation></semantics></math> is open, then <math id="Ch6.Thmtheorem5.p1.m6" class="ltx_Math" alttext="L(U)\subset Y" display="inline"><semantics><mrow><mrow><mi>L</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>U</mi><mo stretchy="false">)</mo></mrow></mrow><mo>⊂</mo><mi>Y</mi></mrow><annotation encoding="application/x-tex">L(U)\subset Y</annotation></semantics></math> is open.</span></p>
+</div>
+</div>
+<div id="Ch6.Thmtheorem6" class="ltx_theorem ltx_theorem_corollary statement">
+<h6 class="ltx_title ltx_runin ltx_title_theorem">
+<span class="ltx_tag ltx_tag_theorem titlemark"><span class="ltx_text ltx_font_bold">Corollary 6.6</span></span><span class="ltx_text ltx_font_bold">.</span>
+</h6>
+<div id="Ch6.Thmtheorem6.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_italic">Let <math id="Ch6.Thmtheorem6.p1.m1" class="ltx_Math" alttext="X" display="inline"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math> and <math id="Ch6.Thmtheorem6.p1.m2" class="ltx_Math" alttext="Y" display="inline"><semantics><mi>Y</mi><annotation encoding="application/x-tex">Y</annotation></semantics></math> be Banach spaces and let <math id="Ch6.Thmtheorem6.p1.m3" class="ltx_Math" alttext="L\in\mathcal{L}(X,Y)" display="inline"><semantics><mrow><mi>L</mi><mo>∈</mo><mrow><mi class="ltx_font_mathcaligraphic">ℒ</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>X</mi><mo>,</mo><mi>Y</mi><mo stretchy="false">)</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">L\in\mathcal{L}(X,Y)</annotation></semantics></math> be bijective.
+Then <math id="Ch6.Thmtheorem6.p1.m4" class="ltx_Math" alttext="L^{-1}:Y\to X" display="inline"><semantics><mrow><msup><mi>L</mi><mrow><mo>−</mo><mn>1</mn></mrow></msup><mo lspace="0.278em" rspace="0.278em">:</mo><mrow><mi>Y</mi><mo stretchy="false">→</mo><mi>X</mi></mrow></mrow><annotation encoding="application/x-tex">L^{-1}:Y\to X</annotation></semantics></math> belongs to <math id="Ch6.Thmtheorem6.p1.m5" class="ltx_Math" alttext="\mathcal{L}(Y,X)" display="inline"><semantics><mrow><mi class="ltx_font_mathcaligraphic">ℒ</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>Y</mi><mo>,</mo><mi>X</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathcal{L}(Y,X)</annotation></semantics></math>.
+Equivalently, there exists a constant <math id="Ch6.Thmtheorem6.p1.m6" class="ltx_Math" alttext="C&gt;0" display="inline"><semantics><mrow><mi>C</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">C&gt;0</annotation></semantics></math> such that</span></p>
+<div class="math-display"><table id="Ch6.Ex2" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch6.Ex2.m1" class="ltx_Math" alttext="\left\|x\right\|_{X}\leq C\,\left\|Lx\right\|_{Y}\qquad\text{for all $x\in X$.}" display="block"><semantics><mrow><msub><mrow><mo>‖</mo><mi>x</mi><mo>‖</mo></mrow><mi>X</mi></msub><mo>≤</mo><mrow><mrow><mi>C</mi><mo lspace="0.170em">⁢</mo><msub><mrow><mo>‖</mo><mrow><mi>L</mi><mo>⁢</mo><mi>x</mi></mrow><mo>‖</mo></mrow><mi>Y</mi></msub></mrow><mspace width="2em"></mspace><mrow><mtext class="ltx_mathvariant_italic">for all </mtext><mrow><mi>x</mi><mo>∈</mo><mi>X</mi></mrow><mtext class="ltx_mathvariant_italic">.</mtext></mrow></mrow></mrow><annotation encoding="application/x-tex">\left\|x\right\|_{X}\leq C\,\left\|Lx\right\|_{Y}\qquad\text{for all $x\in X$.}</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+</tr></tbody>
+</table>
+</div></div>
+</div>
+</section>
+<span id="ref-sec-uniform-boundedness" class="reference-anchor" aria-hidden="true"></span><section id="Ch6.S4" class="ltx_section">
+<h2 class="ltx_title ltx_title_section sectionHead">
+<span class="ltx_tag ltx_tag_section titlemark">6.4 </span>A reminder on the uniform boundedness principle (Banach–Steinhaus)</h2>
+
+<div id="Ch6.Thmtheorem7" class="ltx_theorem ltx_theorem_theorem statement statement-brown">
+<h6 class="ltx_title ltx_runin ltx_title_theorem">
+<span class="ltx_tag ltx_tag_theorem titlemark"><span class="ltx_text ltx_font_bold">Theorem 6.7</span></span><span class="ltx_text ltx_font_bold">.</span>
+</h6>
+<div id="Ch6.Thmtheorem7.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_italic">Let <math id="Ch6.Thmtheorem7.p1.m1" class="ltx_Math" alttext="X" display="inline"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math> be a Banach space, let <math id="Ch6.Thmtheorem7.p1.m2" class="ltx_Math" alttext="I" display="inline"><semantics><mi>I</mi><annotation encoding="application/x-tex">I</annotation></semantics></math> be a nonempty set, let <math id="Ch6.Thmtheorem7.p1.m3" class="ltx_Math" alttext="Y" display="inline"><semantics><mi>Y</mi><annotation encoding="application/x-tex">Y</annotation></semantics></math> be a normed space, and let <math id="Ch6.Thmtheorem7.p1.m4" class="ltx_Math" alttext="(T_{i})_{i\in I}" display="inline"><semantics><msub><mrow><mo stretchy="false">(</mo><msub><mi>T</mi><mi>i</mi></msub><mo stretchy="false">)</mo></mrow><mrow><mi>i</mi><mo>∈</mo><mi>I</mi></mrow></msub><annotation encoding="application/x-tex">(T_{i})_{i\in I}</annotation></semantics></math> be a family in <math id="Ch6.Thmtheorem7.p1.m5" class="ltx_Math" alttext="\mathcal{L}(X,Y)" display="inline"><semantics><mrow><mi class="ltx_font_mathcaligraphic">ℒ</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>X</mi><mo>,</mo><mi>Y</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathcal{L}(X,Y)</annotation></semantics></math>.
+Assume that for every <math id="Ch6.Thmtheorem7.p1.m6" class="ltx_Math" alttext="x" display="inline"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math> in <math id="Ch6.Thmtheorem7.p1.m7" class="ltx_Math" alttext="X" display="inline"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math> the set <math id="Ch6.Thmtheorem7.p1.m8" class="ltx_Math" alttext="\{\left\|T_{i}x\right\|_{Y}:i\in I\}" display="inline"><semantics><mrow><mo stretchy="false">{</mo><mrow><msub><mrow><mo>‖</mo><mrow><msub><mi>T</mi><mi>i</mi></msub><mo>⁢</mo><mi>x</mi></mrow><mo rspace="0.278em">‖</mo></mrow><mi>Y</mi></msub><mo rspace="0.278em">:</mo><mrow><mi>i</mi><mo>∈</mo><mi>I</mi></mrow></mrow><mo stretchy="false">}</mo></mrow><annotation encoding="application/x-tex">\{\left\|T_{i}x\right\|_{Y}:i\in I\}</annotation></semantics></math> is bounded, i.e.</span></p>
+<div class="math-display"><table id="Ch6.E9" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch6.E9.m1" class="ltx_Math" alttext="\sup_{i}\left\|T_{i}x\right\|_{Y}&lt;+\infty\qquad\text{for all $x$ in $X$.}" display="block"><semantics><mrow><mrow><munder><mo movablelimits="false">sup</mo><mi>i</mi></munder><msub><mrow><mo lspace="0em">‖</mo><mrow><msub><mi>T</mi><mi>i</mi></msub><mo>⁢</mo><mi>x</mi></mrow><mo>‖</mo></mrow><mi>Y</mi></msub></mrow><mo>&lt;</mo><mrow><mrow><mo>+</mo><mi mathvariant="normal">∞</mi></mrow><mspace width="2em"></mspace><mrow><mtext class="ltx_mathvariant_italic">for all </mtext><mi>x</mi><mtext class="ltx_mathvariant_italic"> in </mtext><mi>X</mi><mtext class="ltx_mathvariant_italic">.</mtext></mrow></mrow></mrow><annotation encoding="application/x-tex">\sup_{i}\left\|T_{i}x\right\|_{Y}&lt;+\infty\qquad\text{for all $x$ in $X$.}</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(6.9)</span></td>
+</tr></tbody>
+</table>
+</div><p class="ltx_p"><span class="ltx_text ltx_font_italic">Then the operator norms are uniformly bounded:</span></p>
+<div class="math-display"><table id="Ch6.E10" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch6.E10.m1" class="ltx_Math" alttext="\sup_{i}\left\|T_{i}\right\|_{X\to Y}&lt;+\infty." display="block"><semantics><mrow><mrow><mrow><munder><mo movablelimits="false">sup</mo><mi>i</mi></munder><msub><mrow><mo lspace="0em">‖</mo><msub><mi>T</mi><mi>i</mi></msub><mo>‖</mo></mrow><mrow><mi>X</mi><mo stretchy="false">→</mo><mi>Y</mi></mrow></msub></mrow><mo>&lt;</mo><mrow><mo>+</mo><mi mathvariant="normal">∞</mi></mrow></mrow><mo lspace="0em">.</mo></mrow><annotation encoding="application/x-tex">\sup_{i}\left\|T_{i}\right\|_{X\to Y}&lt;+\infty.</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(6.10)</span></td>
+</tr></tbody>
+</table>
+</div></div>
+</div>
+<div id="Ch6.Thmtheorem8" class="ltx_theorem ltx_theorem_remark statement">
+<h6 class="ltx_title ltx_runin ltx_title_theorem">
+<span class="ltx_tag ltx_tag_theorem titlemark"><span class="ltx_text ltx_font_italic">Remark 6.8</span></span><span class="ltx_text ltx_font_italic">.</span>
+</h6>
+<div id="Ch6.Thmtheorem8.p1" class="ltx_para">
+<p class="ltx_p">We recall that <math id="Ch6.Thmtheorem8.p1.m1" class="ltx_Math" alttext="\left\|T\right\|_{X\to Y}:=\sup_{\left\|x\right\|_{X}=1}\left\|Tx\right\|_{Y}" display="inline"><semantics><mrow><msub><mrow><mo>‖</mo><mi>T</mi><mo>‖</mo></mrow><mrow><mi>X</mi><mo stretchy="false">→</mo><mi>Y</mi></mrow></msub><mo lspace="0.278em">:=</mo><mrow><msub><mo lspace="0.111em" rspace="0em">sup</mo><mrow><msub><mrow><mo>‖</mo><mi>x</mi><mo>‖</mo></mrow><mi>X</mi></msub><mo>=</mo><mn>1</mn></mrow></msub><msub><mrow><mo>‖</mo><mrow><mi>T</mi><mo>⁢</mo><mi>x</mi></mrow><mo>‖</mo></mrow><mi>Y</mi></msub></mrow></mrow><annotation encoding="application/x-tex">\left\|T\right\|_{X\to Y}:=\sup_{\left\|x\right\|_{X}=1}\left\|Tx\right\|_{Y}</annotation></semantics></math> for <math id="Ch6.Thmtheorem8.p1.m2" class="ltx_Math" alttext="T" display="inline"><semantics><mi>T</mi><annotation encoding="application/x-tex">T</annotation></semantics></math> in <math id="Ch6.Thmtheorem8.p1.m3" class="ltx_Math" alttext="\mathcal{L}(X,Y)" display="inline"><semantics><mrow><mi class="ltx_font_mathcaligraphic">ℒ</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>X</mi><mo>,</mo><mi>Y</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathcal{L}(X,Y)</annotation></semantics></math>.
+The statement is sometimes phrased as <em class="ltx_emph ltx_font_italic">pointwise boundedness implies uniform boundedness</em>.</p>
+</div>
+</div>
+<div id="Ch6.S4.p1" class="ltx_para">
+<p class="ltx_p">The following corollary is tailored to discretization families.</p>
+</div>
+<div id="Ch6.Thmtheorem9" class="ltx_theorem ltx_theorem_corollary statement">
+<h6 class="ltx_title ltx_runin ltx_title_theorem">
+<span class="ltx_tag ltx_tag_theorem titlemark"><span class="ltx_text ltx_font_bold">Corollary 6.9</span></span><span class="ltx_text ltx_font_bold">.</span>
+</h6>
+<div id="Ch6.Thmtheorem9.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_italic">Let <math id="Ch6.Thmtheorem9.p1.m1" class="ltx_Math" alttext="X" display="inline"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math> be a Banach space, let <math id="Ch6.Thmtheorem9.p1.m2" class="ltx_Math" alttext="Y" display="inline"><semantics><mi>Y</mi><annotation encoding="application/x-tex">Y</annotation></semantics></math> be a normed space, and let <math id="Ch6.Thmtheorem9.p1.m3" class="ltx_Math" alttext="(T_{h})_{h\in H}" display="inline"><semantics><msub><mrow><mo stretchy="false">(</mo><msub><mi>T</mi><mi>h</mi></msub><mo stretchy="false">)</mo></mrow><mrow><mi>h</mi><mo>∈</mo><mi>H</mi></mrow></msub><annotation encoding="application/x-tex">(T_{h})_{h\in H}</annotation></semantics></math> be a family in <math id="Ch6.Thmtheorem9.p1.m4" class="ltx_Math" alttext="\mathcal{L}(X,Y)" display="inline"><semantics><mrow><mi class="ltx_font_mathcaligraphic">ℒ</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>X</mi><mo>,</mo><mi>Y</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathcal{L}(X,Y)</annotation></semantics></math>.
+Assume that for each <math id="Ch6.Thmtheorem9.p1.m5" class="ltx_Math" alttext="x" display="inline"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math> in <math id="Ch6.Thmtheorem9.p1.m6" class="ltx_Math" alttext="X" display="inline"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math> we have a limit <math id="Ch6.Thmtheorem9.p1.m7" class="ltx_Math" alttext="T_{h}x\to Tx" display="inline"><semantics><mrow><mrow><msub><mi>T</mi><mi>h</mi></msub><mo>⁢</mo><mi>x</mi></mrow><mo stretchy="false">→</mo><mrow><mi>T</mi><mo>⁢</mo><mi>x</mi></mrow></mrow><annotation encoding="application/x-tex">T_{h}x\to Tx</annotation></semantics></math> in <math id="Ch6.Thmtheorem9.p1.m8" class="ltx_Math" alttext="Y" display="inline"><semantics><mi>Y</mi><annotation encoding="application/x-tex">Y</annotation></semantics></math> as <math id="Ch6.Thmtheorem9.p1.m9" class="ltx_Math" alttext="h\to 0" display="inline"><semantics><mrow><mi>h</mi><mo stretchy="false">→</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">h\to 0</annotation></semantics></math> for some map <math id="Ch6.Thmtheorem9.p1.m10" class="ltx_Math" alttext="T:X\to Y" display="inline"><semantics><mrow><mi>T</mi><mo lspace="0.278em" rspace="0.278em">:</mo><mrow><mi>X</mi><mo stretchy="false">→</mo><mi>Y</mi></mrow></mrow><annotation encoding="application/x-tex">T:X\to Y</annotation></semantics></math>.
+Then there exists <math id="Ch6.Thmtheorem9.p1.m11" class="ltx_Math" alttext="h_{0}&gt;0" display="inline"><semantics><mrow><msub><mi>h</mi><mn>0</mn></msub><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">h_{0}&gt;0</annotation></semantics></math> such that
+<math id="Ch6.Thmtheorem9.p1.m12" class="ltx_Math" alttext="\sup_{h\in H,\,h&lt;h_{0}}\left\|T_{h}\right\|_{X\to Y}&lt;+\infty" display="inline"><semantics><mrow><mrow><msub><mo>sup</mo><mrow><mrow><mi>h</mi><mo>∈</mo><mi>H</mi></mrow><mo rspace="0.337em">,</mo><mrow><mi>h</mi><mo>&lt;</mo><msub><mi>h</mi><mn>0</mn></msub></mrow></mrow></msub><msub><mrow><mo lspace="0em">‖</mo><msub><mi>T</mi><mi>h</mi></msub><mo>‖</mo></mrow><mrow><mi>X</mi><mo stretchy="false">→</mo><mi>Y</mi></mrow></msub></mrow><mo>&lt;</mo><mrow><mo>+</mo><mi mathvariant="normal">∞</mi></mrow></mrow><annotation encoding="application/x-tex">\sup_{h\in H,\,h&lt;h_{0}}\left\|T_{h}\right\|_{X\to Y}&lt;+\infty</annotation></semantics></math>.</span></p>
+</div>
+</div>
+<div class="ltx_proof proof">
+<h6 class="ltx_title ltx_runin ltx_font_italic ltx_title_proof">Proof.</h6>
+<div id="Ch6.S4.p2" class="ltx_para">
+<p class="ltx_p">If the conclusion failed, we could choose <math id="Ch6.S4.p2.m1" class="ltx_Math" alttext="h_{m}&lt;1/m" display="inline"><semantics><mrow><msub><mi>h</mi><mi>m</mi></msub><mo>&lt;</mo><mrow><mn>1</mn><mo>/</mo><mi>m</mi></mrow></mrow><annotation encoding="application/x-tex">h_{m}&lt;1/m</annotation></semantics></math> with
+<math id="Ch6.S4.p2.m2" class="ltx_Math" alttext="\left\|T_{h_{m}}\right\|_{X\to Y}&gt;m" display="inline"><semantics><mrow><msub><mrow><mo>‖</mo><msub><mi>T</mi><msub><mi>h</mi><mi>m</mi></msub></msub><mo>‖</mo></mrow><mrow><mi>X</mi><mo stretchy="false">→</mo><mi>Y</mi></mrow></msub><mo>&gt;</mo><mi>m</mi></mrow><annotation encoding="application/x-tex">\left\|T_{h_{m}}\right\|_{X\to Y}&gt;m</annotation></semantics></math>. For each <math id="Ch6.S4.p2.m3" class="ltx_Math" alttext="x\in X" display="inline"><semantics><mrow><mi>x</mi><mo>∈</mo><mi>X</mi></mrow><annotation encoding="application/x-tex">x\in X</annotation></semantics></math>, the convergent
+sequence <math id="Ch6.S4.p2.m4" class="ltx_Math" alttext="T_{h_{m}}x" display="inline"><semantics><mrow><msub><mi>T</mi><msub><mi>h</mi><mi>m</mi></msub></msub><mo>⁢</mo><mi>x</mi></mrow><annotation encoding="application/x-tex">T_{h_{m}}x</annotation></semantics></math> is bounded. The uniform boundedness principle
+applied to <math id="Ch6.S4.p2.m5" class="ltx_Math" alttext="(T_{h_{m}})" display="inline"><semantics><mrow><mo stretchy="false">(</mo><msub><mi>T</mi><msub><mi>h</mi><mi>m</mi></msub></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(T_{h_{m}})</annotation></semantics></math> contradicts the choice of its operator norms.
+∎</p>
+</div>
+</div>
+<div id="Ch6.Thmtheorem10" class="ltx_theorem ltx_theorem_remark statement">
+<h6 class="ltx_title ltx_runin ltx_title_theorem">
+<span class="ltx_tag ltx_tag_theorem titlemark"><span class="ltx_text ltx_font_italic">Remark 6.10</span></span><span class="ltx_text ltx_font_italic">.</span>
+</h6>
+<div id="Ch6.Thmtheorem10.p1" class="ltx_para">
+<p class="ltx_p">Convergence as <math id="Ch6.Thmtheorem10.p1.m1" class="ltx_Math" alttext="h\to 0" display="inline"><semantics><mrow><mi>h</mi><mo stretchy="false">→</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">h\to 0</annotation></semantics></math> says nothing about coarse parameters away from zero.
+For example, on <math id="Ch6.Thmtheorem10.p1.m2" class="ltx_Math" alttext="H=(0,1)" display="inline"><semantics><mrow><mi>H</mi><mo>=</mo><mrow><mo stretchy="false">(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">H=(0,1)</annotation></semantics></math> the scalar operators <math id="Ch6.Thmtheorem10.p1.m3" class="ltx_Math" alttext="L=I" display="inline"><semantics><mrow><mi>L</mi><mo>=</mo><mi>I</mi></mrow><annotation encoding="application/x-tex">L=I</annotation></semantics></math> and
+<math id="Ch6.Thmtheorem10.p1.m4" class="ltx_Math" alttext="L_{h}=(1-h)I" display="inline"><semantics><mrow><msub><mi>L</mi><mi>h</mi></msub><mo>=</mo><mrow><mrow><mo stretchy="false">(</mo><mrow><mn>1</mn><mo>−</mo><mi>h</mi></mrow><mo stretchy="false">)</mo></mrow><mo>⁢</mo><mi>I</mi></mrow></mrow><annotation encoding="application/x-tex">L_{h}=(1-h)I</annotation></semantics></math> are consistent and convergent, but
+<math id="Ch6.Thmtheorem10.p1.m5" class="ltx_Math" alttext="\sup_{h\in H}\left\|L_{h}^{-1}\right\|=+\infty" display="inline"><semantics><mrow><mrow><msub><mo>sup</mo><mrow><mi>h</mi><mo>∈</mo><mi>H</mi></mrow></msub><mrow><mo lspace="0em">‖</mo><msubsup><mi>L</mi><mi>h</mi><mrow><mo>−</mo><mn>1</mn></mrow></msubsup><mo>‖</mo></mrow></mrow><mo>=</mo><mrow><mo>+</mo><mi mathvariant="normal">∞</mi></mrow></mrow><annotation encoding="application/x-tex">\sup_{h\in H}\left\|L_{h}^{-1}\right\|=+\infty</annotation></semantics></math>. This is why stability is
+defined for sufficiently small parameters. For a refinement sequence
+<math id="Ch6.Thmtheorem10.p1.m6" class="ltx_Math" alttext="H=\{h_{m}:m\geq 1\}" display="inline"><semantics><mrow><mi>H</mi><mo>=</mo><mrow><mo stretchy="false">{</mo><msub><mi>h</mi><mi>m</mi></msub><mo lspace="0.278em" rspace="0.278em">:</mo><mrow><mi>m</mi><mo>≥</mo><mn>1</mn></mrow><mo stretchy="false">}</mo></mrow></mrow><annotation encoding="application/x-tex">H=\{h_{m}:m\geq 1\}</annotation></semantics></math> with <math id="Ch6.Thmtheorem10.p1.m7" class="ltx_Math" alttext="h_{m}\to 0" display="inline"><semantics><mrow><msub><mi>h</mi><mi>m</mi></msub><mo stretchy="false">→</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">h_{m}\to 0</annotation></semantics></math>, adding its finitely many coarse
+operators does not affect boundedness.</p>
+</div>
+</div>
+</section>
+<section id="Ch6.S5" class="ltx_section">
+<h2 class="ltx_title ltx_title_section sectionHead">
+<span class="ltx_tag ltx_tag_section titlemark">6.5 </span>Stability of time-discrete evolutions</h2>
+
+<span id="ref-def-evolution-stability" class="reference-anchor" aria-hidden="true"></span><div id="Ch6.Thmtheorem11" class="ltx_theorem ltx_theorem_definition statement">
+<h6 class="ltx_title ltx_runin ltx_title_theorem">
+<span class="ltx_tag ltx_tag_theorem titlemark"><span class="ltx_text ltx_font_bold">Definition 6.11</span></span><span class="ltx_text ltx_font_bold">.</span>
+</h6>
+<div id="Ch6.Thmtheorem11.p1" class="ltx_para">
+<p class="ltx_p">Let <math id="Ch6.Thmtheorem11.p1.m1" class="ltx_math_unparsed" alttext="(X_{h},\left\|\cdot\right\|_{X_{h}})" display="inline"><semantics><mrow><mo stretchy="false">(</mo><msub><mi>X</mi><mi>h</mi></msub><mo>,</mo><mo lspace="0em" rspace="0em" stretchy="true">∥</mo><mo lspace="0em" rspace="0em">⋅</mo><msub><mo lspace="0em" rspace="0.167em" stretchy="true">∥</mo><msub><mi>X</mi><mi>h</mi></msub></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(X_{h},\left\|\cdot\right\|_{X_{h}})</annotation></semantics></math> be a family of normed spaces, let
+<math id="Ch6.Thmtheorem11.p1.m2" class="ltx_Math" alttext="\Delta t=\Delta t(h)\to 0" display="inline"><semantics><mrow><mrow><mi mathvariant="normal">Δ</mi><mo>⁢</mo><mi>t</mi></mrow><mo>=</mo><mrow><mi mathvariant="normal">Δ</mi><mo>⁢</mo><mi>t</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>h</mi><mo stretchy="false">)</mo></mrow></mrow><mo stretchy="false">→</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\Delta t=\Delta t(h)\to 0</annotation></semantics></math>, and let <math id="Ch6.Thmtheorem11.p1.m3" class="ltx_Math" alttext="G_{h}\in\mathcal{L}(X_{h},X_{h})" display="inline"><semantics><mrow><msub><mi>G</mi><mi>h</mi></msub><mo>∈</mo><mrow><mi class="ltx_font_mathcaligraphic">ℒ</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><msub><mi>X</mi><mi>h</mi></msub><mo>,</mo><msub><mi>X</mi><mi>h</mi></msub><mo stretchy="false">)</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">G_{h}\in\mathcal{L}(X_{h},X_{h})</annotation></semantics></math>. Write the
+linear time-discrete evolution as</p>
+<div class="math-display"><table id="Ch6.E11" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch6.E11.m1" class="ltx_Math" alttext="U^{n+1}=G_{h}U^{n},\qquad t^{n}=n\Delta t." display="block"><semantics><mrow><mrow><mrow><msup><mi>U</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msup><mo>=</mo><mrow><msub><mi>G</mi><mi>h</mi></msub><mo>⁢</mo><msup><mi>U</mi><mi>n</mi></msup></mrow></mrow><mo rspace="2.167em">,</mo><mrow><msup><mi>t</mi><mi>n</mi></msup><mo>=</mo><mrow><mi>n</mi><mo>⁢</mo><mi mathvariant="normal">Δ</mi><mo>⁢</mo><mi>t</mi></mrow></mrow></mrow><mo lspace="0em">.</mo></mrow><annotation encoding="application/x-tex">U^{n+1}=G_{h}U^{n},\qquad t^{n}=n\Delta t.</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(6.11)</span></td>
+</tr></tbody>
+</table>
+</div><p class="ltx_p">We say that this evolution is <em class="ltx_emph ltx_font_italic">stable in <math id="Ch6.Thmtheorem11.p1.m4" class="ltx_Math" alttext="X_{h}" display="inline"><semantics><msub><mi>X</mi><mi>h</mi></msub><annotation encoding="application/x-tex">X_{h}</annotation></semantics></math> on finite time intervals</em> if, for every <math id="Ch6.Thmtheorem11.p1.m5" class="ltx_Math" alttext="T&gt;0" display="inline"><semantics><mrow><mi>T</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">T&gt;0</annotation></semantics></math>, there exists a constant <math id="Ch6.Thmtheorem11.p1.m6" class="ltx_Math" alttext="C_{T}&gt;0" display="inline"><semantics><mrow><msub><mi>C</mi><mi>T</mi></msub><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">C_{T}&gt;0</annotation></semantics></math>, independent of <math id="Ch6.Thmtheorem11.p1.m7" class="ltx_Math" alttext="h" display="inline"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>, <math id="Ch6.Thmtheorem11.p1.m8" class="ltx_Math" alttext="\Delta t" display="inline"><semantics><mrow><mi mathvariant="normal">Δ</mi><mo>⁢</mo><mi>t</mi></mrow><annotation encoding="application/x-tex">\Delta t</annotation></semantics></math>, and <math id="Ch6.Thmtheorem11.p1.m9" class="ltx_Math" alttext="n" display="inline"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>, such that, for all sufficiently small admissible <math id="Ch6.Thmtheorem11.p1.m10" class="ltx_Math" alttext="h" display="inline"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>,</p>
+<div class="math-display"><span id="ref-eq-evolution-stability-general" class="reference-anchor" aria-hidden="true"></span><table id="Ch6.E12" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch6.E12.m1" class="ltx_Math" alttext="\left\|G_{h}^{n}V\right\|_{X_{h}}\leq C_{T}\left\|V\right\|_{X_{h}}\qquad\text%
+{for all }V\in X_{h}\text{ and all }0\leq n\Delta t\leq T." display="block"><semantics><mrow><mrow><mrow><msub><mrow><mo>‖</mo><mrow><msubsup><mi>G</mi><mi>h</mi><mi>n</mi></msubsup><mo>⁢</mo><mi>V</mi></mrow><mo>‖</mo></mrow><msub><mi>X</mi><mi>h</mi></msub></msub><mo>≤</mo><mrow><msub><mi>C</mi><mi>T</mi></msub><mo>⁢</mo><msub><mrow><mo>‖</mo><mi>V</mi><mo>‖</mo></mrow><msub><mi>X</mi><mi>h</mi></msub></msub></mrow></mrow><mspace width="2em"></mspace><mrow><mrow><mtext>for all </mtext><mo>⁢</mo><mi>V</mi></mrow><mo>∈</mo><mrow><msub><mi>X</mi><mi>h</mi></msub><mo>⁢</mo><mtext> and all </mtext><mo>⁢</mo><mn>0</mn></mrow><mo>≤</mo><mrow><mi>n</mi><mo>⁢</mo><mi mathvariant="normal">Δ</mi><mo>⁢</mo><mi>t</mi></mrow><mo>≤</mo><mi>T</mi></mrow></mrow><mo lspace="0em">.</mo></mrow><annotation encoding="application/x-tex">\left\|G_{h}^{n}V\right\|_{X_{h}}\leq C_{T}\left\|V\right\|_{X_{h}}\qquad\text%
+{for all }V\in X_{h}\text{ and all }0\leq n\Delta t\leq T.</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(6.12)</span></td>
+</tr></tbody>
+</table>
+</div><p class="ltx_p">We say that the evolution is <em class="ltx_emph ltx_font_italic">strongly stable in <math id="Ch6.Thmtheorem11.p1.m11" class="ltx_Math" alttext="X_{h}" display="inline"><semantics><msub><mi>X</mi><mi>h</mi></msub><annotation encoding="application/x-tex">X_{h}</annotation></semantics></math></em> if, for all
+sufficiently small admissible <math id="Ch6.Thmtheorem11.p1.m12" class="ltx_Math" alttext="h" display="inline"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>, its one-step update is non-expansive:</p>
+<div class="math-display"><span id="ref-eq-evolution-strong-stability-general" class="reference-anchor" aria-hidden="true"></span><table id="Ch6.E13" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch6.E13.m1" class="ltx_Math" alttext="\left\|G_{h}V\right\|_{X_{h}}\leq\left\|V\right\|_{X_{h}}\qquad\text{for all }%
+V\in X_{h}." display="block"><semantics><mrow><mrow><mrow><msub><mrow><mo>‖</mo><mrow><msub><mi>G</mi><mi>h</mi></msub><mo>⁢</mo><mi>V</mi></mrow><mo>‖</mo></mrow><msub><mi>X</mi><mi>h</mi></msub></msub><mo>≤</mo><msub><mrow><mo>‖</mo><mi>V</mi><mo>‖</mo></mrow><msub><mi>X</mi><mi>h</mi></msub></msub></mrow><mspace width="2em"></mspace><mrow><mrow><mtext>for all </mtext><mo>⁢</mo><mi>V</mi></mrow><mo>∈</mo><msub><mi>X</mi><mi>h</mi></msub></mrow></mrow><mo lspace="0em">.</mo></mrow><annotation encoding="application/x-tex">\left\|G_{h}V\right\|_{X_{h}}\leq\left\|V\right\|_{X_{h}}\qquad\text{for all }%
+V\in X_{h}.</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(6.13)</span></td>
+</tr></tbody>
+</table>
+</div><p class="ltx_p">By iteration, strong stability implies (<a href="#ref-eq-evolution-stability-general" title="In Definition 6.11. ‣ 6.5 Stability of time-discrete evolutions ‣ Chapter 6 The Lax–Richtmyer theorem ‣ Numerical solutions of PDEs and applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">6.12</span></a>)
+with <math id="Ch6.Thmtheorem11.p1.m13" class="ltx_Math" alttext="C_{T}=1" display="inline"><semantics><mrow><msub><mi>C</mi><mi>T</mi></msub><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">C_{T}=1</annotation></semantics></math> on every finite time interval.</p>
+</div>
+</div>
+<span id="ref-rem-stability-versus-strong-stability" class="reference-anchor" aria-hidden="true"></span><div id="Ch6.Thmtheorem12" class="ltx_theorem ltx_theorem_remark statement">
+<h6 class="ltx_title ltx_runin ltx_title_theorem">
+<span class="ltx_tag ltx_tag_theorem titlemark"><span class="ltx_text ltx_font_italic">Remark 6.12</span></span><span class="ltx_text ltx_font_italic">.</span>
+</h6>
+<div id="Ch6.Thmtheorem12.p1" class="ltx_para">
+<p class="ltx_p">Definition <a href="#ref-def-evolution-stability" title="Definition 6.11. ‣ 6.5 Stability of time-discrete evolutions ‣ Chapter 6 The Lax–Richtmyer theorem ‣ Numerical solutions of PDEs and applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">6.11</span></a> expresses power boundedness for a time evolution. The fixed-space inverse-operator theorem does not itself establish equivalence for this setting; Theorem <a href="#ref-thm-grid-lax-equivalence" title="Theorem 6.15. ‣ 6.7 Lax–Richtmyer equivalence on changing grid spaces ‣ Chapter 6 The Lax–Richtmyer theorem ‣ Numerical solutions of PDEs and applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">6.15</span></a> below supplies the connection. The norm is part of the statement. In Chapter <a href="chapter-07.html#ref-chap-hyperbolic-fd" title="Chapter 7 Finite difference methods for hyperbolic equations ‣ Numerical solutions of PDEs and applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">7</span></a>, for example, <math id="Ch6.Thmtheorem12.p1.m1" class="ltx_Math" alttext="X_{h}=\ell_{h}^{2}" display="inline"><semantics><mrow><msub><mi>X</mi><mi>h</mi></msub><mo>=</mo><msubsup><mi mathvariant="normal">ℓ</mi><mi>h</mi><mn>2</mn></msubsup></mrow><annotation encoding="application/x-tex">X_{h}=\ell_{h}^{2}</annotation></semantics></math> and stability means boundedness in the topology</p>
+<div class="math-display"><table id="Ch6.E14" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch6.E14.m1" class="ltx_Math" alttext="\ell^{\infty}(0,T;\ell_{h}^{2}),\qquad\max_{0\leq n\Delta t\leq T}\left\|U^{n}%
+\right\|_{\ell_{h}^{2}}." display="block"><semantics><mrow><mrow><mrow><msup><mi mathvariant="normal">ℓ</mi><mi mathvariant="normal">∞</mi></msup><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mn>0</mn><mo>,</mo><mi>T</mi><mo>;</mo><msubsup><mi mathvariant="normal">ℓ</mi><mi>h</mi><mn>2</mn></msubsup><mo stretchy="false">)</mo></mrow></mrow><mo rspace="2.167em">,</mo><mrow><munder><mi>max</mi><mrow><mn>0</mn><mo>≤</mo><mrow><mi>n</mi><mo>⁢</mo><mi mathvariant="normal">Δ</mi><mo>⁢</mo><mi>t</mi></mrow><mo>≤</mo><mi>T</mi></mrow></munder><mo>⁡</mo><msub><mrow><mo>‖</mo><msup><mi>U</mi><mi>n</mi></msup><mo>‖</mo></mrow><msubsup><mi mathvariant="normal">ℓ</mi><mi>h</mi><mn>2</mn></msubsup></msub></mrow></mrow><mo lspace="0em">.</mo></mrow><annotation encoding="application/x-tex">\ell^{\infty}(0,T;\ell_{h}^{2}),\qquad\max_{0\leq n\Delta t\leq T}\left\|U^{n}%
+\right\|_{\ell_{h}^{2}}.</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(6.14)</span></td>
+</tr></tbody>
+</table>
+</div><p class="ltx_p">Strong stability is a non-expansion property in the chosen norm; it is stronger than stability on finite time intervals.</p>
+</div>
+</div>
+</section>
+<span id="ref-sec-evolution-error" class="reference-anchor" aria-hidden="true"></span><section id="Ch6.S6" class="ltx_section">
+<h2 class="ltx_title ltx_title_section sectionHead">
+<span class="ltx_tag ltx_tag_section titlemark">6.6 </span>An error estimate for discrete evolutions</h2>
+
+<div id="Ch6.S6.p1" class="ltx_para">
+<p class="ltx_p">For a time-dependent equation, consistency is measured by inserting an exact
+trajectory into the update rule. The resulting defect must be divided by
+<math id="Ch6.S6.p1.m1" class="ltx_Math" alttext="\Delta t" display="inline"><semantics><mrow><mi mathvariant="normal">Δ</mi><mo>⁢</mo><mi>t</mi></mrow><annotation encoding="application/x-tex">\Delta t</annotation></semantics></math>: on a finite time interval, there are of order <math id="Ch6.S6.p1.m2" class="ltx_Math" alttext="1/\Delta t" display="inline"><semantics><mrow><mrow><mn>1</mn><mo>/</mo><mi mathvariant="normal">Δ</mi></mrow><mo>⁢</mo><mi>t</mi></mrow><annotation encoding="application/x-tex">1/\Delta t</annotation></semantics></math> steps.</p>
+</div>
+<span id="ref-thm-evolution-error" class="reference-anchor" aria-hidden="true"></span><div id="Ch6.Thmtheorem13" class="ltx_theorem ltx_theorem_theorem statement statement-brown">
+<h6 class="ltx_title ltx_runin ltx_title_theorem">
+<span class="ltx_tag ltx_tag_theorem titlemark"><span class="ltx_text ltx_font_bold">Theorem 6.13</span></span><span class="ltx_text ltx_font_bold">.</span>
+</h6>
+<div id="Ch6.Thmtheorem13.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_italic">Fix <math id="Ch6.Thmtheorem13.p1.m1" class="ltx_Math" alttext="T&gt;0" display="inline"><semantics><mrow><mi>T</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">T&gt;0</annotation></semantics></math> and let <math id="Ch6.Thmtheorem13.p1.m2" class="ltx_Math" alttext="N_{T}=\lfloor T/\Delta t\rfloor\geq 1" display="inline"><semantics><mrow><msub><mi>N</mi><mi>T</mi></msub><mo>=</mo><mrow><mo stretchy="false">⌊</mo><mrow><mrow><mi>T</mi><mo>/</mo><mi mathvariant="normal">Δ</mi></mrow><mo>⁢</mo><mi>t</mi></mrow><mo stretchy="false">⌋</mo></mrow><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">N_{T}=\lfloor T/\Delta t\rfloor\geq 1</annotation></semantics></math>. Assume that
+<math id="Ch6.Thmtheorem13.p1.m3" class="ltx_Math" alttext="G_{h}\in\mathcal{L}(X_{h},X_{h})" display="inline"><semantics><mrow><msub><mi>G</mi><mi>h</mi></msub><mo>∈</mo><mrow><mi class="ltx_font_mathcaligraphic">ℒ</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><msub><mi>X</mi><mi>h</mi></msub><mo>,</mo><msub><mi>X</mi><mi>h</mi></msub><mo stretchy="false">)</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">G_{h}\in\mathcal{L}(X_{h},X_{h})</annotation></semantics></math> satisfies (<a href="#ref-eq-evolution-stability-general" title="In Definition 6.11. ‣ 6.5 Stability of time-discrete evolutions ‣ Chapter 6 The Lax–Richtmyer theorem ‣ Numerical solutions of PDEs and applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">6.12</span></a>).
+Let <math id="Ch6.Thmtheorem13.p1.m4" class="ltx_Math" alttext="U^{n+1}=G_{h}U^{n}" display="inline"><semantics><mrow><msup><mi>U</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msup><mo>=</mo><mrow><msub><mi>G</mi><mi>h</mi></msub><mo>⁢</mo><msup><mi>U</mi><mi>n</mi></msup></mrow></mrow><annotation encoding="application/x-tex">U^{n+1}=G_{h}U^{n}</annotation></semantics></math>, and let <math id="Ch6.Thmtheorem13.p1.m5" class="ltx_Math" alttext="(W_{h}^{n})_{0\leq n\leq N_{T}}" display="inline"><semantics><msub><mrow><mo stretchy="false">(</mo><msubsup><mi>W</mi><mi>h</mi><mi>n</mi></msubsup><mo stretchy="false">)</mo></mrow><mrow><mn>0</mn><mo>≤</mo><mi>n</mi><mo>≤</mo><msub><mi>N</mi><mi>T</mi></msub></mrow></msub><annotation encoding="application/x-tex">(W_{h}^{n})_{0\leq n\leq N_{T}}</annotation></semantics></math> be reference
+values in <math id="Ch6.Thmtheorem13.p1.m6" class="ltx_Math" alttext="X_{h}" display="inline"><semantics><msub><mi>X</mi><mi>h</mi></msub><annotation encoding="application/x-tex">X_{h}</annotation></semantics></math>. Define the error and the normalized defect by</span></p>
+<div class="math-display"><span id="ref-eq-evolution-defect" class="reference-anchor" aria-hidden="true"></span><table id="Ch6.E15" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch6.E15.m1" class="ltx_Math" alttext="e^{n}=U^{n}-W_{h}^{n},\qquad\tau_{h}^{n}=\frac{W_{h}^{n+1}-G_{h}W_{h}^{n}}{%
+\Delta t}\quad(0\leq n&lt;N_{T})." display="block"><semantics><mrow><mrow><mrow><msup><mi>e</mi><mi>n</mi></msup><mo>=</mo><mrow><msup><mi>U</mi><mi>n</mi></msup><mo>−</mo><msubsup><mi>W</mi><mi>h</mi><mi>n</mi></msubsup></mrow></mrow><mo rspace="2.167em">,</mo><mrow><msubsup><mi>τ</mi><mi>h</mi><mi>n</mi></msubsup><mo>=</mo><mrow><mfrac><mrow><msubsup><mi>W</mi><mi>h</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msubsup><mo>−</mo><mrow><msub><mi>G</mi><mi>h</mi></msub><mo>⁢</mo><msubsup><mi>W</mi><mi>h</mi><mi>n</mi></msubsup></mrow></mrow><mrow><mi mathvariant="normal">Δ</mi><mo>⁢</mo><mi>t</mi></mrow></mfrac><mspace width="1em"></mspace><mrow><mo stretchy="false">(</mo><mrow><mn>0</mn><mo>≤</mo><mi>n</mi><mo>&lt;</mo><msub><mi>N</mi><mi>T</mi></msub></mrow><mo stretchy="false">)</mo></mrow></mrow></mrow></mrow><mo lspace="0em">.</mo></mrow><annotation encoding="application/x-tex">e^{n}=U^{n}-W_{h}^{n},\qquad\tau_{h}^{n}=\frac{W_{h}^{n+1}-G_{h}W_{h}^{n}}{%
+\Delta t}\quad(0\leq n&lt;N_{T}).</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(6.15)</span></td>
+</tr></tbody>
+</table>
+</div><p class="ltx_p"><span class="ltx_text ltx_font_italic">Then</span></p>
+<div class="math-display"><span id="ref-eq-evolution-error-bound" class="reference-anchor" aria-hidden="true"></span><table id="Ch6.E16" class="ltx_equationgroup ltx_eqn_table">
+<tbody>
+<tr id="Ch6.E16X" class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_td ltx_align_right ltx_eqn_cell"><math id="Ch6.E16X.m2" class="ltx_Math" alttext="\displaystyle\max_{0\leq n\leq N_{T}}\left\|e^{n}\right\|_{X_{h}}" display="inline"><semantics><mrow><munder><mi>max</mi><mrow><mn>0</mn><mo>≤</mo><mi>n</mi><mo>≤</mo><msub><mi>N</mi><mi>T</mi></msub></mrow></munder><mo>⁡</mo><msub><mrow><mo>‖</mo><msup><mi>e</mi><mi>n</mi></msup><mo>‖</mo></mrow><msub><mi>X</mi><mi>h</mi></msub></msub></mrow><annotation encoding="application/x-tex">\displaystyle\max_{0\leq n\leq N_{T}}\left\|e^{n}\right\|_{X_{h}}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left ltx_eqn_cell"><math id="Ch6.E16X.m3" class="ltx_Math" alttext="\displaystyle\leq C_{T}\left(\left\|e^{0}\right\|_{X_{h}}+\Delta t\sum_{j=0}^{%
+N_{T}-1}\left\|\tau_{h}^{j}\right\|_{X_{h}}\right)" display="inline"><semantics><mrow><mi></mi><mo>≤</mo><mrow><msub><mi>C</mi><mi>T</mi></msub><mo>⁢</mo><mrow><mo>(</mo><mrow><msub><mrow><mo>‖</mo><msup><mi>e</mi><mn>0</mn></msup><mo>‖</mo></mrow><msub><mi>X</mi><mi>h</mi></msub></msub><mo>+</mo><mrow><mi mathvariant="normal">Δ</mi><mo>⁢</mo><mi>t</mi><mo>⁢</mo><mrow><mstyle displaystyle="true"><munderover><mo movablelimits="false">∑</mo><mrow><mi>j</mi><mo>=</mo><mn>0</mn></mrow><mrow><msub><mi>N</mi><mi>T</mi></msub><mo>−</mo><mn>1</mn></mrow></munderover></mstyle><msub><mrow><mo>‖</mo><msubsup><mi>τ</mi><mi>h</mi><mi>j</mi></msubsup><mo>‖</mo></mrow><msub><mi>X</mi><mi>h</mi></msub></msub></mrow></mrow></mrow><mo>)</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">\displaystyle\leq C_{T}\left(\left\|e^{0}\right\|_{X_{h}}+\Delta t\sum_{j=0}^{%
+N_{T}-1}\left\|\tau_{h}^{j}\right\|_{X_{h}}\right)</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="2" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equationgroup ltx_align_right">(6.16)</span></td>
+</tr>
+<tr id="Ch6.E16Xa" class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_td ltx_eqn_cell"></td>
+<td class="ltx_td ltx_align_left ltx_eqn_cell"><math id="Ch6.E16Xa.m2" class="ltx_Math" alttext="\displaystyle\leq C_{T}\left(\left\|e^{0}\right\|_{X_{h}}+T\max_{0\leq j&lt;N_{T}%
+}\left\|\tau_{h}^{j}\right\|_{X_{h}}\right)." display="inline"><semantics><mrow><mrow><mi></mi><mo>≤</mo><mrow><msub><mi>C</mi><mi>T</mi></msub><mo>⁢</mo><mrow><mo>(</mo><mrow><msub><mrow><mo>‖</mo><msup><mi>e</mi><mn>0</mn></msup><mo>‖</mo></mrow><msub><mi>X</mi><mi>h</mi></msub></msub><mo>+</mo><mrow><mi>T</mi><mo lspace="0.167em">⁢</mo><mrow><munder><mi>max</mi><mrow><mn>0</mn><mo>≤</mo><mi>j</mi><mo>&lt;</mo><msub><mi>N</mi><mi>T</mi></msub></mrow></munder><mo>⁡</mo><msub><mrow><mo>‖</mo><msubsup><mi>τ</mi><mi>h</mi><mi>j</mi></msubsup><mo>‖</mo></mrow><msub><mi>X</mi><mi>h</mi></msub></msub></mrow></mrow></mrow><mo>)</mo></mrow></mrow></mrow><mo lspace="0em">.</mo></mrow><annotation encoding="application/x-tex">\displaystyle\leq C_{T}\left(\left\|e^{0}\right\|_{X_{h}}+T\max_{0\leq j&lt;N_{T}%
+}\left\|\tau_{h}^{j}\right\|_{X_{h}}\right).</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+</tr>
+</tbody>
+</table>
+</div><p class="ltx_p"><span class="ltx_text ltx_font_italic">In particular, an initial error tending to zero and a normalized defect
+tending to zero uniformly in time imply convergence to the reference
+trajectory. If both are <math id="Ch6.Thmtheorem13.p1.m7" class="ltx_Math" alttext="O(h^{p})" display="inline"><semantics><mrow><mi>O</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><msup><mi>h</mi><mi>p</mi></msup><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">O(h^{p})</annotation></semantics></math>, the error is <math id="Ch6.Thmtheorem13.p1.m8" class="ltx_Math" alttext="O(h^{p})" display="inline"><semantics><mrow><mi>O</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><msup><mi>h</mi><mi>p</mi></msup><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">O(h^{p})</annotation></semantics></math> on <math id="Ch6.Thmtheorem13.p1.m9" class="ltx_Math" alttext="[0,T]" display="inline"><semantics><mrow><mo stretchy="false">[</mo><mn>0</mn><mo>,</mo><mi>T</mi><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[0,T]</annotation></semantics></math>.</span></p>
+</div>
+</div>
+<div class="ltx_proof proof">
+<h6 class="ltx_title ltx_runin ltx_font_italic ltx_title_proof">Proof.</h6>
+<div id="Ch6.S6.p2" class="ltx_para">
+<p class="ltx_p">Subtracting the reference update gives</p>
+<div class="math-display"><table id="Ch6.E17" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch6.E17.m1" class="ltx_Math" alttext="e^{n+1}=G_{h}e^{n}-\Delta t\,\tau_{h}^{n}." display="block"><semantics><mrow><mrow><msup><mi>e</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msup><mo>=</mo><mrow><mrow><msub><mi>G</mi><mi>h</mi></msub><mo>⁢</mo><msup><mi>e</mi><mi>n</mi></msup></mrow><mo>−</mo><mrow><mi mathvariant="normal">Δ</mi><mo>⁢</mo><mi>t</mi><mo lspace="0.170em">⁢</mo><msubsup><mi>τ</mi><mi>h</mi><mi>n</mi></msubsup></mrow></mrow></mrow><mo lspace="0em">.</mo></mrow><annotation encoding="application/x-tex">e^{n+1}=G_{h}e^{n}-\Delta t\,\tau_{h}^{n}.</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(6.17)</span></td>
+</tr></tbody>
+</table>
+</div><p class="ltx_p">Iteration yields the discrete Duhamel formula</p>
+<div class="math-display"><span id="ref-eq-discrete-duhamel" class="reference-anchor" aria-hidden="true"></span><table id="Ch6.E18" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch6.E18.m1" class="ltx_Math" alttext="e^{n}=G_{h}^{n}e^{0}-\Delta t\sum_{j=0}^{n-1}G_{h}^{n-1-j}\tau_{h}^{j}." display="block"><semantics><mrow><mrow><msup><mi>e</mi><mi>n</mi></msup><mo>=</mo><mrow><mrow><msubsup><mi>G</mi><mi>h</mi><mi>n</mi></msubsup><mo>⁢</mo><msup><mi>e</mi><mn>0</mn></msup></mrow><mo>−</mo><mrow><mi mathvariant="normal">Δ</mi><mo>⁢</mo><mi>t</mi><mo>⁢</mo><mrow><munderover><mo movablelimits="false">∑</mo><mrow><mi>j</mi><mo>=</mo><mn>0</mn></mrow><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></munderover><mrow><msubsup><mi>G</mi><mi>h</mi><mrow><mi>n</mi><mo>−</mo><mn>1</mn><mo>−</mo><mi>j</mi></mrow></msubsup><mo>⁢</mo><msubsup><mi>τ</mi><mi>h</mi><mi>j</mi></msubsup></mrow></mrow></mrow></mrow></mrow><mo lspace="0em">.</mo></mrow><annotation encoding="application/x-tex">e^{n}=G_{h}^{n}e^{0}-\Delta t\sum_{j=0}^{n-1}G_{h}^{n-1-j}\tau_{h}^{j}.</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(6.18)</span></td>
+</tr></tbody>
+</table>
+</div><p class="ltx_p">Every power appearing here corresponds to a time at most <math id="Ch6.S6.p2.m1" class="ltx_Math" alttext="T" display="inline"><semantics><mi>T</mi><annotation encoding="application/x-tex">T</annotation></semantics></math>.
+Taking norms and using stability proves (<a href="#ref-eq-evolution-error-bound" title="In Theorem 6.13. ‣ 6.6 An error estimate for discrete evolutions ‣ Chapter 6 The Lax–Richtmyer theorem ‣ Numerical solutions of PDEs and applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">6.16</span></a>).
+∎</p>
+</div>
+</div>
+</section>
+<span id="ref-sec-grid-lax-equivalence" class="reference-anchor" aria-hidden="true"></span><section id="Ch6.S7" class="ltx_section">
+<h2 class="ltx_title ltx_title_section sectionHead">
+<span class="ltx_tag ltx_tag_section titlemark">6.7 </span>Lax–Richtmyer equivalence on changing grid spaces</h2>
+
+<div id="Ch6.S7.p1" class="ltx_para">
+<p class="ltx_p">The preceding estimate compares two trajectories on the same grid. To
+compare numerical solutions with arbitrary continuous data, we must also
+specify how data are projected onto the grid and how grid values are
+reconstructed as functions. This avoids using point values of an <math id="Ch6.S7.p1.m1" class="ltx_Math" alttext="L^{2}" display="inline"><semantics><msup><mi>L</mi><mn>2</mn></msup><annotation encoding="application/x-tex">L^{2}</annotation></semantics></math>
+equivalence class.</p>
+</div>
+<div id="Ch6.S7.p2" class="ltx_para">
+<p class="ltx_p">Let <math id="Ch6.S7.p2.m1" class="ltx_Math" alttext="X" display="inline"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math> be a Banach space and let <math id="Ch6.S7.p2.m2" class="ltx_Math" alttext="S(t):X\to X" display="inline"><semantics><mrow><mrow><mi>S</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo rspace="0.278em" stretchy="false">)</mo></mrow></mrow><mo rspace="0.278em">:</mo><mrow><mi>X</mi><mo stretchy="false">→</mo><mi>X</mi></mrow></mrow><annotation encoding="application/x-tex">S(t):X\to X</annotation></semantics></math>, <math id="Ch6.S7.p2.m3" class="ltx_Math" alttext="t\geq 0" display="inline"><semantics><mrow><mi>t</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">t\geq 0</annotation></semantics></math>, be a strongly
+continuous semigroup of bounded linear operators: <math id="Ch6.S7.p2.m4" class="ltx_Math" alttext="S(0)=I" display="inline"><semantics><mrow><mrow><mi>S</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mn>0</mn><mo stretchy="false">)</mo></mrow></mrow><mo>=</mo><mi>I</mi></mrow><annotation encoding="application/x-tex">S(0)=I</annotation></semantics></math>,
+<math id="Ch6.S7.p2.m5" class="ltx_Math" alttext="S(t+s)=S(t)S(s)" display="inline"><semantics><mrow><mrow><mi>S</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mrow><mi>t</mi><mo>+</mo><mi>s</mi></mrow><mo stretchy="false">)</mo></mrow></mrow><mo>=</mo><mrow><mi>S</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow><mo>⁢</mo><mi>S</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>s</mi><mo stretchy="false">)</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">S(t+s)=S(t)S(s)</annotation></semantics></math>, and <math id="Ch6.S7.p2.m6" class="ltx_Math" alttext="t\mapsto S(t)x" display="inline"><semantics><mrow><mi>t</mi><mo stretchy="false">↦</mo><mrow><mi>S</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow><mo>⁢</mo><mi>x</mi></mrow></mrow><annotation encoding="application/x-tex">t\mapsto S(t)x</annotation></semantics></math> is continuous for every <math id="Ch6.S7.p2.m7" class="ltx_Math" alttext="x\in X" display="inline"><semantics><mrow><mi>x</mi><mo>∈</mo><mi>X</mi></mrow><annotation encoding="application/x-tex">x\in X</annotation></semantics></math>.
+Assume <math id="Ch6.S7.p2.m8" class="ltx_Math" alttext="\sup_{0\leq t\leq T}\left\|S(t)\right\|_{X\to X}\leq M_{T}" display="inline"><semantics><mrow><mrow><msub><mo>sup</mo><mrow><mn>0</mn><mo>≤</mo><mi>t</mi><mo>≤</mo><mi>T</mi></mrow></msub><msub><mrow><mo lspace="0em">‖</mo><mrow><mi>S</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><mo>‖</mo></mrow><mrow><mi>X</mi><mo stretchy="false">→</mo><mi>X</mi></mrow></msub></mrow><mo>≤</mo><msub><mi>M</mi><mi>T</mi></msub></mrow><annotation encoding="application/x-tex">\sup_{0\leq t\leq T}\left\|S(t)\right\|_{X\to X}\leq M_{T}</annotation></semantics></math> for each <math id="Ch6.S7.p2.m9" class="ltx_Math" alttext="T&gt;0" display="inline"><semantics><mrow><mi>T</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">T&gt;0</annotation></semantics></math>.
+For every admissible <math id="Ch6.S7.p2.m10" class="ltx_Math" alttext="h" display="inline"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>, let <math id="Ch6.S7.p2.m11" class="ltx_Math" alttext="X_{h}" display="inline"><semantics><msub><mi>X</mi><mi>h</mi></msub><annotation encoding="application/x-tex">X_{h}</annotation></semantics></math> be a normed grid space and let</p>
+<div class="math-display"><span id="ref-eq-grid-projection-reconstruction" class="reference-anchor" aria-hidden="true"></span><table id="Ch6.E19" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch6.E19.m1" class="ltx_Math" alttext="P_{h}:X\to X_{h},\qquad E_{h}:X_{h}\to X" display="block"><semantics><mrow><msub><mi>P</mi><mi>h</mi></msub><mo lspace="0.278em" rspace="0.278em">:</mo><mrow><mi>X</mi><mo stretchy="false">→</mo><mrow><msub><mi>X</mi><mi>h</mi></msub><mo rspace="2.167em">,</mo><msub><mi>E</mi><mi>h</mi></msub></mrow></mrow><mo lspace="0.278em" rspace="0.278em">:</mo><mrow><msub><mi>X</mi><mi>h</mi></msub><mo stretchy="false">→</mo><mi>X</mi></mrow></mrow><annotation encoding="application/x-tex">P_{h}:X\to X_{h},\qquad E_{h}:X_{h}\to X</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(6.19)</span></td>
+</tr></tbody>
+</table>
+</div><p class="ltx_p">be bounded linear maps satisfying</p>
+<div class="math-display"><span id="ref-eq-grid-identification-properties" class="reference-anchor" aria-hidden="true"></span><table id="Ch6.E20" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch6.E20.m1" class="ltx_math_unparsed" alttext="\begin{gathered}\left\|P_{h}\right\|_{X\to X_{h}}\leq 1,\qquad\left\|E_{h}V%
+\right\|_{X}=\left\|V\right\|_{X_{h}}\quad\text{for every }V\in X_{h},\\
+P_{h}E_{h}=I_{X_{h}},\qquad E_{h}P_{h}x\longrightarrow x\quad\text{for every }%
+x\in X.\end{gathered}" display="block"><semantics><mtable displaystyle="true" rowspacing="0pt"><mtr><mtd><mrow><mrow><mrow><msub><mrow><mo>‖</mo><msub><mi>P</mi><mi>h</mi></msub><mo>‖</mo></mrow><mrow><mi>X</mi><mo stretchy="false">→</mo><msub><mi>X</mi><mi>h</mi></msub></mrow></msub><mo>≤</mo><mn>1</mn></mrow><mo rspace="2.167em">,</mo><mrow><mrow><msub><mrow><mo>‖</mo><mrow><msub><mi>E</mi><mi>h</mi></msub><mo>⁢</mo><mi>V</mi></mrow><mo>‖</mo></mrow><mi>X</mi></msub><mo>=</mo><msub><mrow><mo>‖</mo><mi>V</mi><mo>‖</mo></mrow><msub><mi>X</mi><mi>h</mi></msub></msub></mrow><mspace width="1em"></mspace><mrow><mrow><mtext>for every </mtext><mo>⁢</mo><mi>V</mi></mrow><mo>∈</mo><msub><mi>X</mi><mi>h</mi></msub></mrow></mrow></mrow><mo>,</mo></mrow></mtd></mtr><mtr><mtd><mrow><mrow><mrow><mrow><msub><mi>P</mi><mi>h</mi></msub><mo>⁢</mo><msub><mi>E</mi><mi>h</mi></msub></mrow><mo>=</mo><msub><mi>I</mi><msub><mi>X</mi><mi>h</mi></msub></msub></mrow><mo rspace="2.167em">,</mo><mrow><mrow><mrow><msub><mi>E</mi><mi>h</mi></msub><mo>⁢</mo><msub><mi>P</mi><mi>h</mi></msub><mo>⁢</mo><mi>x</mi></mrow><mo stretchy="false">⟶</mo><mi>x</mi></mrow><mspace width="1em"></mspace><mrow><mrow><mtext>for every </mtext><mo>⁢</mo><mi>x</mi></mrow><mo>∈</mo><mi>X</mi></mrow></mrow></mrow><mo lspace="0em">.</mo></mrow></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{gathered}\left\|P_{h}\right\|_{X\to X_{h}}\leq 1,\qquad\left\|E_{h}V%
+\right\|_{X}=\left\|V\right\|_{X_{h}}\quad\text{for every }V\in X_{h},\\
+P_{h}E_{h}=I_{X_{h}},\qquad E_{h}P_{h}x\longrightarrow x\quad\text{for every }%
+x\in X.\end{gathered}</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(6.20)</span></td>
+</tr></tbody>
+</table>
+</div><p class="ltx_p">These assumptions hold for cell averages and piecewise constant
+reconstruction in <math id="Ch6.S7.p2.m12" class="ltx_Math" alttext="L^{2}" display="inline"><semantics><msup><mi>L</mi><mn>2</mn></msup><annotation encoding="application/x-tex">L^{2}</annotation></semantics></math> on a periodic interval, as explained in
+Chapter <a href="chapter-07.html#ref-chap-hyperbolic-fd" title="Chapter 7 Finite difference methods for hyperbolic equations ‣ Numerical solutions of PDEs and applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">7</span></a>. Let <math id="Ch6.S7.p2.m13" class="ltx_Math" alttext="\Delta t=\Delta t(h)\to 0" display="inline"><semantics><mrow><mrow><mi mathvariant="normal">Δ</mi><mo>⁢</mo><mi>t</mi></mrow><mo>=</mo><mrow><mi mathvariant="normal">Δ</mi><mo>⁢</mo><mi>t</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>h</mi><mo stretchy="false">)</mo></mrow></mrow><mo stretchy="false">→</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\Delta t=\Delta t(h)\to 0</annotation></semantics></math> and
+<math id="Ch6.S7.p2.m14" class="ltx_Math" alttext="G_{h}\in\mathcal{L}(X_{h},X_{h})" display="inline"><semantics><mrow><msub><mi>G</mi><mi>h</mi></msub><mo>∈</mo><mrow><mi class="ltx_font_mathcaligraphic">ℒ</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><msub><mi>X</mi><mi>h</mi></msub><mo>,</mo><msub><mi>X</mi><mi>h</mi></msub><mo stretchy="false">)</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">G_{h}\in\mathcal{L}(X_{h},X_{h})</annotation></semantics></math>.</p>
+</div>
+<div id="Ch6.Thmtheorem14" class="ltx_theorem ltx_theorem_definition statement">
+<h6 class="ltx_title ltx_runin ltx_title_theorem">
+<span class="ltx_tag ltx_tag_theorem titlemark"><span class="ltx_text ltx_font_bold">Definition 6.14</span></span><span class="ltx_text ltx_font_bold">.</span>
+</h6>
+<div id="Ch6.Thmtheorem14.p1" class="ltx_para">
+<p class="ltx_p">The approximation is <em class="ltx_emph ltx_font_italic">consistent on a dense class</em> <math id="Ch6.Thmtheorem14.p1.m1" class="ltx_Math" alttext="D\subset X" display="inline"><semantics><mrow><mi>D</mi><mo>⊂</mo><mi>X</mi></mrow><annotation encoding="application/x-tex">D\subset X</annotation></semantics></math> if,
+for every <math id="Ch6.Thmtheorem14.p1.m2" class="ltx_Math" alttext="x\in D" display="inline"><semantics><mrow><mi>x</mi><mo>∈</mo><mi>D</mi></mrow><annotation encoding="application/x-tex">x\in D</annotation></semantics></math> and every <math id="Ch6.Thmtheorem14.p1.m3" class="ltx_Math" alttext="T&gt;0" display="inline"><semantics><mrow><mi>T</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">T&gt;0</annotation></semantics></math>,</p>
+<div class="math-display"><span id="ref-eq-grid-evolution-consistency" class="reference-anchor" aria-hidden="true"></span><table id="Ch6.E21" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch6.E21.m1" class="ltx_Math" alttext="\max_{0\leq n&lt;N_{T}}\left\|\frac{P_{h}S(t^{n+1})x-G_{h}P_{h}S(t^{n})x}{\Delta t%
+}\right\|_{X_{h}}\longrightarrow 0,\qquad N_{T}=\lfloor T/\Delta t\rfloor." display="block"><semantics><mrow><mrow><mrow><mrow><munder><mi>max</mi><mrow><mn>0</mn><mo>≤</mo><mi>n</mi><mo>&lt;</mo><msub><mi>N</mi><mi>T</mi></msub></mrow></munder><mo>⁡</mo><msub><mrow><mo>‖</mo><mfrac><mrow><mrow><msub><mi>P</mi><mi>h</mi></msub><mo>⁢</mo><mi>S</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><msup><mi>t</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msup><mo stretchy="false">)</mo></mrow><mo>⁢</mo><mi>x</mi></mrow><mo>−</mo><mrow><msub><mi>G</mi><mi>h</mi></msub><mo>⁢</mo><msub><mi>P</mi><mi>h</mi></msub><mo>⁢</mo><mi>S</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><msup><mi>t</mi><mi>n</mi></msup><mo stretchy="false">)</mo></mrow><mo>⁢</mo><mi>x</mi></mrow></mrow><mrow><mi mathvariant="normal">Δ</mi><mo>⁢</mo><mi>t</mi></mrow></mfrac><mo>‖</mo></mrow><msub><mi>X</mi><mi>h</mi></msub></msub></mrow><mo stretchy="false">⟶</mo><mn>0</mn></mrow><mo rspace="2.167em">,</mo><mrow><msub><mi>N</mi><mi>T</mi></msub><mo>=</mo><mrow><mo stretchy="false">⌊</mo><mrow><mrow><mi>T</mi><mo>/</mo><mi mathvariant="normal">Δ</mi></mrow><mo>⁢</mo><mi>t</mi></mrow><mo stretchy="false">⌋</mo></mrow></mrow></mrow><mo lspace="0em">.</mo></mrow><annotation encoding="application/x-tex">\max_{0\leq n&lt;N_{T}}\left\|\frac{P_{h}S(t^{n+1})x-G_{h}P_{h}S(t^{n})x}{\Delta t%
+}\right\|_{X_{h}}\longrightarrow 0,\qquad N_{T}=\lfloor T/\Delta t\rfloor.</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(6.21)</span></td>
+</tr></tbody>
+</table>
+</div><p class="ltx_p">It is <em class="ltx_emph ltx_font_italic">convergent for all data in <math id="Ch6.Thmtheorem14.p1.m4" class="ltx_Math" alttext="X" display="inline"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math></em> if, for every <math id="Ch6.Thmtheorem14.p1.m5" class="ltx_Math" alttext="x\in X" display="inline"><semantics><mrow><mi>x</mi><mo>∈</mo><mi>X</mi></mrow><annotation encoding="application/x-tex">x\in X</annotation></semantics></math> and
+every <math id="Ch6.Thmtheorem14.p1.m6" class="ltx_Math" alttext="T&gt;0" display="inline"><semantics><mrow><mi>T</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">T&gt;0</annotation></semantics></math>,</p>
+<div class="math-display"><span id="ref-eq-grid-evolution-convergence" class="reference-anchor" aria-hidden="true"></span><table id="Ch6.E22" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch6.E22.m1" class="ltx_Math" alttext="\max_{0\leq n\leq N_{T}}\left\|E_{h}G_{h}^{n}P_{h}x-S(t^{n})x\right\|_{X}%
+\longrightarrow 0." display="block"><semantics><mrow><mrow><mrow><munder><mi>max</mi><mrow><mn>0</mn><mo>≤</mo><mi>n</mi><mo>≤</mo><msub><mi>N</mi><mi>T</mi></msub></mrow></munder><mo>⁡</mo><msub><mrow><mo>‖</mo><mrow><mrow><msub><mi>E</mi><mi>h</mi></msub><mo>⁢</mo><msubsup><mi>G</mi><mi>h</mi><mi>n</mi></msubsup><mo>⁢</mo><msub><mi>P</mi><mi>h</mi></msub><mo>⁢</mo><mi>x</mi></mrow><mo>−</mo><mrow><mi>S</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><msup><mi>t</mi><mi>n</mi></msup><mo stretchy="false">)</mo></mrow><mo>⁢</mo><mi>x</mi></mrow></mrow><mo>‖</mo></mrow><mi>X</mi></msub></mrow><mo stretchy="false">⟶</mo><mn>0</mn></mrow><mo lspace="0em">.</mo></mrow><annotation encoding="application/x-tex">\max_{0\leq n\leq N_{T}}\left\|E_{h}G_{h}^{n}P_{h}x-S(t^{n})x\right\|_{X}%
+\longrightarrow 0.</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(6.22)</span></td>
+</tr></tbody>
+</table>
+</div><p class="ltx_p">The initial grid vector in this definition is <math id="Ch6.Thmtheorem14.p1.m7" class="ltx_Math" alttext="U^{0}=P_{h}x" display="inline"><semantics><mrow><msup><mi>U</mi><mn>0</mn></msup><mo>=</mo><mrow><msub><mi>P</mi><mi>h</mi></msub><mo>⁢</mo><mi>x</mi></mrow></mrow><annotation encoding="application/x-tex">U^{0}=P_{h}x</annotation></semantics></math>.</p>
+</div>
+</div>
+<span id="ref-thm-grid-lax-equivalence" class="reference-anchor" aria-hidden="true"></span><div id="Ch6.Thmtheorem15" class="ltx_theorem ltx_theorem_theorem statement statement-brown">
+<h6 class="ltx_title ltx_runin ltx_title_theorem">
+<span class="ltx_tag ltx_tag_theorem titlemark"><span class="ltx_text ltx_font_bold">Theorem 6.15</span></span><span class="ltx_text ltx_font_bold">.</span>
+</h6>
+<div id="Ch6.Thmtheorem15.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_italic">Under (<a href="#ref-eq-grid-identification-properties" title="In 6.7 Lax–Richtmyer equivalence on changing grid spaces ‣ Chapter 6 The Lax–Richtmyer theorem ‣ Numerical solutions of PDEs and applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">6.20</span></a>) and consistency
+(<a href="#ref-eq-grid-evolution-consistency" title="In Definition 6.14. ‣ 6.7 Lax–Richtmyer equivalence on changing grid spaces ‣ Chapter 6 The Lax–Richtmyer theorem ‣ Numerical solutions of PDEs and applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">6.21</span></a>) on a dense class <math id="Ch6.Thmtheorem15.p1.m1" class="ltx_Math" alttext="D\subset X" display="inline"><semantics><mrow><mi>D</mi><mo>⊂</mo><mi>X</mi></mrow><annotation encoding="application/x-tex">D\subset X</annotation></semantics></math>,
+finite-time stability (<a href="#ref-eq-evolution-stability-general" title="In Definition 6.11. ‣ 6.5 Stability of time-discrete evolutions ‣ Chapter 6 The Lax–Richtmyer theorem ‣ Numerical solutions of PDEs and applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">6.12</span></a>) is equivalent
+to convergence (<a href="#ref-eq-grid-evolution-convergence" title="In Definition 6.14. ‣ 6.7 Lax–Richtmyer equivalence on changing grid spaces ‣ Chapter 6 The Lax–Richtmyer theorem ‣ Numerical solutions of PDEs and applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">6.22</span></a>) for all data in <math id="Ch6.Thmtheorem15.p1.m2" class="ltx_Math" alttext="X" display="inline"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math>.
+Both assertions concern sufficiently small admissible <math id="Ch6.Thmtheorem15.p1.m3" class="ltx_Math" alttext="h" display="inline"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>.</span></p>
+</div>
+</div>
+<div class="ltx_proof proof">
+<h6 class="ltx_title ltx_runin ltx_font_italic ltx_title_proof">Proof.</h6>
+<div id="Ch6.S7.p3" class="ltx_para">
+<p class="ltx_p"><em class="ltx_emph ltx_font_italic">Stability implies convergence.</em>
+For <math id="Ch6.S7.p3.m1" class="ltx_Math" alttext="x\in D" display="inline"><semantics><mrow><mi>x</mi><mo>∈</mo><mi>D</mi></mrow><annotation encoding="application/x-tex">x\in D</annotation></semantics></math>, apply Theorem <a href="#ref-thm-evolution-error" title="Theorem 6.13. ‣ 6.6 An error estimate for discrete evolutions ‣ Chapter 6 The Lax–Richtmyer theorem ‣ Numerical solutions of PDEs and applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">6.13</span></a> with
+<math id="Ch6.S7.p3.m2" class="ltx_Math" alttext="W_{h}^{n}=P_{h}S(t^{n})x" display="inline"><semantics><mrow><msubsup><mi>W</mi><mi>h</mi><mi>n</mi></msubsup><mo>=</mo><mrow><msub><mi>P</mi><mi>h</mi></msub><mo>⁢</mo><mi>S</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><msup><mi>t</mi><mi>n</mi></msup><mo stretchy="false">)</mo></mrow><mo>⁢</mo><mi>x</mi></mrow></mrow><annotation encoding="application/x-tex">W_{h}^{n}=P_{h}S(t^{n})x</annotation></semantics></math> and <math id="Ch6.S7.p3.m3" class="ltx_Math" alttext="U^{0}=P_{h}x" display="inline"><semantics><mrow><msup><mi>U</mi><mn>0</mn></msup><mo>=</mo><mrow><msub><mi>P</mi><mi>h</mi></msub><mo>⁢</mo><mi>x</mi></mrow></mrow><annotation encoding="application/x-tex">U^{0}=P_{h}x</annotation></semantics></math>. The initial error is zero and
+consistency makes the defect tend uniformly to zero. Since <math id="Ch6.S7.p3.m4" class="ltx_Math" alttext="E_{h}" display="inline"><semantics><msub><mi>E</mi><mi>h</mi></msub><annotation encoding="application/x-tex">E_{h}</annotation></semantics></math> is
+isometric, it remains to control
+<math id="Ch6.S7.p3.m5" class="ltx_Math" alttext="\left\|E_{h}P_{h}S(t^{n})x-S(t^{n})x\right\|_{X}" display="inline"><semantics><msub><mrow><mo>‖</mo><mrow><mrow><msub><mi>E</mi><mi>h</mi></msub><mo>⁢</mo><msub><mi>P</mi><mi>h</mi></msub><mo>⁢</mo><mi>S</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><msup><mi>t</mi><mi>n</mi></msup><mo stretchy="false">)</mo></mrow><mo>⁢</mo><mi>x</mi></mrow><mo>−</mo><mrow><mi>S</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><msup><mi>t</mi><mi>n</mi></msup><mo stretchy="false">)</mo></mrow><mo>⁢</mo><mi>x</mi></mrow></mrow><mo>‖</mo></mrow><mi>X</mi></msub><annotation encoding="application/x-tex">\left\|E_{h}P_{h}S(t^{n})x-S(t^{n})x\right\|_{X}</annotation></semantics></math> uniformly in <math id="Ch6.S7.p3.m6" class="ltx_Math" alttext="n" display="inline"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>.
+The orbit <math id="Ch6.S7.p3.m7" class="ltx_Math" alttext="\{S(t)x:0\leq t\leq T\}" display="inline"><semantics><mrow><mo stretchy="false">{</mo><mrow><mi>S</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow><mo>⁢</mo><mi>x</mi></mrow><mo lspace="0.278em" rspace="0.278em">:</mo><mrow><mn>0</mn><mo>≤</mo><mi>t</mi><mo>≤</mo><mi>T</mi></mrow><mo stretchy="false">}</mo></mrow><annotation encoding="application/x-tex">\{S(t)x:0\leq t\leq T\}</annotation></semantics></math> is compact by strong continuity.
+The operators <math id="Ch6.S7.p3.m8" class="ltx_Math" alttext="E_{h}P_{h}" display="inline"><semantics><mrow><msub><mi>E</mi><mi>h</mi></msub><mo>⁢</mo><msub><mi>P</mi><mi>h</mi></msub></mrow><annotation encoding="application/x-tex">E_{h}P_{h}</annotation></semantics></math> have norms at most one and converge strongly to
+<math id="Ch6.S7.p3.m9" class="ltx_Math" alttext="I" display="inline"><semantics><mi>I</mi><annotation encoding="application/x-tex">I</annotation></semantics></math>, so convergence is uniform on this compact orbit: approximate the
+orbit by a finite <math id="Ch6.S7.p3.m10" class="ltx_Math" alttext="\varepsilon" display="inline"><semantics><mi>ε</mi><annotation encoding="application/x-tex">\varepsilon</annotation></semantics></math>-net and use the uniform operator bound.
+This proves (<a href="#ref-eq-grid-evolution-convergence" title="In Definition 6.14. ‣ 6.7 Lax–Richtmyer equivalence on changing grid spaces ‣ Chapter 6 The Lax–Richtmyer theorem ‣ Numerical solutions of PDEs and applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">6.22</span></a>) for <math id="Ch6.S7.p3.m11" class="ltx_Math" alttext="x\in D" display="inline"><semantics><mrow><mi>x</mi><mo>∈</mo><mi>D</mi></mrow><annotation encoding="application/x-tex">x\in D</annotation></semantics></math>.
+For arbitrary <math id="Ch6.S7.p3.m12" class="ltx_Math" alttext="x\in X" display="inline"><semantics><mrow><mi>x</mi><mo>∈</mo><mi>X</mi></mrow><annotation encoding="application/x-tex">x\in X</annotation></semantics></math>, choose <math id="Ch6.S7.p3.m13" class="ltx_Math" alttext="d\in D" display="inline"><semantics><mrow><mi>d</mi><mo>∈</mo><mi>D</mi></mrow><annotation encoding="application/x-tex">d\in D</annotation></semantics></math> close to <math id="Ch6.S7.p3.m14" class="ltx_Math" alttext="x" display="inline"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math>. Uniform stability
+and the continuous bound give</p>
+<div class="math-display"><table id="Ch8.S7.EGx70" class="ltx_equationgroup ltx_eqn_align ltx_eqn_table">
+
+<tbody id="Ch6.E23"><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_td ltx_align_right ltx_eqn_cell"><math id="Ch6.E23.m1" class="ltx_Math" alttext="\displaystyle\max_{n}\left\|E_{h}G_{h}^{n}P_{h}x-S(t^{n})x\right\|_{X}" display="inline"><semantics><mrow><munder><mi>max</mi><mi>n</mi></munder><mo>⁡</mo><msub><mrow><mo>‖</mo><mrow><mrow><msub><mi>E</mi><mi>h</mi></msub><mo>⁢</mo><msubsup><mi>G</mi><mi>h</mi><mi>n</mi></msubsup><mo>⁢</mo><msub><mi>P</mi><mi>h</mi></msub><mo>⁢</mo><mi>x</mi></mrow><mo>−</mo><mrow><mi>S</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><msup><mi>t</mi><mi>n</mi></msup><mo stretchy="false">)</mo></mrow><mo>⁢</mo><mi>x</mi></mrow></mrow><mo>‖</mo></mrow><mi>X</mi></msub></mrow><annotation encoding="application/x-tex">\displaystyle\max_{n}\left\|E_{h}G_{h}^{n}P_{h}x-S(t^{n})x\right\|_{X}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left ltx_eqn_cell"><math id="Ch6.E23.m2" class="ltx_Math" alttext="\displaystyle\leq(C_{T}+M_{T})\left\|x-d\right\|_{X}" display="inline"><semantics><mrow><mi></mi><mo>≤</mo><mrow><mrow><mo stretchy="false">(</mo><mrow><msub><mi>C</mi><mi>T</mi></msub><mo>+</mo><msub><mi>M</mi><mi>T</mi></msub></mrow><mo stretchy="false">)</mo></mrow><mo>⁢</mo><msub><mrow><mo>‖</mo><mrow><mi>x</mi><mo>−</mo><mi>d</mi></mrow><mo>‖</mo></mrow><mi>X</mi></msub></mrow></mrow><annotation encoding="application/x-tex">\displaystyle\leq(C_{T}+M_{T})\left\|x-d\right\|_{X}</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(6.23)</span></td>
+</tr></tbody>
+<tbody id="Ch6.E24"><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_td ltx_eqn_cell"></td>
+<td class="ltx_td ltx_align_left ltx_eqn_cell"><math id="Ch6.E24.m1" class="ltx_Math" alttext="\displaystyle\quad+\max_{n}\left\|E_{h}G_{h}^{n}P_{h}d-S(t^{n})d\right\|_{X}." display="inline"><semantics><mrow><mrow><mo rspace="0.167em">+</mo><mrow><munder><mi>max</mi><mi>n</mi></munder><mo>⁡</mo><msub><mrow><mo>‖</mo><mrow><mrow><msub><mi>E</mi><mi>h</mi></msub><mo>⁢</mo><msubsup><mi>G</mi><mi>h</mi><mi>n</mi></msubsup><mo>⁢</mo><msub><mi>P</mi><mi>h</mi></msub><mo>⁢</mo><mi>d</mi></mrow><mo>−</mo><mrow><mi>S</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><msup><mi>t</mi><mi>n</mi></msup><mo stretchy="false">)</mo></mrow><mo>⁢</mo><mi>d</mi></mrow></mrow><mo>‖</mo></mrow><mi>X</mi></msub></mrow></mrow><mo lspace="0em">.</mo></mrow><annotation encoding="application/x-tex">\displaystyle\quad+\max_{n}\left\|E_{h}G_{h}^{n}P_{h}d-S(t^{n})d\right\|_{X}.</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(6.24)</span></td>
+</tr></tbody>
+</table>
+</div><p class="ltx_p">First let <math id="Ch6.S7.p3.m15" class="ltx_Math" alttext="h\to 0" display="inline"><semantics><mrow><mi>h</mi><mo stretchy="false">→</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">h\to 0</annotation></semantics></math>, then let <math id="Ch6.S7.p3.m16" class="ltx_Math" alttext="d\to x" display="inline"><semantics><mrow><mi>d</mi><mo stretchy="false">→</mo><mi>x</mi></mrow><annotation encoding="application/x-tex">d\to x</annotation></semantics></math>.</p>
+</div>
+<div id="Ch6.S7.p4" class="ltx_para">
+<p class="ltx_p"><em class="ltx_emph ltx_font_italic">Convergence implies stability.</em>
+Fix <math id="Ch6.S7.p4.m1" class="ltx_Math" alttext="T&gt;0" display="inline"><semantics><mrow><mi>T</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">T&gt;0</annotation></semantics></math>. If stability failed for every sufficiently small range of
+parameters, we could select <math id="Ch6.S7.p4.m2" class="ltx_Math" alttext="h_{m}\to 0" display="inline"><semantics><mrow><msub><mi>h</mi><mi>m</mi></msub><mo stretchy="false">→</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">h_{m}\to 0</annotation></semantics></math> and <math id="Ch6.S7.p4.m3" class="ltx_Math" alttext="0\leq n_{m}\Delta t(h_{m})\leq T" display="inline"><semantics><mrow><mn>0</mn><mo>≤</mo><mrow><msub><mi>n</mi><mi>m</mi></msub><mo>⁢</mo><mi mathvariant="normal">Δ</mi><mo>⁢</mo><mi>t</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><msub><mi>h</mi><mi>m</mi></msub><mo stretchy="false">)</mo></mrow></mrow><mo>≤</mo><mi>T</mi></mrow><annotation encoding="application/x-tex">0\leq n_{m}\Delta t(h_{m})\leq T</annotation></semantics></math>
+such that <math id="Ch6.S7.p4.m4" class="ltx_Math" alttext="\left\|G_{h_{m}}^{n_{m}}\right\|_{X_{h_{m}}\to X_{h_{m}}}&gt;m" display="inline"><semantics><mrow><msub><mrow><mo>‖</mo><msubsup><mi>G</mi><msub><mi>h</mi><mi>m</mi></msub><msub><mi>n</mi><mi>m</mi></msub></msubsup><mo>‖</mo></mrow><mrow><msub><mi>X</mi><msub><mi>h</mi><mi>m</mi></msub></msub><mo stretchy="false">→</mo><msub><mi>X</mi><msub><mi>h</mi><mi>m</mi></msub></msub></mrow></msub><mo>&gt;</mo><mi>m</mi></mrow><annotation encoding="application/x-tex">\left\|G_{h_{m}}^{n_{m}}\right\|_{X_{h_{m}}\to X_{h_{m}}}&gt;m</annotation></semantics></math>.
+Set <math id="Ch6.S7.p4.m5" class="ltx_Math" alttext="A_{m}=E_{h_{m}}G_{h_{m}}^{n_{m}}P_{h_{m}}\in\mathcal{L}(X,X)" display="inline"><semantics><mrow><msub><mi>A</mi><mi>m</mi></msub><mo>=</mo><mrow><msub><mi>E</mi><msub><mi>h</mi><mi>m</mi></msub></msub><mo>⁢</mo><msubsup><mi>G</mi><msub><mi>h</mi><mi>m</mi></msub><msub><mi>n</mi><mi>m</mi></msub></msubsup><mo>⁢</mo><msub><mi>P</mi><msub><mi>h</mi><mi>m</mi></msub></msub></mrow><mo>∈</mo><mrow><mi class="ltx_font_mathcaligraphic">ℒ</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>X</mi><mo>,</mo><mi>X</mi><mo stretchy="false">)</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">A_{m}=E_{h_{m}}G_{h_{m}}^{n_{m}}P_{h_{m}}\in\mathcal{L}(X,X)</annotation></semantics></math>.
+For each <math id="Ch6.S7.p4.m6" class="ltx_Math" alttext="x\in X" display="inline"><semantics><mrow><mi>x</mi><mo>∈</mo><mi>X</mi></mrow><annotation encoding="application/x-tex">x\in X</annotation></semantics></math>, convergence and the bound <math id="Ch6.S7.p4.m7" class="ltx_Math" alttext="M_{T}" display="inline"><semantics><msub><mi>M</mi><mi>T</mi></msub><annotation encoding="application/x-tex">M_{T}</annotation></semantics></math> imply that
+<math id="Ch6.S7.p4.m8" class="ltx_Math" alttext="(A_{m}x)" display="inline"><semantics><mrow><mo stretchy="false">(</mo><mrow><msub><mi>A</mi><mi>m</mi></msub><mo>⁢</mo><mi>x</mi></mrow><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(A_{m}x)</annotation></semantics></math> is bounded. Banach–Steinhaus therefore yields
+<math id="Ch6.S7.p4.m9" class="ltx_Math" alttext="\sup_{m}\left\|A_{m}\right\|_{X\to X}&lt;+\infty" display="inline"><semantics><mrow><mrow><msub><mo>sup</mo><mi>m</mi></msub><msub><mrow><mo lspace="0em">‖</mo><msub><mi>A</mi><mi>m</mi></msub><mo>‖</mo></mrow><mrow><mi>X</mi><mo stretchy="false">→</mo><mi>X</mi></mrow></msub></mrow><mo>&lt;</mo><mrow><mo>+</mo><mi mathvariant="normal">∞</mi></mrow></mrow><annotation encoding="application/x-tex">\sup_{m}\left\|A_{m}\right\|_{X\to X}&lt;+\infty</annotation></semantics></math>.
+But (<a href="#ref-eq-grid-identification-properties" title="In 6.7 Lax–Richtmyer equivalence on changing grid spaces ‣ Chapter 6 The Lax–Richtmyer theorem ‣ Numerical solutions of PDEs and applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">6.20</span></a>) implies</p>
+<div class="math-display"><table id="Ch6.E25" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch6.E25.m1" class="ltx_Math" alttext="\left\|A_{m}\right\|_{X\to X}=\left\|G_{h_{m}}^{n_{m}}\right\|_{X_{h_{m}}\to X%
+_{h_{m}}}:" display="block"><semantics><mrow><mrow><msub><mrow><mo>‖</mo><msub><mi>A</mi><mi>m</mi></msub><mo>‖</mo></mrow><mrow><mi>X</mi><mo stretchy="false">→</mo><mi>X</mi></mrow></msub><mo>=</mo><msub><mrow><mo>‖</mo><msubsup><mi>G</mi><msub><mi>h</mi><mi>m</mi></msub><msub><mi>n</mi><mi>m</mi></msub></msubsup><mo rspace="0.278em">‖</mo></mrow><mrow><msub><mi>X</mi><msub><mi>h</mi><mi>m</mi></msub></msub><mo stretchy="false">→</mo><msub><mi>X</mi><msub><mi>h</mi><mi>m</mi></msub></msub></mrow></msub></mrow><mo rspace="0.278em">:</mo><mi></mi></mrow><annotation encoding="application/x-tex">\left\|A_{m}\right\|_{X\to X}=\left\|G_{h_{m}}^{n_{m}}\right\|_{X_{h_{m}}\to X%
+_{h_{m}}}:</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(6.25)</span></td>
+</tr></tbody>
+</table>
+</div><p class="ltx_p">one inequality follows from the bounds for <math id="Ch6.S7.p4.m10" class="ltx_Math" alttext="P_{h},E_{h}" display="inline"><semantics><mrow><msub><mi>P</mi><mi>h</mi></msub><mo>,</mo><msub><mi>E</mi><mi>h</mi></msub></mrow><annotation encoding="application/x-tex">P_{h},E_{h}</annotation></semantics></math>, and the other by
+testing <math id="Ch6.S7.p4.m11" class="ltx_Math" alttext="A_{m}" display="inline"><semantics><msub><mi>A</mi><mi>m</mi></msub><annotation encoding="application/x-tex">A_{m}</annotation></semantics></math> on <math id="Ch6.S7.p4.m12" class="ltx_Math" alttext="E_{h_{m}}V" display="inline"><semantics><mrow><msub><mi>E</mi><msub><mi>h</mi><mi>m</mi></msub></msub><mo>⁢</mo><mi>V</mi></mrow><annotation encoding="application/x-tex">E_{h_{m}}V</annotation></semantics></math>, since <math id="Ch6.S7.p4.m13" class="ltx_Math" alttext="P_{h_{m}}E_{h_{m}}V=V" display="inline"><semantics><mrow><mrow><msub><mi>P</mi><msub><mi>h</mi><mi>m</mi></msub></msub><mo>⁢</mo><msub><mi>E</mi><msub><mi>h</mi><mi>m</mi></msub></msub><mo>⁢</mo><mi>V</mi></mrow><mo>=</mo><mi>V</mi></mrow><annotation encoding="application/x-tex">P_{h_{m}}E_{h_{m}}V=V</annotation></semantics></math>.
+This contradicts the choice of <math id="Ch6.S7.p4.m14" class="ltx_Math" alttext="n_{m},h_{m}" display="inline"><semantics><mrow><msub><mi>n</mi><mi>m</mi></msub><mo>,</mo><msub><mi>h</mi><mi>m</mi></msub></mrow><annotation encoding="application/x-tex">n_{m},h_{m}</annotation></semantics></math>.
+∎</p>
+</div>
+</div>
+<div id="Ch6.Thmtheorem16" class="ltx_theorem ltx_theorem_remark statement">
+<h6 class="ltx_title ltx_runin ltx_title_theorem">
+<span class="ltx_tag ltx_tag_theorem titlemark"><span class="ltx_text ltx_font_italic">Remark 6.16</span></span><span class="ltx_text ltx_font_italic">.</span>
+</h6>
+<div id="Ch6.Thmtheorem16.p1" class="ltx_para">
+<p class="ltx_p">This is an evolution form of the Lax–Richtmyer theorem; see
+<cite class="ltx_cite ltx_citemacro_cite">[<a href="bibliography.html#bib.bib1" title="" class="ltx_ref">1</a>]</cite>. Consistency need only be checked on a dense
+smooth class, whereas the convergence assertion quantifies over all data
+in the ambient Banach space. Failure of stability rules out this general
+convergence assertion. It does not rule out convergence for particular
+initial data, such as a finite combination of fixed Fourier modes.</p>
+</div>
+</div>
+</section>
+<section id="Ch6.S8" class="ltx_section">
+<h2 class="ltx_title ltx_title_section sectionHead">
+<span class="ltx_tag ltx_tag_section titlemark">6.8 </span>Exercises</h2>
+
+<span id="ref-ex-lax-1" class="reference-anchor" aria-hidden="true"></span><div id="Ch6.Thmexercise1" class="ltx_theorem ltx_theorem_exercise statement">
+<h6 class="ltx_title ltx_runin ltx_title_theorem">
+<span class="ltx_tag ltx_tag_theorem titlemark"><span class="ltx_text ltx_font_bold">Exercise 6.1</span></span><span class="ltx_text ltx_font_bold"> </span>(Stability without consistency)<span class="ltx_text ltx_font_bold">.</span>
+</h6>
+<div id="Ch6.Thmexercise1.p1" class="ltx_para">
+<p class="ltx_p">Let <math id="Ch6.Thmexercise1.p1.m1" class="ltx_Math" alttext="X" display="inline"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math> be a Banach space and set</p>
+<div class="math-display"><table id="Ch6.Ex3" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch6.Ex3.m1" class="ltx_Math" alttext="L=I,\qquad L_{h}=2I\qquad\text{for all }h\in H." display="block"><semantics><mrow><mrow><mrow><mi>L</mi><mo>=</mo><mi>I</mi></mrow><mo rspace="2.167em">,</mo><mrow><mrow><msub><mi>L</mi><mi>h</mi></msub><mo>=</mo><mrow><mn>2</mn><mo>⁢</mo><mi>I</mi></mrow></mrow><mspace width="2em"></mspace><mrow><mrow><mtext>for all </mtext><mo>⁢</mo><mi>h</mi></mrow><mo>∈</mo><mi>H</mi></mrow></mrow></mrow><mo lspace="0em">.</mo></mrow><annotation encoding="application/x-tex">L=I,\qquad L_{h}=2I\qquad\text{for all }h\in H.</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+</tr></tbody>
+</table>
+</div><p class="ltx_p">Show that:</p>
+<ol id="Ch6.S8.I1" class="ltx_enumerate">
+<li id="Ch6.S8.I1.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">1.</span> 
+<div id="Ch6.S8.I1.i1.p1" class="ltx_para">
+<p class="ltx_p">each <math id="Ch6.S8.I1.i1.p1.m1" class="ltx_Math" alttext="L_{h}" display="inline"><semantics><msub><mi>L</mi><mi>h</mi></msub><annotation encoding="application/x-tex">L_{h}</annotation></semantics></math> is bijective;</p>
+</div>
+</li>
+<li id="Ch6.S8.I1.i2" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">2.</span> 
+<div id="Ch6.S8.I1.i2.p1" class="ltx_para">
+<p class="ltx_p">the discretization <math id="Ch6.S8.I1.i2.p1.m1" class="ltx_Math" alttext="(L_{h})_{h\in H}" display="inline"><semantics><msub><mrow><mo stretchy="false">(</mo><msub><mi>L</mi><mi>h</mi></msub><mo stretchy="false">)</mo></mrow><mrow><mi>h</mi><mo>∈</mo><mi>H</mi></mrow></msub><annotation encoding="application/x-tex">(L_{h})_{h\in H}</annotation></semantics></math> is stable;</p>
+</div>
+</li>
+<li id="Ch6.S8.I1.i3" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">3.</span> 
+<div id="Ch6.S8.I1.i3.p1" class="ltx_para">
+<p class="ltx_p">it is not consistent;</p>
+</div>
+</li>
+<li id="Ch6.S8.I1.i4" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">4.</span> 
+<div id="Ch6.S8.I1.i4.p1" class="ltx_para">
+<p class="ltx_p">if <math id="Ch6.S8.I1.i4.p1.m1" class="ltx_Math" alttext="x:=L^{-1}y" display="inline"><semantics><mrow><mi>x</mi><mo lspace="0.278em" rspace="0.278em">:=</mo><mrow><msup><mi>L</mi><mrow><mo>−</mo><mn>1</mn></mrow></msup><mo>⁢</mo><mi>y</mi></mrow></mrow><annotation encoding="application/x-tex">x:=L^{-1}y</annotation></semantics></math> and <math id="Ch6.S8.I1.i4.p1.m2" class="ltx_Math" alttext="x_{h}:=L_{h}^{-1}y" display="inline"><semantics><mrow><msub><mi>x</mi><mi>h</mi></msub><mo lspace="0.278em" rspace="0.278em">:=</mo><mrow><msubsup><mi>L</mi><mi>h</mi><mrow><mo>−</mo><mn>1</mn></mrow></msubsup><mo>⁢</mo><mi>y</mi></mrow></mrow><annotation encoding="application/x-tex">x_{h}:=L_{h}^{-1}y</annotation></semantics></math>, then in general <math id="Ch6.S8.I1.i4.p1.m3" class="ltx_Math" alttext="x_{h}\not\to x" display="inline"><semantics><mrow><msub><mi>x</mi><mi>h</mi></msub><mo stretchy="false">↛</mo><mi>x</mi></mrow><annotation encoding="application/x-tex">x_{h}\not\to x</annotation></semantics></math> as <math id="Ch6.S8.I1.i4.p1.m4" class="ltx_Math" alttext="h\to 0" display="inline"><semantics><mrow><mi>h</mi><mo stretchy="false">→</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">h\to 0</annotation></semantics></math>.</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<span id="ref-ex-lax-2" class="reference-anchor" aria-hidden="true"></span><div id="Ch6.Thmexercise2" class="ltx_theorem ltx_theorem_exercise statement">
+<h6 class="ltx_title ltx_runin ltx_title_theorem">
+<span class="ltx_tag ltx_tag_theorem titlemark"><span class="ltx_text ltx_font_bold">Exercise 6.2</span></span><span class="ltx_text ltx_font_bold"> </span>(Convergence does not imply consistency)<span class="ltx_text ltx_font_bold">.</span>
+</h6>
+<div id="Ch6.Thmexercise2.p1" class="ltx_para">
+<p class="ltx_p">Let <math id="Ch6.Thmexercise2.p1.m1" class="ltx_Math" alttext="X=Y=\ell^{2}" display="inline"><semantics><mrow><mi>X</mi><mo>=</mo><mi>Y</mi><mo>=</mo><msup><mi mathvariant="normal">ℓ</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">X=Y=\ell^{2}</annotation></semantics></math>, let <math id="Ch6.Thmexercise2.p1.m2" class="ltx_Math" alttext="(e_{n})_{n\geq 1}" display="inline"><semantics><msub><mrow><mo stretchy="false">(</mo><msub><mi>e</mi><mi>n</mi></msub><mo stretchy="false">)</mo></mrow><mrow><mi>n</mi><mo>≥</mo><mn>1</mn></mrow></msub><annotation encoding="application/x-tex">(e_{n})_{n\geq 1}</annotation></semantics></math> denote the canonical basis of <math id="Ch6.Thmexercise2.p1.m3" class="ltx_Math" alttext="\ell^{2}" display="inline"><semantics><msup><mi mathvariant="normal">ℓ</mi><mn>2</mn></msup><annotation encoding="application/x-tex">\ell^{2}</annotation></semantics></math>, and define</p>
+<div class="math-display"><table id="Ch6.Ex4" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch6.Ex4.m1" class="ltx_Math" alttext="L=I,\qquad P_{n}x=x_{n}e_{n},\qquad L_{n}=I+nP_{n}." display="block"><semantics><mrow><mrow><mrow><mi>L</mi><mo>=</mo><mi>I</mi></mrow><mo rspace="2.167em">,</mo><mrow><mrow><mrow><msub><mi>P</mi><mi>n</mi></msub><mo>⁢</mo><mi>x</mi></mrow><mo>=</mo><mrow><msub><mi>x</mi><mi>n</mi></msub><mo>⁢</mo><msub><mi>e</mi><mi>n</mi></msub></mrow></mrow><mo rspace="2.167em">,</mo><mrow><msub><mi>L</mi><mi>n</mi></msub><mo>=</mo><mrow><mi>I</mi><mo>+</mo><mrow><mi>n</mi><mo>⁢</mo><msub><mi>P</mi><mi>n</mi></msub></mrow></mrow></mrow></mrow></mrow><mo lspace="0em">.</mo></mrow><annotation encoding="application/x-tex">L=I,\qquad P_{n}x=x_{n}e_{n},\qquad L_{n}=I+nP_{n}.</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+</tr></tbody>
+</table>
+</div><p class="ltx_p">Show that:</p>
+<ol id="Ch6.S8.I2" class="ltx_enumerate">
+<li id="Ch6.S8.I2.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">1.</span> 
+<div id="Ch6.S8.I2.i1.p1" class="ltx_para">
+<p class="ltx_p">each <math id="Ch6.S8.I2.i1.p1.m1" class="ltx_Math" alttext="L_{n}" display="inline"><semantics><msub><mi>L</mi><mi>n</mi></msub><annotation encoding="application/x-tex">L_{n}</annotation></semantics></math> is bijective and</p>
+<div class="math-display"><table id="Ch6.Ex5" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch6.Ex5.m1" class="ltx_Math" alttext="L_{n}^{-1}=I-\frac{n}{n+1}P_{n};" display="block"><semantics><mrow><mrow><msubsup><mi>L</mi><mi>n</mi><mrow><mo>−</mo><mn>1</mn></mrow></msubsup><mo>=</mo><mrow><mi>I</mi><mo>−</mo><mrow><mfrac><mi>n</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></mfrac><mo>⁢</mo><msub><mi>P</mi><mi>n</mi></msub></mrow></mrow></mrow><mo>;</mo></mrow><annotation encoding="application/x-tex">L_{n}^{-1}=I-\frac{n}{n+1}P_{n};</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+</tr></tbody>
+</table>
+</div></div>
+</li>
+<li id="Ch6.S8.I2.i2" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">2.</span> 
+<div id="Ch6.S8.I2.i2.p1" class="ltx_para">
+<div class="math-display"><table id="Ch6.Ex6" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch6.Ex6.m1" class="ltx_Math" alttext="\|L_{n}^{-1}\|_{\ell^{2}\to\ell^{2}}=1;" display="block"><semantics><mrow><mrow><msub><mrow><mo stretchy="false">‖</mo><msubsup><mi>L</mi><mi>n</mi><mrow><mo>−</mo><mn>1</mn></mrow></msubsup><mo stretchy="false">‖</mo></mrow><mrow><msup><mi mathvariant="normal">ℓ</mi><mn>2</mn></msup><mo stretchy="false">→</mo><msup><mi mathvariant="normal">ℓ</mi><mn>2</mn></msup></mrow></msub><mo>=</mo><mn>1</mn></mrow><mo>;</mo></mrow><annotation encoding="application/x-tex">\|L_{n}^{-1}\|_{\ell^{2}\to\ell^{2}}=1;</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+</tr></tbody>
+</table>
+</div></div>
+</li>
+<li id="Ch6.S8.I2.i3" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">3.</span> 
+<div id="Ch6.S8.I2.i3.p1" class="ltx_para">
+<p class="ltx_p">for every <math id="Ch6.S8.I2.i3.p1.m1" class="ltx_Math" alttext="y\in\ell^{2}" display="inline"><semantics><mrow><mi>y</mi><mo>∈</mo><msup><mi mathvariant="normal">ℓ</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">y\in\ell^{2}</annotation></semantics></math>, we have <math id="Ch6.S8.I2.i3.p1.m2" class="ltx_Math" alttext="L_{n}^{-1}y\to y" display="inline"><semantics><mrow><mrow><msubsup><mi>L</mi><mi>n</mi><mrow><mo>−</mo><mn>1</mn></mrow></msubsup><mo>⁢</mo><mi>y</mi></mrow><mo stretchy="false">→</mo><mi>y</mi></mrow><annotation encoding="application/x-tex">L_{n}^{-1}y\to y</annotation></semantics></math> in <math id="Ch6.S8.I2.i3.p1.m3" class="ltx_Math" alttext="\ell^{2}" display="inline"><semantics><msup><mi mathvariant="normal">ℓ</mi><mn>2</mn></msup><annotation encoding="application/x-tex">\ell^{2}</annotation></semantics></math> as <math id="Ch6.S8.I2.i3.p1.m4" class="ltx_Math" alttext="n\to\infty" display="inline"><semantics><mrow><mi>n</mi><mo stretchy="false">→</mo><mi mathvariant="normal">∞</mi></mrow><annotation encoding="application/x-tex">n\to\infty</annotation></semantics></math>;</p>
+</div>
+</li>
+<li id="Ch6.S8.I2.i4" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">4.</span> 
+<div id="Ch6.S8.I2.i4.p1" class="ltx_para">
+<p class="ltx_p">if</p>
+<div class="math-display"><table id="Ch6.Ex7" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch6.Ex7.m1" class="ltx_Math" alttext="x=\left(\frac{1}{n}\right)_{n\geq 1}\in\ell^{2}," display="block"><semantics><mrow><mrow><mi>x</mi><mo>=</mo><msub><mrow><mo>(</mo><mfrac><mn>1</mn><mi>n</mi></mfrac><mo>)</mo></mrow><mrow><mi>n</mi><mo>≥</mo><mn>1</mn></mrow></msub><mo>∈</mo><msup><mi mathvariant="normal">ℓ</mi><mn>2</mn></msup></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">x=\left(\frac{1}{n}\right)_{n\geq 1}\in\ell^{2},</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+</tr></tbody>
+</table>
+</div><p class="ltx_p">then</p>
+<div class="math-display"><table id="Ch6.Ex8" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch6.Ex8.m1" class="ltx_Math" alttext="\|L_{n}x-x\|_{\ell^{2}}=1\qquad\text{for all }n\geq 1;" display="block"><semantics><mrow><mrow><mrow><msub><mrow><mo stretchy="false">‖</mo><mrow><mrow><msub><mi>L</mi><mi>n</mi></msub><mo>⁢</mo><mi>x</mi></mrow><mo>−</mo><mi>x</mi></mrow><mo stretchy="false">‖</mo></mrow><msup><mi mathvariant="normal">ℓ</mi><mn>2</mn></msup></msub><mo>=</mo><mn>1</mn></mrow><mspace width="2em"></mspace><mrow><mrow><mtext>for all </mtext><mo>⁢</mo><mi>n</mi></mrow><mo>≥</mo><mn>1</mn></mrow></mrow><mo>;</mo></mrow><annotation encoding="application/x-tex">\|L_{n}x-x\|_{\ell^{2}}=1\qquad\text{for all }n\geq 1;</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+</tr></tbody>
+</table>
+</div></div>
+</li>
+<li id="Ch6.S8.I2.i5" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">5.</span> 
+<div id="Ch6.S8.I2.i5.p1" class="ltx_para">
+<p class="ltx_p">convergence in the sense of the discrete solutions does not imply consistency.</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<span id="ref-ex-lax-3" class="reference-anchor" aria-hidden="true"></span><div id="Ch6.Thmexercise3" class="ltx_theorem ltx_theorem_exercise statement">
+<h6 class="ltx_title ltx_runin ltx_title_theorem">
+<span class="ltx_tag ltx_tag_theorem titlemark"><span class="ltx_text ltx_font_bold">Exercise 6.3</span></span><span class="ltx_text ltx_font_bold"> </span>(A stronger version in operator norm)<span class="ltx_text ltx_font_bold">.</span>
+</h6>
+<div id="Ch6.Thmexercise3.p1" class="ltx_para">
+<p class="ltx_p">Let <math id="Ch6.Thmexercise3.p1.m1" class="ltx_Math" alttext="X" display="inline"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math> and <math id="Ch6.Thmexercise3.p1.m2" class="ltx_Math" alttext="Y" display="inline"><semantics><mi>Y</mi><annotation encoding="application/x-tex">Y</annotation></semantics></math> be Banach spaces, let <math id="Ch6.Thmexercise3.p1.m3" class="ltx_Math" alttext="L\in\mathcal{L}(X,Y)" display="inline"><semantics><mrow><mi>L</mi><mo>∈</mo><mrow><mi class="ltx_font_mathcaligraphic">ℒ</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>X</mi><mo>,</mo><mi>Y</mi><mo stretchy="false">)</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">L\in\mathcal{L}(X,Y)</annotation></semantics></math> be bijective, and let
+<math id="Ch6.Thmexercise3.p1.m4" class="ltx_Math" alttext="(L_{h})_{h\in H}\subset\mathcal{L}(X,Y)" display="inline"><semantics><mrow><msub><mrow><mo stretchy="false">(</mo><msub><mi>L</mi><mi>h</mi></msub><mo stretchy="false">)</mo></mrow><mrow><mi>h</mi><mo>∈</mo><mi>H</mi></mrow></msub><mo>⊂</mo><mrow><mi class="ltx_font_mathcaligraphic">ℒ</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>X</mi><mo>,</mo><mi>Y</mi><mo stretchy="false">)</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">(L_{h})_{h\in H}\subset\mathcal{L}(X,Y)</annotation></semantics></math> be a family of bijective operators. Assume that</p>
+<div class="math-display"><table id="Ch6.Ex9" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch6.Ex9.m1" class="ltx_Math" alttext="\|L_{h}-L\|_{X\to Y}\to 0\qquad\text{and}\qquad\sup_{h\in H}\|L_{h}^{-1}\|_{Y%
+\to X}&lt;+\infty." display="block"><semantics><mrow><mrow><mrow><msub><mrow><mo stretchy="false">‖</mo><mrow><msub><mi>L</mi><mi>h</mi></msub><mo>−</mo><mi>L</mi></mrow><mo stretchy="false">‖</mo></mrow><mrow><mi>X</mi><mo stretchy="false">→</mo><mi>Y</mi></mrow></msub><mo stretchy="false">→</mo><mrow><mn>0</mn><mspace width="2em"></mspace><mtext>and</mtext></mrow></mrow><mspace width="2.167em"></mspace><mrow><mrow><munder><mo movablelimits="false" rspace="0em">sup</mo><mrow><mi>h</mi><mo>∈</mo><mi>H</mi></mrow></munder><msub><mrow><mo stretchy="false">‖</mo><msubsup><mi>L</mi><mi>h</mi><mrow><mo>−</mo><mn>1</mn></mrow></msubsup><mo stretchy="false">‖</mo></mrow><mrow><mi>Y</mi><mo stretchy="false">→</mo><mi>X</mi></mrow></msub></mrow><mo>&lt;</mo><mrow><mo>+</mo><mi mathvariant="normal">∞</mi></mrow></mrow></mrow><mo lspace="0em">.</mo></mrow><annotation encoding="application/x-tex">\|L_{h}-L\|_{X\to Y}\to 0\qquad\text{and}\qquad\sup_{h\in H}\|L_{h}^{-1}\|_{Y%
+\to X}&lt;+\infty.</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+</tr></tbody>
+</table>
+</div><p class="ltx_p">Show that:</p>
+<ol id="Ch6.S8.I3" class="ltx_enumerate">
+<li id="Ch6.S8.I3.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">1.</span> 
+<div id="Ch6.S8.I3.i1.p1" class="ltx_para">
+<p class="ltx_p">we have the identity</p>
+<div class="math-display"><table id="Ch6.Ex10" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch6.Ex10.m1" class="ltx_Math" alttext="L_{h}^{-1}-L^{-1}=L_{h}^{-1}(L-L_{h})L^{-1};" display="block"><semantics><mrow><mrow><mrow><msubsup><mi>L</mi><mi>h</mi><mrow><mo>−</mo><mn>1</mn></mrow></msubsup><mo>−</mo><msup><mi>L</mi><mrow><mo>−</mo><mn>1</mn></mrow></msup></mrow><mo>=</mo><mrow><msubsup><mi>L</mi><mi>h</mi><mrow><mo>−</mo><mn>1</mn></mrow></msubsup><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mrow><mi>L</mi><mo>−</mo><msub><mi>L</mi><mi>h</mi></msub></mrow><mo stretchy="false">)</mo></mrow><mo>⁢</mo><msup><mi>L</mi><mrow><mo>−</mo><mn>1</mn></mrow></msup></mrow></mrow><mo>;</mo></mrow><annotation encoding="application/x-tex">L_{h}^{-1}-L^{-1}=L_{h}^{-1}(L-L_{h})L^{-1};</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+</tr></tbody>
+</table>
+</div></div>
+</li>
+<li id="Ch6.S8.I3.i2" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">2.</span> 
+<div id="Ch6.S8.I3.i2.p1" class="ltx_para">
+<p class="ltx_p">consequently,</p>
+<div class="math-display"><table id="Ch6.Ex11" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch6.Ex11.m1" class="ltx_Math" alttext="\|L_{h}^{-1}-L^{-1}\|_{Y\to X}\leq\|L_{h}^{-1}\|_{Y\to X}\,\|L-L_{h}\|_{X\to Y%
+}\,\|L^{-1}\|_{Y\to X};" display="block"><semantics><mrow><mrow><msub><mrow><mo stretchy="false">‖</mo><mrow><msubsup><mi>L</mi><mi>h</mi><mrow><mo>−</mo><mn>1</mn></mrow></msubsup><mo>−</mo><msup><mi>L</mi><mrow><mo>−</mo><mn>1</mn></mrow></msup></mrow><mo stretchy="false">‖</mo></mrow><mrow><mi>Y</mi><mo stretchy="false">→</mo><mi>X</mi></mrow></msub><mo>≤</mo><mrow><msub><mrow><mo stretchy="false">‖</mo><msubsup><mi>L</mi><mi>h</mi><mrow><mo>−</mo><mn>1</mn></mrow></msubsup><mo stretchy="false">‖</mo></mrow><mrow><mi>Y</mi><mo stretchy="false">→</mo><mi>X</mi></mrow></msub><mo>⁢</mo><msub><mrow><mo stretchy="false">‖</mo><mrow><mi>L</mi><mo>−</mo><msub><mi>L</mi><mi>h</mi></msub></mrow><mo stretchy="false">‖</mo></mrow><mrow><mi>X</mi><mo stretchy="false">→</mo><mi>Y</mi></mrow></msub><mo>⁢</mo><msub><mrow><mo stretchy="false">‖</mo><msup><mi>L</mi><mrow><mo>−</mo><mn>1</mn></mrow></msup><mo stretchy="false">‖</mo></mrow><mrow><mi>Y</mi><mo stretchy="false">→</mo><mi>X</mi></mrow></msub></mrow></mrow><mo>;</mo></mrow><annotation encoding="application/x-tex">\|L_{h}^{-1}-L^{-1}\|_{Y\to X}\leq\|L_{h}^{-1}\|_{Y\to X}\,\|L-L_{h}\|_{X\to Y%
+}\,\|L^{-1}\|_{Y\to X};</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+</tr></tbody>
+</table>
+</div></div>
+</li>
+<li id="Ch6.S8.I3.i3" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">3.</span> 
+<div id="Ch6.S8.I3.i3.p1" class="ltx_para">
+<p class="ltx_p"><math id="Ch6.S8.I3.i3.p1.m1" class="ltx_Math" alttext="L_{h}^{-1}\to L^{-1}" display="inline"><semantics><mrow><msubsup><mi>L</mi><mi>h</mi><mrow><mo>−</mo><mn>1</mn></mrow></msubsup><mo stretchy="false">→</mo><msup><mi>L</mi><mrow><mo>−</mo><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">L_{h}^{-1}\to L^{-1}</annotation></semantics></math> in operator norm from <math id="Ch6.S8.I3.i3.p1.m2" class="ltx_Math" alttext="Y" display="inline"><semantics><mi>Y</mi><annotation encoding="application/x-tex">Y</annotation></semantics></math> to <math id="Ch6.S8.I3.i3.p1.m3" class="ltx_Math" alttext="X" display="inline"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math>;</p>
+</div>
+</li>
+<li id="Ch6.S8.I3.i4" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">4.</span> 
+<div id="Ch6.S8.I3.i4.p1" class="ltx_para">
+<p class="ltx_p">compared with Theorem <a href="#ref-thm-lax-equivalence" title="Theorem 6.3. ‣ 6.2 The fixed-space operator version ‣ Chapter 6 The Lax–Richtmyer theorem ‣ Numerical solutions of PDEs and applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">6.3</span></a>, identify precisely what has been strengthened,
+and what has been gained.</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<span id="ref-ex-lax-4" class="reference-anchor" aria-hidden="true"></span><div id="Ch6.Thmexercise4" class="ltx_theorem ltx_theorem_exercise statement">
+<h6 class="ltx_title ltx_runin ltx_title_theorem">
+<span class="ltx_tag ltx_tag_theorem titlemark"><span class="ltx_text ltx_font_bold">Exercise 6.4</span></span><span class="ltx_text ltx_font_bold"> </span>(Consistency only on a dense subspace)<span class="ltx_text ltx_font_bold">.</span>
+</h6>
+<div id="Ch6.Thmexercise4.p1" class="ltx_para">
+<p class="ltx_p">Let <math id="Ch6.Thmexercise4.p1.m1" class="ltx_Math" alttext="X" display="inline"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math> be a Banach space, let <math id="Ch6.Thmexercise4.p1.m2" class="ltx_Math" alttext="Y" display="inline"><semantics><mi>Y</mi><annotation encoding="application/x-tex">Y</annotation></semantics></math> be a normed space, let <math id="Ch6.Thmexercise4.p1.m3" class="ltx_Math" alttext="L\in\mathcal{L}(X,Y)" display="inline"><semantics><mrow><mi>L</mi><mo>∈</mo><mrow><mi class="ltx_font_mathcaligraphic">ℒ</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>X</mi><mo>,</mo><mi>Y</mi><mo stretchy="false">)</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">L\in\mathcal{L}(X,Y)</annotation></semantics></math>, and let
+<math id="Ch6.Thmexercise4.p1.m4" class="ltx_Math" alttext="(L_{h})_{h\in H}\subset\mathcal{L}(X,Y)" display="inline"><semantics><mrow><msub><mrow><mo stretchy="false">(</mo><msub><mi>L</mi><mi>h</mi></msub><mo stretchy="false">)</mo></mrow><mrow><mi>h</mi><mo>∈</mo><mi>H</mi></mrow></msub><mo>⊂</mo><mrow><mi class="ltx_font_mathcaligraphic">ℒ</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>X</mi><mo>,</mo><mi>Y</mi><mo stretchy="false">)</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">(L_{h})_{h\in H}\subset\mathcal{L}(X,Y)</annotation></semantics></math>. Let <math id="Ch6.Thmexercise4.p1.m5" class="ltx_Math" alttext="D\subset X" display="inline"><semantics><mrow><mi>D</mi><mo>⊂</mo><mi>X</mi></mrow><annotation encoding="application/x-tex">D\subset X</annotation></semantics></math> be dense. Assume that</p>
+<div class="math-display"><table id="Ch6.Ex12" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch6.Ex12.m1" class="ltx_Math" alttext="\sup_{h\in H}\|L_{h}\|_{X\to Y}&lt;+\infty\qquad\text{and}\qquad L_{h}d\to Ld%
+\quad\text{in }Y\text{ for all }d\in D." display="block"><semantics><mrow><mrow><mrow><mrow><munder><mo movablelimits="false">sup</mo><mrow><mi>h</mi><mo>∈</mo><mi>H</mi></mrow></munder><msub><mrow><mo lspace="0em" stretchy="false">‖</mo><msub><mi>L</mi><mi>h</mi></msub><mo stretchy="false">‖</mo></mrow><mrow><mi>X</mi><mo stretchy="false">→</mo><mi>Y</mi></mrow></msub></mrow><mo>&lt;</mo><mrow><mrow><mo>+</mo><mi mathvariant="normal">∞</mi></mrow><mspace width="2em"></mspace><mtext>and</mtext></mrow></mrow><mspace width="2em"></mspace><mrow><mrow><mrow><msub><mi>L</mi><mi>h</mi></msub><mo>⁢</mo><mi>d</mi></mrow><mo stretchy="false">→</mo><mrow><mi>L</mi><mo>⁢</mo><mi>d</mi></mrow></mrow><mspace width="1em"></mspace><mrow><mrow><mtext>in </mtext><mo>⁢</mo><mi>Y</mi><mo>⁢</mo><mtext> for all </mtext><mo>⁢</mo><mi>d</mi></mrow><mo>∈</mo><mi>D</mi></mrow></mrow></mrow><mo lspace="0em">.</mo></mrow><annotation encoding="application/x-tex">\sup_{h\in H}\|L_{h}\|_{X\to Y}&lt;+\infty\qquad\text{and}\qquad L_{h}d\to Ld%
+\quad\text{in }Y\text{ for all }d\in D.</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+</tr></tbody>
+</table>
+</div><p class="ltx_p">Show that:</p>
+<ol id="Ch6.S8.I4" class="ltx_enumerate">
+<li id="Ch6.S8.I4.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">1.</span> 
+<div id="Ch6.S8.I4.i1.p1" class="ltx_para">
+<p class="ltx_p"><math id="Ch6.S8.I4.i1.p1.m1" class="ltx_Math" alttext="L_{h}x\to Lx" display="inline"><semantics><mrow><mrow><msub><mi>L</mi><mi>h</mi></msub><mo>⁢</mo><mi>x</mi></mrow><mo stretchy="false">→</mo><mrow><mi>L</mi><mo>⁢</mo><mi>x</mi></mrow></mrow><annotation encoding="application/x-tex">L_{h}x\to Lx</annotation></semantics></math> in <math id="Ch6.S8.I4.i1.p1.m2" class="ltx_Math" alttext="Y" display="inline"><semantics><mi>Y</mi><annotation encoding="application/x-tex">Y</annotation></semantics></math> for every <math id="Ch6.S8.I4.i1.p1.m3" class="ltx_Math" alttext="x\in X" display="inline"><semantics><mrow><mi>x</mi><mo>∈</mo><mi>X</mi></mrow><annotation encoding="application/x-tex">x\in X</annotation></semantics></math>;</p>
+</div>
+</li>
+<li id="Ch6.S8.I4.i2" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">2.</span> 
+<div id="Ch6.S8.I4.i2.p1" class="ltx_para">
+<p class="ltx_p">under stability, it may be enough to verify consistency only on a dense subspace.</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</section>
+</section>
+<nav class="previous-next" aria-label="Previous and next chapter"><a class="previous" href="chapter-05.html"><span>Previous</span>Two-dimensional finite elements</a><a class="next" href="chapter-07.html"><span>Next</span>Finite difference methods for hyperbolic equations</a></nav><footer class="chapter-footer"><a href="#chapter">Back to the beginning</a><a href="course.pdf#page=83">This chapter in the PDF</a></footer></main></div></body></html>

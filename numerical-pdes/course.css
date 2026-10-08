@@ -1,0 +1,73 @@
+/* Conversion markup adapted to the existing integration course reading theme. */
+.ltx_para, .ltx_p { margin-bottom: 17px; }
+.ltx_p { text-indent: 0; }
+.ltx_title { font-weight: normal; }
+.ltx_title_theorem { margin: 0 0 12px !important; padding: 0 !important; border: 0 !important; font-size: 1em !important; font-weight: bold; }
+.ltx_title_proof { display: inline; margin: 0 !important; padding: 0 !important; border: 0 !important; font-size: 1em !important; font-style: italic; color: var(--muted); }
+.ltx_theorem .ltx_para:last-child, .ltx_proof .ltx_para:last-child { margin-bottom: 0; }
+.ltx_theorem .ltx_p:last-child, .ltx_proof .ltx_p:last-child { margin-bottom: 0; }
+.ltx_text.ltx_font_bold, .ltx_font_bold { font-weight: bold; }
+.ltx_text.ltx_font_italic, .ltx_font_italic { font-style: italic; }
+.ltx_font_smallcaps { font-variant: small-caps; }
+.ltx_font_typewriter { font-family: monospace; }
+.ltx_align_center { text-align: center; }
+.ltx_align_left { text-align: left; }
+.ltx_align_right { text-align: right; }
+.ltx_align_top { vertical-align: top; }
+.ltx_align_middle, .ltx_align_center { vertical-align: middle; }
+.ltx_align_bottom { vertical-align: bottom; }
+.ltx_item { margin: 0 0 10px; }
+.ltx_item > .ltx_para { margin: 0; }
+.chapter ol.ltx_enumerate, .chapter ul.ltx_itemize { list-style: none; padding-left: 1.8em; }
+.ltx_item { position: relative; }
+.ltx_item > .ltx_tag { position: absolute; right: 100%; padding-right: .65em; white-space: nowrap; }
+.ltx_description { margin: 20px 0; }
+.ltx_description dt { margin-top: 16px; font-weight: bold; }
+.ltx_description dd { margin-left: 1.2em; }
+.ltx_bibitem { margin-bottom: 20px; }
+.ltx_biblist { padding-left: 1.8em; }
+.ltx_bibblock { display: inline; }
+.ltx_bibblock + .ltx_bibblock::before { content: ' '; }
+.ltx_bibitem .ltx_tag { margin-right: .4em; }
+.ltx_ref { overflow-wrap: anywhere; }
+.ltx_break { display: block; }
+.ltx_ERROR, .ltx_missing { color: #a00; }
+.math-display { line-height: 1.5; }
+.math-display table { table-layout: auto; min-width: 100%; width: auto; }
+.math-display td { padding: 4px 0; }
+.math-display .ltx_eqn_eqno { width: 1%; padding-left: 15px; text-align: right; font-size: 15px; color: var(--muted); white-space: nowrap; }
+.math-display .ltx_eqn_pad { width: 0; }
+.math-display .ltx_eqn_center_padleft, .math-display .ltx_eqn_center_padright { display: none; width: 0; }
+.math-display .ltx_equationgroup { width: 100%; }
+.math-display mjx-container { margin: 0 !important; }
+.math-display mjx-container[display="true"] { display: block; width: 100%; }
+.math-display math[display="block"] { min-width: fit-content; }
+.math-display .ltx_eqn_cell { white-space: nowrap; }
+.math-display .ltx_eqn_cell.ltx_align_left { padding-right: .5em; }
+.ltx_equationgroup .math-display + .math-display { margin-top: -10px; }
+.data-table .ltx_tabular { min-width: 0; width: max-content; max-width: none; margin-left: auto; margin-right: auto; }
+.data-table .ltx_tabular th, .data-table .ltx_tabular td { white-space: normal; }
+.data-table .ltx_tabular .ltx_td { border: 0; }
+.data-table .ltx_tabular .ltx_border_l { border-left: 1px solid var(--rule); }
+.data-table .ltx_tabular .ltx_border_r { border-right: 1px solid var(--rule); }
+.data-table .ltx_tabular .ltx_border_t { border-top: 1px solid var(--rule); }
+.data-table .ltx_tabular .ltx_border_b { border-bottom: 1px solid var(--rule); }
+.chapter figure img, .chapter .ltx_graphics { max-width: 100%; height: auto; }
+.figure-link { overflow-x: auto; }
+.ltx_caption { text-align: left; }
+.ltx_figure .ltx_tag_figure { font-weight: bold; }
+.ltx_note { color: var(--muted); font-size: .9em; }
+.ltx_note_mark { vertical-align: super; font-size: .8em; }
+.ltx_note_outer { display: block; margin: 15px 0; padding-left: 1em; border-left: 1px solid var(--rule); }
+.ltx_qed { float: right; margin-left: 1em; }
+.chapter h4 { font-size: 18px; margin: 28px 0 16px; }
+.chapter .ltx_title_chapter .ltx_tag_chapter { display: block; font-size: 16px; margin-bottom: 12px; color: var(--muted); }
+.ltx_abstract .ltx_title_abstract { display: none; }
+.reference-anchor { scroll-margin-top: 24px; }
+@media (max-width: 480px) {
+  .math-display .ltx_eqn_eqno { padding-left: 10px; font-size: 14px; }
+  .ltx_description dd { margin-left: .6em; }
+}
+@media print {
+  .figure-link { overflow: visible; }
+}
