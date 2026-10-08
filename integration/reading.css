@@ -65,11 +65,11 @@ a:focus-visible, summary:focus-visible, select:focus-visible,
 }
 .reading-layout {
   display: grid;
-  grid-template-columns: 272px minmax(0, 1fr);
-  gap: 36px;
+  grid-template-columns: 228px minmax(0, 1fr);
+  gap: 28px;
   max-width: 1320px;
   margin: auto;
-  padding: 34px 40px 72px;
+  padding: 30px 28px 64px;
 }
 .sidebar {
   position: sticky;
@@ -185,7 +185,7 @@ a:focus-visible, summary:focus-visible, select:focus-visible,
   font-size: 16px;
   font-weight: normal;
 }
-.chapter h1 br { display: none; }
+.chapter h1 > br:not(.newline) { display: none; }
 .chapter h2, .course-home h2 {
   margin: 42px 0 20px;
   padding-top: 20px;
@@ -232,7 +232,7 @@ a:focus-visible, summary:focus-visible, select:focus-visible,
 .statement-brown { border-color: #a49a8b; background: #efede7; }
 .statement-pink { border-color: #b3a0a3; background: #f2ebeb; }
 .statement .newtheorem { margin: 0; }
-.statement .head, .newtheorem > .head {
+.statement .head, .newtheorem > p > .head {
   display: block;
   margin-bottom: 12px;
   font-weight: bold;
@@ -254,16 +254,17 @@ math[display="inline"] { display: inline math; vertical-align: baseline; }
 .math-display {
   max-width: 100%;
   min-width: 0;
-  margin: 15px 0 19px;
-  padding: 5px 0;
+  margin: 12px 0 16px;
+  padding: 7px 0;
   overflow-x: auto;
   overflow-y: hidden;
   overscroll-behavior-x: contain;
   -webkit-overflow-scrolling: touch;
 }
-.math-display table { width: 100%; margin: 0; border: 0; border-collapse: collapse; }
+.math-display table { width: 100%; table-layout: fixed; margin: 0; border: 0; border-collapse: collapse; }
 .math-display td { padding: 4px 0; vertical-align: middle; }
 .math-display .eq-no {
+  width: 4em;
   min-width: 58px;
   padding-left: 13px;
   color: var(--muted);
@@ -271,9 +272,8 @@ math[display="inline"] { display: inline math; vertical-align: baseline; }
   text-align: right;
   white-space: nowrap;
 }
-.math-display math[display="block"],
 .math-display mjx-container[display="true"] {
-  width: max-content;
+  width: 100%;
   min-width: 0;
   margin: 0 auto !important;
 }
@@ -400,13 +400,11 @@ a.chapter-row:hover .chapter-title { text-decoration: underline; }
 
 @media (max-width: 1120px) {
   .course-header { padding: 25px 26px 20px; }
-  .reading-layout { grid-template-columns: 248px minmax(0, 1fr); gap: 25px; padding: 28px 26px 60px; }
-  .chapter, .course-home { padding: 31px 29px; }
-}
-@media (max-width: 850px) {
   .course-header { flex-wrap: wrap; gap: 7px; padding: 20px; }
+  .course-header .course-meta { order: 3; flex-basis: 100%; margin-left: 0; }
+  .course-header .theme-toggle { order: 2; margin-left: auto; }
   .course-header .author { font-size: 23px; }
-  .reading-layout { display: block; padding: 23px 18px 45px; }
+  .reading-layout { display: block; max-width: 980px; padding: 23px 18px 45px; }
   .sidebar { position: static; max-height: none; margin-bottom: 23px; padding: 0 3px; overflow: visible; }
   .course-name { margin-bottom: 15px; }
   .course-name br { display: none; }
@@ -417,19 +415,19 @@ a.chapter-row:hover .chapter-title { text-decoration: underline; }
   .contents nav { padding: 4px 8px; }
   .sidebar-note { margin-top: 15px; padding-top: 12px; }
   .sidebar-note, .course-label { display: none; }
-  .chapter, .course-home { padding: 29px 26px; }
+  .chapter, .course-home { padding: 29px 24px; }
   .chapter h1, .course-home h1 { font-size: 31px; }
   .chapter h2, .course-home h2 { font-size: 24px; }
   .chapter h3, .course-home h3 { font-size: 21px; }
-  .statement { padding: 18px; }
+  .statement { padding: 17px 16px; }
 }
 @media (max-width: 480px) {
   body { font-size: 17px; }
   .course-header { padding: 17px 16px; }
-  .reading-layout { padding: 20px 10px 35px; }
+  .reading-layout { padding: 20px 6px 35px; }
   .sidebar { padding: 0 7px; }
   .course-header p, .course-meta { font-size: 13px; }
-  .chapter, .course-home { padding: 25px 18px; }
+  .chapter, .course-home { padding: 24px 12px; }
   .chapter h1, .course-home h1 { font-size: 29px; }
   .chapter h2, .course-home h2 { font-size: 23px; }
   .chapter h3, .course-home h3 { font-size: 20px; }

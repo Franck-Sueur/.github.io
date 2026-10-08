@@ -3,7 +3,7 @@
 
   function initialiseReadingPage() {
     const contents = document.querySelector('details.contents');
-    const narrow = window.matchMedia('(max-width: 850px)');
+    const narrow = window.matchMedia('(max-width: 1120px)');
     const links = Array.from(document.querySelectorAll('.toc-link[href^="#"]'));
 
     function fitNavigation() {
@@ -71,9 +71,9 @@
       for (const expression of document.querySelectorAll('mjx-container:not([display])')) {
         if (expression.closest('.math-display, .data-table')) continue;
         const block = expression.closest('p, dd, li, h1, h2, h3, h4, figcaption') || expression.parentElement;
-        const svg = expression.querySelector('svg');
-        if (!block?.clientWidth || !svg) continue;
-        const wide = svg.getBoundingClientRect().width > block.clientWidth + 3;
+        const pieces = Array.from(expression.querySelectorAll('svg'));
+        if (!block?.clientWidth || !pieces.length) continue;
+        const wide = pieces.some(svg => svg.getBoundingClientRect().width > block.clientWidth + 3);
         expression.classList.toggle('math-inline-scroll', wide);
         expression.classList.toggle('needs-scroll', wide);
         if (wide) {
@@ -124,20 +124,45 @@
     }
 
     function afterTypesetting() {
-      Promise.resolve(window.MathJax?.startup?.promise).then(
+      const startup = window.MathJax?.startup?.promise;
+      if (!startup) return;
+      Promise.resolve(startup).then(
         scheduleOverflowCheck,
         scheduleOverflowCheck
       );
     }
 
+    const page = document.querySelector('.chapter, .course-home');
+    let lastReadingWidth = page?.clientWidth;
+    let reflowTimer = 0;
+
+    function reflowMathematics() {
+      const width = page?.clientWidth;
+      if (!width || width === lastReadingWidth) return;
+      lastReadingWidth = width;
+      window.clearTimeout(reflowTimer);
+      reflowTimer = window.setTimeout(() => {
+        Promise.resolve(window.MathJax?.startup?.promise).then(() => {
+          // MathJax 4 METRICS (110) refreshes container widths and line breaks,
+          // retaining the compiled expressions and their reference targets.
+          return window.MathJax?.startup?.document?.rerenderPromise?.(110);
+        }).then(scheduleOverflowCheck, scheduleOverflowCheck);
+      }, 250);
+    }
+
     scheduleOverflowCheck();
     afterTypesetting();
-    window.addEventListener('resize', scheduleOverflowCheck, { passive: true });
+    window.addEventListener('resize', () => {
+      reflowMathematics();
+      scheduleOverflowCheck();
+    }, { passive: true });
     window.addEventListener('load', afterTypesetting, { once: true });
     if (document.fonts?.ready) document.fonts.ready.then(scheduleOverflowCheck);
     if ('ResizeObserver' in window) {
-      const page = document.querySelector('.chapter, .course-home');
-      if (page) new ResizeObserver(scheduleOverflowCheck).observe(page);
+      if (page) new ResizeObserver(() => {
+        reflowMathematics();
+        scheduleOverflowCheck();
+      }).observe(page);
     }
 
     function markHashLocation() {
