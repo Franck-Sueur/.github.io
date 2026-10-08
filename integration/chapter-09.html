@@ -1,0 +1,724 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Integrals with parameters · Franck Sueur</title><meta name="description" content="Integrals with parameters. Integration and measure theory lecture notes by Franck Sueur, University of Luxembourg.">
+<link rel="canonical" href="https://franck-sueur.github.io/.github.io/integration/chapter-09.html">
+<link rel="stylesheet" href="course.css"><link rel="stylesheet" href="reading.css">
+<script>window.MathJax={options:{enableMenu:false},svg:{fontCache:'global'}};</script><script defer src="assets/mathjax-mml-svg.js"></script><script defer src="reading.js"></script>
+</head><body><a class="skip-link" href="#chapter">Skip to content</a>
+<header class="course-header"><a class="author" href="https://franck-sueur.github.io/.github.io/">Franck Sueur</a><span class="course-meta">University of Luxembourg · Lecture notes</span></header>
+<div class="reading-layout"><aside class="sidebar"><p class="course-label">Lecture notes</p><a class="course-name" href="index.html">Integration and<br> measure theory</a>
+<label class="picker-label" for="chapter-picker">Choose a chapter</label><select class="chapter-picker" id="chapter-picker" aria-label="Choose a chapter"><option value="index.html">Course contents</option><option value="chapter-01.html">1. σ-algebras</option><option value="chapter-02.html">2. Measures</option><option value="chapter-03.html">3. Outer measures and Carathéodory’s extension theorem</option><option value="chapter-04.html">4. Measurable functions</option><option value="chapter-05.html">5. Simple functions and their Lebesgue integral</option><option value="chapter-06.html">6. Lebesgue integral of positive measurable functions</option><option value="chapter-07.html">7. Lebesgue’s monotone convergence theorem</option><option value="chapter-08.html">8. Dominated convergence, ℒ¹(μ) and L¹(μ)</option><option value="chapter-09.html" selected>9. Integrals with parameters</option><option value="chapter-10.html">10. Product measures, the Fubini and Tonelli theorems</option><option value="chapter-11.html">11. Modes of convergence</option><option value="chapter-12.html">12. Absolute continuity, Lebesgue decomposition and the Radon–Nikodym theorem</option><option value="chapter-13.html">13. Fundamental theorem of calculus and change of variables</option><option value="chapter-14.html">14. Radon measures, Riesz representation and the Lebesgue measure</option><option value="chapter-15.html">15. Lebesgue spaces Lᵖ(μ)</option><option value="chapter-16.html">16. Appendix. Topology and functional analysis reminders</option></select>
+<div class="course-links"><a href="index.html">All chapters</a><a href="course.pdf">Full course PDF</a><a href="history.html">Historical milestones</a><a href="bibliography.html">Bibliography</a></div>
+<details class="contents" open><summary>On this page</summary><nav aria-label="Page contents"><a class="toc-link section" href="#continuity-under-the-integral-sign"><span class="toc-number">9.1</span><span>Continuity under the integral sign</span></a>
+<a class="toc-link section" href="#differentiation-under-the-integral-sign"><span class="toc-number">9.2</span><span>Differentiation under the integral sign</span></a></nav></details><p class="sidebar-note">Bachelor in Mathematics<br>Summer semester 2025–26</p></aside><main class="chapter" id="chapter" tabindex="-1"><h1 class="chapterHead" id="integrals-with-parameters"><span class="titlemark">Chapter 9</span><br><a id="x1-570009"></a>Integrals with parameters</h1>
+<p class="noindent">This chapter studies parameter-dependent integrals. The first result gives a
+criterion for the continuity of </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                            <mi>t</mi><mo class="MathClass-rel" stretchy="false">↦</mo><msub><mrow><mo>∫
+ </mo></mrow><mrow><mi>E</mi></mrow></msub><mi>f</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-punc" stretchy="false">,</mo><mi>t</mi><mo class="MathClass-close" stretchy="false">)</mo><mspace class="thinspace" width="0.17em"></mspace><mi mathvariant="italic">dμ</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo><mo class="MathClass-punc" stretchy="false">,</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   and the second gives a criterion for differentiating such a map under the
+integral sign. In both cases the main tool is dominated convergence, used through
+sequential characterizations of continuity and differentiability.
+</p><p class="indent">   We consider a measurable set <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>E</mi></math>
+in a measure space <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-open" stretchy="false">(</mo><mi>X</mi><mo class="MathClass-punc" stretchy="false">,</mo><mstyle mathvariant="script"><mi>A</mi></mstyle><mo class="MathClass-punc" stretchy="false">,</mo><mi>μ</mi><mo class="MathClass-close" stretchy="false">)</mo></mrow></math>,
+an interval <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>I</mi> <mo class="MathClass-rel" stretchy="false">⊂</mo> <mi>ℝ</mi></mrow></math>,
+and a function </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                              <mi>f</mi> <mo class="MathClass-punc" stretchy="false">:</mo> <mi>E</mi> <mo class="MathClass-bin" stretchy="false">×</mo> <mi>I</mi> <mo class="MathClass-rel" stretchy="false">→</mo> <mi>ℝ</mi><mo class="MathClass-punc" stretchy="false">.</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   We are interested in the regularity, with respect to the parameter
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>t</mi></math>, of
+the map </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation"><tr><td>
+<span id="ref-eq-F" class="reference-anchor"></span><math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                      <mstyle class="label" id="x1-57001r1"></mstyle><mi>F</mi> <mo class="MathClass-punc" stretchy="false">:</mo> <mi>I</mi> <mo class="MathClass-rel" stretchy="false">→</mo> <mi>ℝ</mi><mo class="MathClass-punc" stretchy="false">,</mo><mspace class="qquad" width="2em"></mspace><mi>t</mi><mo class="MathClass-rel" stretchy="false">↦</mo><msub><mrow><mo>∫
+ </mo></mrow><mrow><mi>E</mi></mrow></msub><mi>f</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-punc" stretchy="false">,</mo><mi>t</mi><mo class="MathClass-close" stretchy="false">)</mo><mspace class="thinspace" width="0.17em"></mspace><mi mathvariant="italic">dμ</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo><mo class="MathClass-punc" stretchy="false">.</mo>
+</mrow></math></td><td class="eq-no">(9.1)</td></tr></table>
+</div><p class="indent">   Whenever we need to regard a function defined on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>E</mi></math> as a function on
+the whole space <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>X</mi></math>,
+we extend it by <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mn>0</mn></math>
+outside <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>E</mi></math>
+without changing the notation. In particular, saying that a function is integrable over
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>E</mi></math> means that this zero
+extension belongs to <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msup><mrow><mstyle mathvariant="script"><mi>L</mi></mstyle></mrow><mrow><mn>1</mn></mrow></msup><mo class="MathClass-open" stretchy="false">(</mo><mi>X</mi><mo class="MathClass-punc" stretchy="false">,</mo><mstyle mathvariant="script"><mi>A</mi></mstyle><mo class="MathClass-punc" stretchy="false">,</mo><mi>μ</mi><mo class="MathClass-close" stretchy="false">)</mo></mrow></math>.
+</p>
+   <h2 class="sectionHead" id="continuity-under-the-integral-sign"><span class="titlemark">9.1   </span> <a id="x1-580009.1"></a>Continuity under the integral sign</h2>
+   <div class="statement statement-brown">
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<span id="ref-th-contint" class="reference-anchor"></span><a id="x1-58001r1"></a>
+<span class="ecbx-1200">Theorem 9.1 </span>(Continuity under the integral sign)<span class="ecbx-1200">.</span>  </span> <span class="ecti-1200">Let</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mi>t</mi></mrow><mrow><mn>0</mn></mrow></msub></math> <span class="ecti-1200">in</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>I</mi></math><span class="ecti-1200">. We
+assume that</span>
+      </p><dl class="enumerate-enumitem"><dt class="enumerate-enumitem">
+   <span class="ecti-1200">1.</span> </dt><dd class="enumerate-enumitem"><span class="ecti-1200">there exists </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>η</mi> <mo class="MathClass-rel" stretchy="false">&gt;</mo> <mn>0</mn></mrow></math> <span class="ecti-1200">such
+      that, for every </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>t</mi></math>
+      <span class="ecti-1200">in </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>I</mi></math>
+      <span class="ecti-1200">satisfying </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-rel" stretchy="false">|</mo><mi>t</mi> <mo class="MathClass-bin" stretchy="false">−</mo> <msub><mrow><mi>t</mi></mrow><mrow><mn>0</mn></mrow></msub><mo class="MathClass-rel" stretchy="false">|</mo> <mo class="MathClass-rel" stretchy="false">&lt;</mo> <mi>η</mi></mrow></math><span class="ecti-1200">,
+      the function </span><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+                                                                          
+
+                                                                          
+      <math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                                         <mi>x</mi><mo class="MathClass-rel" stretchy="false">↦</mo><mi>f</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-punc" stretchy="false">,</mo><mi>t</mi><mo class="MathClass-close" stretchy="false">)</mo>
+</mrow></math></td></tr></table>
+      </div><p class="noindent"><span class="ecti-1200">is measurable on </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>E</mi></math>
+      <span class="ecti-1200">and integrable over </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>E</mi></math><span class="ecti-1200">,</span>
+      </p></dd><dt class="enumerate-enumitem">
+   <span class="ecti-1200">2.</span> </dt><dd class="enumerate-enumitem"><span class="ecti-1200">for </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>μ</mi></math><span class="ecti-1200">-almost
+      all </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>x</mi></math>
+      <span class="ecti-1200">in </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>E</mi></math><span class="ecti-1200">,</span>
+      <div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+      <math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                              <mi>f</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-punc" stretchy="false">,</mo><mi>t</mi><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-rel" stretchy="false">→</mo> <mi>f</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-punc" stretchy="false">,</mo><msub><mrow><mi>t</mi></mrow><mrow><mn>0</mn></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo><mspace class="qquad" width="2em"></mspace><mstyle class="text"><mtext>as </mtext></mstyle><mi>t</mi> <mo class="MathClass-rel" stretchy="false">→</mo> <msub><mrow><mi>t</mi></mrow><mrow><mn>0</mn></mrow></msub><mo class="MathClass-punc" stretchy="false">,</mo>
+</mrow></math></td></tr></table>
+      </div></dd><dt class="enumerate-enumitem">
+   <span class="ecti-1200">3.</span> </dt><dd class="enumerate-enumitem"><span class="ecti-1200">there exists a function </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>g</mi><mo class="MathClass-punc" stretchy="false">:</mo> <mi>E</mi> <mo class="MathClass-rel" stretchy="false">→</mo> <mo class="MathClass-open" stretchy="false">[</mo><mn>0</mn><mo class="MathClass-punc" stretchy="false">,</mo><mi>∞</mi><mo class="MathClass-close" stretchy="false">)</mo></mrow></math><span class="ecti-1200">,
+      integrable over </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>E</mi></math><span class="ecti-1200">,
+      such that for every </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>t</mi></math>
+      <span class="ecti-1200">in </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>I</mi></math>
+      <span class="ecti-1200">satisfying </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-rel" stretchy="false">|</mo><mi>t</mi> <mo class="MathClass-bin" stretchy="false">−</mo> <msub><mrow><mi>t</mi></mrow><mrow><mn>0</mn></mrow></msub><mo class="MathClass-rel" stretchy="false">|</mo> <mo class="MathClass-rel" stretchy="false">&lt;</mo> <mi>η</mi></mrow></math><span class="ecti-1200">,</span>
+      <div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+                                                                          
+
+                                                                          
+      <math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                                     <mo class="MathClass-rel" stretchy="false">|</mo><mi>f</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-punc" stretchy="false">,</mo><mi>t</mi><mo class="MathClass-close" stretchy="false">)</mo><mo class="MathClass-rel" stretchy="false">|</mo><mo class="MathClass-rel" stretchy="false">≤</mo> <mi>g</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo>
+</mrow></math></td></tr></table>
+      </div><p class="noindent"><span class="ecti-1200">for </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>μ</mi></math><span class="ecti-1200">-almost
+      all </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>x</mi></math>
+      <span class="ecti-1200">in </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>E</mi></math><span class="ecti-1200">.</span></p></dd></dl>
+<p class="noindent"><span class="ecti-1200">Then the function </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>x</mi><mo class="MathClass-rel" stretchy="false">↦</mo><mi>f</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-punc" stretchy="false">,</mo><msub><mrow><mi>t</mi></mrow><mrow><mn>0</mn></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow></math> <span class="ecti-1200">is
+integrable over </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>E</mi></math>
+<span class="ecti-1200">and</span> </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+               <munder class="msub"><mrow><mtext class="qopname">lim</mtext><mo> ⁡</mo> </mrow><mrow><mi>t</mi><mo class="MathClass-rel" stretchy="false">→</mo><msub><mrow><mi>t</mi></mrow><mrow><mn>0</mn></mrow></msub></mrow></munder><msub><mrow><mo> ∫
+ </mo></mrow><mrow><mi>E</mi></mrow></msub><mi>f</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-punc" stretchy="false">,</mo><mi>t</mi><mo class="MathClass-close" stretchy="false">)</mo><mspace class="thinspace" width="0.17em"></mspace><mi mathvariant="italic">dμ</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-rel" stretchy="false">=</mo><msub><mrow><mo> ∫
+ </mo></mrow><mrow><mi>E</mi></mrow></msub><mi>f</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-punc" stretchy="false">,</mo><msub><mrow><mi>t</mi></mrow><mrow><mn>0</mn></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo><mspace class="thinspace" width="0.17em"></mspace><mi mathvariant="italic">dμ</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo><mo class="MathClass-punc" stretchy="false">.</mo>
+</mrow></math></td></tr></table>
+   </div></div>
+</div>
+   <div class="proof">
+<p class="indent">   <span class="head">
+<span class="ecti-1200">Proof.</span> </span>Let <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mi>t</mi></mrow><mrow><mi>n</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow><mrow><mi>n</mi><mo class="MathClass-rel" stretchy="false">≥</mo><mn>1</mn></mrow></msub></math> be
+a sequence in <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>I</mi></math>
+converging to <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mi>t</mi></mrow><mrow><mn>0</mn></mrow></msub></math>.
+                                                                          
+
+                                                                          
+By discarding finitely many terms, we may assume that </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                               <mo class="MathClass-rel" stretchy="false">|</mo><msub><mrow><mi>t</mi></mrow><mrow><mi>n</mi></mrow></msub> <mo class="MathClass-bin" stretchy="false">−</mo> <msub><mrow><mi>t</mi></mrow><mrow><mn>0</mn></mrow></msub><mo class="MathClass-rel" stretchy="false">|</mo> <mo class="MathClass-rel" stretchy="false">&lt;</mo> <mi>η</mi>
+</mrow></math></td></tr></table>
+</div><p class="indent">   for all <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>n</mi> <mo class="MathClass-rel" stretchy="false">≥</mo> <mn>1</mn></mrow></math>.
+</p><p class="indent">   For every <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>n</mi> <mo class="MathClass-rel" stretchy="false">≥</mo> <mn>1</mn></mrow></math>, hypothesis
+3 provides a negligible set <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mrow><mi>N</mi></mrow><mrow><mi>n</mi></mrow></msub> <mo class="MathClass-rel" stretchy="false">⊂</mo> <mi>E</mi></mrow></math>
+such that </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                             <mo class="MathClass-rel" stretchy="false">|</mo><mi>f</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-punc" stretchy="false">,</mo><msub><mrow><mi>t</mi></mrow><mrow><mi>n</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo><mo class="MathClass-rel" stretchy="false">|</mo><mo class="MathClass-rel" stretchy="false">≤</mo> <mi>g</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   for all <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>x</mi></math> in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>E</mi> <mo class="MathClass-bin" stretchy="false">∖</mo> <msub><mrow><mi>N</mi></mrow><mrow><mi>n</mi></mrow></msub></mrow></math>. Hypothesis 2 provides
+a negligible set <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mrow><mi>N</mi></mrow><mrow><mi>∞</mi></mrow></msub> <mo class="MathClass-rel" stretchy="false">⊂</mo> <mi>E</mi></mrow></math>
+such that </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+                                                                          
+
+                                                                          
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                      <mi>f</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-punc" stretchy="false">,</mo><msub><mrow><mi>t</mi></mrow><mrow><mi>n</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-rel" stretchy="false">→</mo> <mi>f</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-punc" stretchy="false">,</mo><msub><mrow><mi>t</mi></mrow><mrow><mn>0</mn></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo><mspace class="qquad" width="2em"></mspace><mstyle class="text"><mtext>as </mtext></mstyle><mi>n</mi> <mo class="MathClass-rel" stretchy="false">→</mo> <mo class="MathClass-bin" stretchy="false">+</mo><mi>∞</mi>
+</mrow></math></td></tr></table>
+</div><p class="indent">   for all <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>x</mi></math>
+in <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>E</mi> <mo class="MathClass-bin" stretchy="false">∖</mo> <msub><mrow><mi>N</mi></mrow><mrow><mi>∞</mi></mrow></msub></mrow></math>.
+By countable stability of negligible sets, there exists
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>M</mi></math> in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mstyle mathvariant="script"><mi>A</mi></mstyle></math> such
+that </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                     <msub><mrow><mi>N</mi></mrow><mrow><mi>∞</mi></mrow></msub><mo class="MathClass-bin" stretchy="false">∪</mo><munder class="msub"><mrow><mo>⋃</mo>
+  </mrow><mrow><mi>n</mi><mo class="MathClass-rel" stretchy="false">≥</mo><mn>1</mn></mrow></munder><msub><mrow><mi>N</mi></mrow><mrow><mi>n</mi></mrow></msub> <mo class="MathClass-rel" stretchy="false">⊂</mo> <mi>M</mi><mo class="MathClass-punc" stretchy="false">,</mo><mspace class="qquad" width="2em"></mspace><mi>μ</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>M</mi><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-rel" stretchy="false">=</mo> <mn>0</mn><mo class="MathClass-punc" stretchy="false">.</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   We define functions on <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>X</mi></math>
+by </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+                                                                          
+
+                                                                          
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+      <msub><mrow><mi>u</mi></mrow><mrow><mi>n</mi></mrow></msub><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-punc" stretchy="false">:</mo><mo class="MathClass-rel" stretchy="false">=</mo> <mi>f</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-punc" stretchy="false">,</mo><msub><mrow><mi>t</mi></mrow><mrow><mi>n</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo><msub><mrow><mi mathvariant="bold">1</mi></mrow><mrow><mi>E</mi></mrow></msub><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo><mo class="MathClass-punc" stretchy="false">,</mo><mspace class="qquad" width="2em"></mspace><mi>u</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-punc" stretchy="false">:</mo><mo class="MathClass-rel" stretchy="false">=</mo> <mi>f</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-punc" stretchy="false">,</mo><msub><mrow><mi>t</mi></mrow><mrow><mn>0</mn></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo><msub><mrow><mi mathvariant="bold">1</mi></mrow><mrow><mi>E</mi></mrow></msub><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo><mo class="MathClass-punc" stretchy="false">,</mo><mspace class="qquad" width="2em"></mspace><mi>v</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-punc" stretchy="false">:</mo><mo class="MathClass-rel" stretchy="false">=</mo> <mi>g</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo><msub><mrow><mi mathvariant="bold">1</mi></mrow><mrow><mi>E</mi></mrow></msub><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo><mo class="MathClass-punc" stretchy="false">.</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   The function <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>v</mi></math> is in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msup><mrow><mstyle mathvariant="script"><mi>L</mi></mstyle></mrow><mrow><mn>1</mn></mrow></msup><mo class="MathClass-open" stretchy="false">(</mo><mi>μ</mi><mo class="MathClass-close" stretchy="false">)</mo></mrow></math> and is nonnegative.
+Moreover, for every <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>x</mi></math>
+in <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>X</mi> <mo class="MathClass-bin" stretchy="false">∖</mo> <mi>M</mi></mrow></math>,
+convergence and domination hold; outside
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>E</mi></math> all zero extensions
+vanish. Thus, for every <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>x</mi></math>
+in <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>X</mi> <mo class="MathClass-bin" stretchy="false">∖</mo> <mi>M</mi></mrow></math>,
+we have </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+               <msub><mrow><mi>u</mi></mrow><mrow><mi>n</mi></mrow></msub><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-rel" stretchy="false">→</mo> <mi>u</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo><mspace class="quad" width="1em"></mspace><mstyle class="text"><mtext>as </mtext></mstyle><mi>n</mi> <mo class="MathClass-rel" stretchy="false">→</mo> <mo class="MathClass-bin" stretchy="false">+</mo><mi>∞</mi><mo class="MathClass-punc" stretchy="false">,</mo><mspace class="qquad" width="2em"></mspace><mstyle class="text"><mtext>and</mtext></mstyle><mspace class="qquad" width="2em"></mspace><mo class="MathClass-rel" stretchy="false">|</mo><msub><mrow><mi>u</mi></mrow><mrow><mi>n</mi></mrow></msub><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo><mo class="MathClass-rel" stretchy="false">|</mo><mo class="MathClass-rel" stretchy="false">≤</mo> <mi>v</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   for all <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>n</mi> <mo class="MathClass-rel" stretchy="false">≥</mo> <mn>1</mn></mrow></math>.
+Theorem <a href="chapter-08.html#ref-th-TCDfort">8.12</a> therefore yields </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+                                                                          
+
+                                                                          
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                     <msub><mrow><mo>∫
+ </mo></mrow><mrow><mi>X</mi></mrow></msub><msub><mrow><mi>u</mi></mrow><mrow><mi>n</mi></mrow></msub><mspace class="thinspace" width="0.17em"></mspace><mi mathvariant="italic">dμ</mi> <mo class="MathClass-rel" stretchy="false">→</mo><msub><mrow><mo>∫ 
+</mo></mrow><mrow><mi>X</mi></mrow></msub><mi>u</mi><mspace class="thinspace" width="0.17em"></mspace><mi mathvariant="italic">dμ</mi><mspace class="qquad" width="2em"></mspace><mstyle class="text"><mtext>as </mtext></mstyle><mi>n</mi> <mo class="MathClass-rel" stretchy="false">→</mo> <mo class="MathClass-bin" stretchy="false">+</mo><mi>∞</mi><mo class="MathClass-punc" stretchy="false">.</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   By the indicator formulation of the integral, this is exactly </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+             <msub><mrow><mo>∫
+ </mo></mrow><mrow><mi>E</mi></mrow></msub><mi>f</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-punc" stretchy="false">,</mo><msub><mrow><mi>t</mi></mrow><mrow><mi>n</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo><mspace class="thinspace" width="0.17em"></mspace><mi mathvariant="italic">dμ</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-rel" stretchy="false">→</mo><msub><mrow><mo>∫ 
+</mo></mrow><mrow><mi>E</mi></mrow></msub><mi>f</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-punc" stretchy="false">,</mo><msub><mrow><mi>t</mi></mrow><mrow><mn>0</mn></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo><mspace class="thinspace" width="0.17em"></mspace><mi mathvariant="italic">dμ</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo><mspace class="qquad" width="2em"></mspace><mstyle class="text"><mtext>as </mtext></mstyle><mi>n</mi> <mo class="MathClass-rel" stretchy="false">→</mo> <mo class="MathClass-bin" stretchy="false">+</mo><mi>∞</mi><mo class="MathClass-punc" stretchy="false">.</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   Since this is true for every sequence
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mi>t</mi></mrow><mrow><mi>n</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow></math> converging
+to <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mi>t</mi></mrow><mrow><mn>0</mn></mrow></msub></math>,
+the sequential criterion for continuity proves the result.                         □
+</p>
+   </div>
+   <div class="statement statement-brown">
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-58005r2"></a>
+<span class="ecbx-1200">Corollary 9.2 </span>(Continuity of derivatives under the integral sign)<span class="ecbx-1200">.</span>  </span><span class="ecti-1200">Let</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>I</mi> <mo class="MathClass-rel" stretchy="false">⊂</mo> <mi>ℝ</mi></mrow></math> <span class="ecti-1200">be an
+interval. We assume that</span>
+      </p><dl class="enumerate-enumitem"><dt class="enumerate-enumitem">
+   <span class="ecti-1200">1.</span> </dt><dd class="enumerate-enumitem"><span class="ecti-1200">for every </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>t</mi></math>
+      <span class="ecti-1200">in </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>I</mi></math><span class="ecti-1200">,
+                                                                          
+
+                                                                          
+      the function </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>x</mi><mo class="MathClass-rel" stretchy="false">↦</mo><mi>f</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-punc" stretchy="false">,</mo><mi>t</mi><mo class="MathClass-close" stretchy="false">)</mo></mrow></math>
+      <span class="ecti-1200">is measurable on </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>E</mi></math>
+      <span class="ecti-1200">and integrable over </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>E</mi></math><span class="ecti-1200">,</span>
+      </dd><dt class="enumerate-enumitem">
+   <span class="ecti-1200">2.</span> </dt><dd class="enumerate-enumitem"><span class="ecti-1200">for </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>μ</mi></math><span class="ecti-1200">-almost
+      all </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>x</mi></math>
+      <span class="ecti-1200">in </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>E</mi></math><span class="ecti-1200">,
+      the map </span><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+      <math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                                         <mi>t</mi><mo class="MathClass-rel" stretchy="false">↦</mo><mi>f</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-punc" stretchy="false">,</mo><mi>t</mi><mo class="MathClass-close" stretchy="false">)</mo>
+</mrow></math></td></tr></table>
+      </div><p class="noindent"><span class="ecti-1200">is continuous on </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>I</mi></math><span class="ecti-1200">,</span>
+      </p></dd><dt class="enumerate-enumitem">
+   <span class="ecti-1200">3.</span> </dt><dd class="enumerate-enumitem"><span class="ecti-1200">there exists a measurable set </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>Z</mi> <mo class="MathClass-rel" stretchy="false">⊂</mo> <mi>E</mi></mrow></math>
+      <span class="ecti-1200">with </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>μ</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>E</mi> <mo class="MathClass-bin" stretchy="false">∖</mo> <mi>Z</mi><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-rel" stretchy="false">=</mo> <mn>0</mn></mrow></math> <span class="ecti-1200">and there
+      exists a function </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>g</mi><mo class="MathClass-punc" stretchy="false">:</mo> <mi>E</mi> <mo class="MathClass-rel" stretchy="false">→</mo> <mo class="MathClass-open" stretchy="false">[</mo><mn>0</mn><mo class="MathClass-punc" stretchy="false">,</mo><mi>∞</mi><mo class="MathClass-close" stretchy="false">)</mo></mrow></math><span class="ecti-1200">,
+      integrable over </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>E</mi></math><span class="ecti-1200">,
+      such that </span><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+                                                                          
+
+                                                                          
+      <math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                                     <mo class="MathClass-rel" stretchy="false">|</mo><mi>f</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-punc" stretchy="false">,</mo><mi>t</mi><mo class="MathClass-close" stretchy="false">)</mo><mo class="MathClass-rel" stretchy="false">|</mo><mo class="MathClass-rel" stretchy="false">≤</mo> <mi>g</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo>
+</mrow></math></td></tr></table>
+      </div><p class="noindent"><span class="ecti-1200">for every </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>x</mi></math>
+      <span class="ecti-1200">in </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>Z</mi></math> <span class="ecti-1200">and
+      every </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>t</mi></math>
+      <span class="ecti-1200">in </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>I</mi></math><span class="ecti-1200">.</span></p></dd></dl>
+<p class="noindent"><span class="ecti-1200">Then the map</span> </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                            <mi>t</mi><mo class="MathClass-rel" stretchy="false">↦</mo><msub><mrow><mo>∫
+ </mo></mrow><mrow><mi>E</mi></mrow></msub><mi>f</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-punc" stretchy="false">,</mo><mi>t</mi><mo class="MathClass-close" stretchy="false">)</mo><mspace class="thinspace" width="0.17em"></mspace><mi mathvariant="italic">dμ</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   <span class="ecti-1200">is continuous on </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>I</mi></math><span class="ecti-1200">.</span>
+</p>
+   </div>
+</div>
+   <div class="proof">
+<p class="indent">   <span class="head">
+<span class="ecti-1200">Proof.</span> </span>We apply Theorem <a href="#ref-th-contint">9.1</a> at each point <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mi>t</mi></mrow><mrow><mn>0</mn></mrow></msub></math>
+in <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>I</mi></math>.
+                                                                         □
+                                                                          
+
+                                                                          
+</p>
+   </div>
+<h2 class="sectionHead" id="differentiation-under-the-integral-sign"><span class="titlemark">9.2   </span> <a id="x1-590009.2"></a>Differentiation under the integral sign</h2>
+   <div class="statement statement-brown">
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<span id="ref-th-derint" class="reference-anchor"></span><a id="x1-59001r3"></a>
+<span class="ecbx-1200">Theorem 9.3 </span>(Differentiation under the integral sign)<span class="ecbx-1200">.</span>  </span> <span class="ecti-1200">Let</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>I</mi> <mo class="MathClass-rel" stretchy="false">⊂</mo> <mi>ℝ</mi></mrow></math> <span class="ecti-1200">be an open
+interval and let </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mi>t</mi></mrow><mrow><mn>0</mn></mrow></msub></math>
+<span class="ecti-1200">in </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>I</mi></math><span class="ecti-1200">.
+We assume that</span>
+      </p><dl class="enumerate-enumitem"><dt class="enumerate-enumitem">
+   <span class="ecti-1200">1.</span> </dt><dd class="enumerate-enumitem"><span class="ecti-1200">there exists </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>η</mi> <mo class="MathClass-rel" stretchy="false">&gt;</mo> <mn>0</mn></mrow></math>
+      <span class="ecti-1200">such that, with </span><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+      <math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                                   <mi>J</mi> <mo class="MathClass-punc" stretchy="false">:</mo><mo class="MathClass-rel" stretchy="false">=</mo><mo class="MathClass-close" stretchy="false">]</mo><msub><mrow><mi>t</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class="MathClass-bin" stretchy="false">−</mo> <mi>η</mi><mo class="MathClass-punc" stretchy="false">,</mo><msub><mrow><mi>t</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class="MathClass-bin" stretchy="false">+</mo> <mi>η</mi><mo class="MathClass-open" stretchy="false">[</mo><mo class="MathClass-punc" stretchy="false">,</mo>
+</mrow></math></td></tr></table>
+      </div><p class="noindent"><span class="ecti-1200">one has </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>J</mi> <mo class="MathClass-rel" stretchy="false">⊂</mo> <mi>I</mi></mrow></math><span class="ecti-1200">, and
+      for every </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>t</mi></math>
+      <span class="ecti-1200">in </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>J</mi></math>
+      <span class="ecti-1200">the function</span> </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+                                                                          
+
+                                                                          
+      <math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                                         <mi>x</mi><mo class="MathClass-rel" stretchy="false">↦</mo><mi>f</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-punc" stretchy="false">,</mo><mi>t</mi><mo class="MathClass-close" stretchy="false">)</mo>
+</mrow></math></td></tr></table>
+      </div><p class="noindent"><span class="ecti-1200">is measurable on </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>E</mi></math>
+      <span class="ecti-1200">and integrable over </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>E</mi></math><span class="ecti-1200">,</span>
+      </p></dd><dt class="enumerate-enumitem">
+   <span class="ecti-1200">2.</span> </dt><dd class="enumerate-enumitem"><span class="ecti-1200">for every </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>t</mi></math>
+      <span class="ecti-1200">in </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>J</mi></math><span class="ecti-1200">,
+      the function </span><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+      <math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                                        <mi>x</mi><mo class="MathClass-rel" stretchy="false">↦</mo><mfrac><mrow><mi mathvariant="italic">∂f</mi></mrow> 
+<mrow><mi mathvariant="italic">∂t</mi></mrow></mfrac> <mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-punc" stretchy="false">,</mo><mi>t</mi><mo class="MathClass-close" stretchy="false">)</mo>
+</mrow></math></td></tr></table>
+      </div><p class="noindent"><span class="ecti-1200">is measurable on </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>E</mi></math><span class="ecti-1200">, and there
+      exists a measurable set </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>Z</mi> <mo class="MathClass-rel" stretchy="false">⊂</mo> <mi>E</mi></mrow></math>
+      <span class="ecti-1200">with </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>μ</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>E</mi> <mo class="MathClass-bin" stretchy="false">∖</mo> <mi>Z</mi><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-rel" stretchy="false">=</mo> <mn>0</mn></mrow></math> <span class="ecti-1200">such
+      that, for every </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>x</mi></math>
+      <span class="ecti-1200">in </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>Z</mi></math><span class="ecti-1200">,
+      the map</span> </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+                                                                          
+
+                                                                          
+      <math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                                         <mi>t</mi><mo class="MathClass-rel" stretchy="false">↦</mo><mi>f</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-punc" stretchy="false">,</mo><mi>t</mi><mo class="MathClass-close" stretchy="false">)</mo>
+</mrow></math></td></tr></table>
+      </div><p class="noindent"><span class="ecti-1200">is differentiable on </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>J</mi></math><span class="ecti-1200">,</span>
+      </p></dd><dt class="enumerate-enumitem">
+   <span class="ecti-1200">3.</span> </dt><dd class="enumerate-enumitem"><span class="ecti-1200">there exists a function </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>g</mi><mo class="MathClass-punc" stretchy="false">:</mo> <mi>E</mi> <mo class="MathClass-rel" stretchy="false">→</mo> <mo class="MathClass-open" stretchy="false">[</mo><mn>0</mn><mo class="MathClass-punc" stretchy="false">,</mo><mi>∞</mi><mo class="MathClass-close" stretchy="false">)</mo></mrow></math><span class="ecti-1200">,
+      integrable over </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>E</mi></math><span class="ecti-1200">,
+      such that </span><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+      <math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                                     <mstyle mathsize="2.03em"><mrow><mo fence="true" form="prefix"> |</mo><mrow></mrow><mo fence="true" form="postfix"></mo></mrow></mstyle><mfrac><mrow><mi mathvariant="italic">∂f</mi></mrow> 
+<mrow><mi mathvariant="italic">∂t</mi></mrow></mfrac> <mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-punc" stretchy="false">,</mo><mi>t</mi><mo class="MathClass-close" stretchy="false">)</mo><mstyle mathsize="2.03em"><mrow><mo fence="true" form="prefix"> |</mo><mrow></mrow><mo fence="true" form="postfix"></mo></mrow></mstyle> <mo class="MathClass-rel" stretchy="false">≤</mo> <mi>g</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo>
+</mrow></math></td></tr></table>
+      </div><p class="noindent"><span class="ecti-1200">for every </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>x</mi></math>
+      <span class="ecti-1200">in </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>Z</mi></math> <span class="ecti-1200">and
+      every </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>t</mi></math>
+      <span class="ecti-1200">in </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>J</mi></math><span class="ecti-1200">.</span></p></dd></dl>
+<p class="noindent"><span class="ecti-1200">Then the function</span> </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+                                                                          
+
+                                                                          
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                               <mi>x</mi><mo class="MathClass-rel" stretchy="false">↦</mo><mfrac><mrow><mi mathvariant="italic">∂f</mi></mrow> 
+<mrow><mi mathvariant="italic">∂t</mi></mrow></mfrac> <mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-punc" stretchy="false">,</mo><msub><mrow><mi>t</mi></mrow><mrow><mn>0</mn></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   <span class="ecti-1200">is integrable over </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>E</mi></math><span class="ecti-1200">,
+the map </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>F</mi></math> <span class="ecti-1200">defined in</span> (<a href="#ref-eq-F">9.1</a>)
+<span class="ecti-1200">is differentiable at </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mi>t</mi></mrow><mrow><mn>0</mn></mrow></msub></math><span class="ecti-1200">,
+and</span> </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                       <msup><mrow><mi>F</mi></mrow><mrow><mi>′</mi></mrow></msup><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mi>t</mi></mrow><mrow>
+<mn>0</mn></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-rel" stretchy="false">=</mo><msub><mrow><mo> ∫
+ </mo></mrow><mrow><mi>E</mi></mrow></msub><mfrac><mrow><mi mathvariant="italic">∂f</mi></mrow> 
+<mrow><mi mathvariant="italic">∂t</mi></mrow></mfrac> <mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-punc" stretchy="false">,</mo><msub><mrow><mi>t</mi></mrow><mrow><mn>0</mn></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo><mspace class="thinspace" width="0.17em"></mspace><mi mathvariant="italic">dμ</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo><mo class="MathClass-punc" stretchy="false">.</mo>
+</mrow></math></td></tr></table>
+   </div></div>
+</div>
+   <div class="proof">
+<p class="indent">   <span class="head">
+<span class="ecti-1200">Proof.</span> </span><span class="ecbx-1200">Step 1. Sequential reduction. </span>Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mi>t</mi></mrow><mrow><mi>n</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow><mrow><mi>n</mi><mo class="MathClass-rel" stretchy="false">≥</mo><mn>1</mn></mrow></msub></math> be a
+sequence in <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>I</mi> <mo class="MathClass-bin" stretchy="false">∖</mo><mo class="MathClass-open" stretchy="false">{</mo><msub><mrow><mi>t</mi></mrow><mrow><mn>0</mn></mrow></msub><mo class="MathClass-close" stretchy="false">}</mo></mrow></math>
+converging to <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mi>t</mi></mrow><mrow><mn>0</mn></mrow></msub></math>.
+By discarding finitely many terms, we may assume that </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+                                                                          
+
+                                                                          
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                               <mo class="MathClass-rel" stretchy="false">|</mo><msub><mrow><mi>t</mi></mrow><mrow><mi>n</mi></mrow></msub> <mo class="MathClass-bin" stretchy="false">−</mo> <msub><mrow><mi>t</mi></mrow><mrow><mn>0</mn></mrow></msub><mo class="MathClass-rel" stretchy="false">|</mo> <mo class="MathClass-rel" stretchy="false">&lt;</mo> <mi>η</mi>
+</mrow></math></td></tr></table>
+</div><p class="indent">   for every <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>n</mi> <mo class="MathClass-rel" stretchy="false">≥</mo> <mn>1</mn></mrow></math>.
+</p><p class="indent">   Let <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>Z</mi></math> be the full-measure
+subset of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>E</mi></math> given by hypotheses
+2 and 3, and choose <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>M</mi></math>
+in <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mstyle mathvariant="script"><mi>A</mi></mstyle></math>
+such that </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                          <mi>E</mi> <mo class="MathClass-bin" stretchy="false">∖</mo> <mi>Z</mi> <mo class="MathClass-rel" stretchy="false">⊂</mo> <mi>M</mi><mo class="MathClass-punc" stretchy="false">,</mo><mspace class="qquad" width="2em"></mspace><mi>μ</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>M</mi><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-rel" stretchy="false">=</mo> <mn>0</mn><mo class="MathClass-punc" stretchy="false">.</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   <span class="ecbx-1200">Step 2. Difference quotients and domination. </span>For
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>x</mi></math> in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>X</mi></math>, we
+define </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+                                                                          
+
+                                                                          
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mrow>
+<mi>u</mi></mrow><mrow><mi>n</mi></mrow></msub><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-punc" stretchy="false">:</mo><mo class="MathClass-rel" stretchy="false">=</mo> <mfrac><mrow><mi>f</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-punc" stretchy="false">,</mo><msub><mrow><mi>t</mi></mrow><mrow><mi>n</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-bin" stretchy="false">−</mo> <mi>f</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-punc" stretchy="false">,</mo><msub><mrow><mi>t</mi></mrow><mrow><mn>0</mn></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow> 
+       <mrow><msub><mrow><mi>t</mi></mrow><mrow><mi>n</mi></mrow></msub> <mo class="MathClass-bin" stretchy="false">−</mo> <msub><mrow><mi>t</mi></mrow><mrow><mn>0</mn></mrow></msub></mrow></mfrac>          <mspace class="thinspace" width="0.17em"></mspace><msub><mrow><mi mathvariant="bold">1</mi></mrow><mrow><mi>E</mi></mrow></msub><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo><mo class="MathClass-punc" stretchy="false">,</mo><mspace class="qquad" width="2em"></mspace><mi>u</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-punc" stretchy="false">:</mo><mo class="MathClass-rel" stretchy="false">=</mo> <mfrac><mrow><mi mathvariant="italic">∂f</mi></mrow> 
+<mrow><mi mathvariant="italic">∂t</mi></mrow></mfrac> <mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-punc" stretchy="false">,</mo><msub><mrow><mi>t</mi></mrow><mrow><mn>0</mn></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo><mspace class="thinspace" width="0.17em"></mspace><msub><mrow><mi mathvariant="bold">1</mi></mrow><mrow><mi>E</mi></mrow></msub><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo><mo class="MathClass-punc" stretchy="false">,</mo><mspace class="qquad" width="2em"></mspace><mi>v</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-punc" stretchy="false">:</mo><mo class="MathClass-rel" stretchy="false">=</mo> <mi>g</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo><msub><mrow><mi mathvariant="bold">1</mi></mrow><mrow><mi>E</mi></mrow></msub><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo><mo class="MathClass-punc" stretchy="false">.</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   For every <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>x</mi></math> in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>Z</mi></math>, differentiability
+at <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mi>t</mi></mrow><mrow><mn>0</mn></mrow></msub></math>
+gives </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                        <msub><mrow><mi>u</mi></mrow><mrow><mi>n</mi></mrow></msub><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-rel" stretchy="false">→</mo> <mi>u</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo><mspace class="qquad" width="2em"></mspace><mstyle class="text"><mtext>as </mtext></mstyle><mi>n</mi> <mo class="MathClass-rel" stretchy="false">→</mo> <mo class="MathClass-bin" stretchy="false">+</mo><mi>∞</mi><mo class="MathClass-punc" stretchy="false">.</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   Moreover, for every <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>x</mi></math>
+in <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>Z</mi></math> and
+every <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>n</mi> <mo class="MathClass-rel" stretchy="false">≥</mo> <mn>1</mn></mrow></math>,
+the mean value theorem provides a point </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                    <msub><mrow><mi>s</mi></mrow><mrow><mi>n</mi></mrow></msub><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-rel" stretchy="false">∈</mo><mo class="MathClass-close" stretchy="false">]</mo><mtext class="qopname"> min</mtext><mo> ⁡</mo><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mi>t</mi></mrow><mrow><mi>n</mi></mrow></msub><mo class="MathClass-punc" stretchy="false">,</mo><msub><mrow><mi>t</mi></mrow><mrow><mn>0</mn></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo><mo class="MathClass-punc" stretchy="false">,</mo><mtext class="qopname"> max</mtext><mo> ⁡</mo><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mi>t</mi></mrow><mrow><mi>n</mi></mrow></msub><mo class="MathClass-punc" stretchy="false">,</mo><msub><mrow><mi>t</mi></mrow><mrow><mn>0</mn></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo><mo class="MathClass-open" stretchy="false">[</mo><mo class="MathClass-rel" stretchy="false">⊂</mo> <mi>J</mi>
+</mrow></math></td></tr></table>
+                                                                          
+
+                                                                          
+</div><p class="indent">   such that </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                     <mfrac><mrow><mi>f</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-punc" stretchy="false">,</mo><msub><mrow><mi>t</mi></mrow><mrow><mi>n</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-bin" stretchy="false">−</mo> <mi>f</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-punc" stretchy="false">,</mo><msub><mrow><mi>t</mi></mrow><mrow><mn>0</mn></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow>
+       <mrow><msub><mrow><mi>t</mi></mrow><mrow><mi>n</mi></mrow></msub> <mo class="MathClass-bin" stretchy="false">−</mo> <msub><mrow><mi>t</mi></mrow><mrow><mn>0</mn></mrow></msub></mrow></mfrac>      <mo class="MathClass-rel" stretchy="false">=</mo> <mfrac><mrow><mi mathvariant="italic">∂f</mi></mrow> 
+<mrow><mi mathvariant="italic">∂t</mi></mrow></mfrac> <mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-punc" stretchy="false">,</mo><msub><mrow><mi>s</mi></mrow><mrow><mi>n</mi></mrow></msub><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo><mo class="MathClass-close" stretchy="false">)</mo><mo class="MathClass-punc" stretchy="false">.</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   Therefore </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                              <mo class="MathClass-rel" stretchy="false">|</mo><msub><mrow><mi>u</mi></mrow><mrow><mi>n</mi></mrow></msub><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo><mo class="MathClass-rel" stretchy="false">|</mo><mo class="MathClass-rel" stretchy="false">≤</mo> <mi>v</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   for every <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>x</mi></math>
+in <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>Z</mi></math> and
+every <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>n</mi> <mo class="MathClass-rel" stretchy="false">≥</mo> <mn>1</mn></mrow></math>.
+</p><p class="indent">   <span class="ecbx-1200">Step 3. Application of dominated convergence. </span>On
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>X</mi> <mo class="MathClass-bin" stretchy="false">∖</mo> <mi>M</mi></mrow></math>,
+convergence and domination hold, and outside
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>E</mi></math> all zero extensions
+vanish. Since <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>v</mi></math>
+is in <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msup><mrow><mstyle mathvariant="script"><mi>L</mi></mstyle></mrow><mrow><mn>1</mn></mrow></msup><mo class="MathClass-open" stretchy="false">(</mo><mi>μ</mi><mo class="MathClass-close" stretchy="false">)</mo></mrow></math>
+and is nonnegative, Theorem <a href="chapter-08.html#ref-th-TCDfort">8.12</a> applied to the sequence
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mi>u</mi></mrow><mrow><mi>n</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow><mrow><mi>n</mi><mo class="MathClass-rel" stretchy="false">≥</mo><mn>1</mn></mrow></msub></math> yields
+</p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+                                                                          
+
+                                                                          
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                     <msub><mrow><mo>∫
+ </mo></mrow><mrow><mi>X</mi></mrow></msub><msub><mrow><mi>u</mi></mrow><mrow><mi>n</mi></mrow></msub><mspace class="thinspace" width="0.17em"></mspace><mi mathvariant="italic">dμ</mi> <mo class="MathClass-rel" stretchy="false">→</mo><msub><mrow><mo>∫ 
+</mo></mrow><mrow><mi>X</mi></mrow></msub><mi>u</mi><mspace class="thinspace" width="0.17em"></mspace><mi mathvariant="italic">dμ</mi><mspace class="qquad" width="2em"></mspace><mstyle class="text"><mtext>as </mtext></mstyle><mi>n</mi> <mo class="MathClass-rel" stretchy="false">→</mo> <mo class="MathClass-bin" stretchy="false">+</mo><mi>∞</mi><mo class="MathClass-punc" stretchy="false">.</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   <span class="ecbx-1200">Step 4. Identification of the derivative. </span>By the indicator formulation,
+</p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+ <msub><mrow><mo>∫
+ </mo></mrow><mrow><mi>X</mi></mrow></msub><msub><mrow><mi>u</mi></mrow><mrow><mi>n</mi></mrow></msub><mspace class="thinspace" width="0.17em"></mspace><mi mathvariant="italic">dμ</mi> <mo class="MathClass-rel" stretchy="false">=</mo>     <mfrac><mrow><mn>1</mn></mrow> 
+<mrow><msub><mrow><mi>t</mi></mrow><mrow><mi>n</mi></mrow></msub> <mo class="MathClass-bin" stretchy="false">−</mo> <msub><mrow><mi>t</mi></mrow><mrow><mn>0</mn></mrow></msub></mrow></mfrac>  <mrow><mo fence="true" form="prefix"> (</mo><mrow><msub><mrow><mo>∫ 
+</mo></mrow><mrow><mi>E</mi></mrow></msub><mi>f</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-punc" stretchy="false">,</mo><msub><mrow><mi>t</mi></mrow><mrow><mi>n</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo><mspace class="thinspace" width="0.17em"></mspace><mi mathvariant="italic">dμ</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-bin" stretchy="false">−</mo><msub><mrow><mo>∫ 
+</mo></mrow><mrow><mi>E</mi></mrow></msub><mi>f</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-punc" stretchy="false">,</mo><msub><mrow><mi>t</mi></mrow><mrow><mn>0</mn></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo><mspace class="thinspace" width="0.17em"></mspace><mi mathvariant="italic">dμ</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo></mrow><mo fence="true" form="postfix">)</mo></mrow> <mo class="MathClass-rel" stretchy="false">=</mo> <mfrac><mrow><mi>F</mi><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mi>t</mi></mrow><mrow><mi>n</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-bin" stretchy="false">−</mo> <mi>F</mi><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mi>t</mi></mrow><mrow><mn>0</mn></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow> 
+     <mrow><msub><mrow><mi>t</mi></mrow><mrow><mi>n</mi></mrow></msub> <mo class="MathClass-bin" stretchy="false">−</mo> <msub><mrow><mi>t</mi></mrow><mrow><mn>0</mn></mrow></msub></mrow></mfrac>       <mo class="MathClass-punc" stretchy="false">,</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   and </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                      <msub><mrow><mo>∫
+ </mo></mrow><mrow><mi>X</mi></mrow></msub><mi>u</mi><mspace class="thinspace" width="0.17em"></mspace><mi mathvariant="italic">dμ</mi> <mo class="MathClass-rel" stretchy="false">=</mo><msub><mrow><mo> ∫ 
+</mo></mrow><mrow><mi>E</mi></mrow></msub><mfrac><mrow><mi mathvariant="italic">∂f</mi></mrow> 
+<mrow><mi mathvariant="italic">∂t</mi></mrow></mfrac> <mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-punc" stretchy="false">,</mo><msub><mrow><mi>t</mi></mrow><mrow><mn>0</mn></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo><mspace class="thinspace" width="0.17em"></mspace><mi mathvariant="italic">dμ</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo><mo class="MathClass-punc" stretchy="false">.</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   Therefore </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+                                                                          
+
+                                                                          
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+             <mfrac><mrow><mi>F</mi><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mi>t</mi></mrow><mrow><mi>n</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-bin" stretchy="false">−</mo> <mi>F</mi><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mi>t</mi></mrow><mrow><mn>0</mn></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow>
+     <mrow><msub><mrow><mi>t</mi></mrow><mrow><mi>n</mi></mrow></msub> <mo class="MathClass-bin" stretchy="false">−</mo> <msub><mrow><mi>t</mi></mrow><mrow><mn>0</mn></mrow></msub></mrow></mfrac>    <mo class="MathClass-rel" stretchy="false">→</mo><msub><mrow><mo>∫
+ </mo></mrow><mrow><mi>E</mi></mrow></msub><mfrac><mrow><mi mathvariant="italic">∂f</mi></mrow> 
+<mrow><mi mathvariant="italic">∂t</mi></mrow></mfrac> <mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-punc" stretchy="false">,</mo><msub><mrow><mi>t</mi></mrow><mrow><mn>0</mn></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo><mspace class="thinspace" width="0.17em"></mspace><mi mathvariant="italic">dμ</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo><mspace class="qquad" width="2em"></mspace><mstyle class="text"><mtext>as </mtext></mstyle><mi>n</mi> <mo class="MathClass-rel" stretchy="false">→</mo> <mo class="MathClass-bin" stretchy="false">+</mo><mi>∞</mi><mo class="MathClass-punc" stretchy="false">.</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   Since this is true for every sequence
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mi>t</mi></mrow><mrow><mi>n</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow></math> in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>I</mi> <mo class="MathClass-bin" stretchy="false">∖</mo><mo class="MathClass-open" stretchy="false">{</mo><msub><mrow><mi>t</mi></mrow><mrow><mn>0</mn></mrow></msub><mo class="MathClass-close" stretchy="false">}</mo></mrow></math> converging
+to <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mi>t</mi></mrow><mrow><mn>0</mn></mrow></msub></math>,
+the sequential characterization of the derivative proves the result.            □
+</p>
+   </div>
+   <div class="statement statement-brown">
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-59005r4"></a>
+<span class="ecbx-1200">Corollary 9.4 </span>(Smoothness under the integral sign)<span class="ecbx-1200">.</span>  </span><span class="ecti-1200">Let</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>I</mi> <mo class="MathClass-rel" stretchy="false">⊂</mo> <mi>ℝ</mi></mrow></math> <span class="ecti-1200">be an
+open interval. We assume that</span>
+      </p><dl class="enumerate-enumitem"><dt class="enumerate-enumitem">
+   <span class="ecti-1200">1.</span> </dt><dd class="enumerate-enumitem"><span class="ecti-1200">for every </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>t</mi></math>
+      <span class="ecti-1200">in </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>I</mi></math><span class="ecti-1200">,
+      the function </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>x</mi><mo class="MathClass-rel" stretchy="false">↦</mo><mi>f</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-punc" stretchy="false">,</mo><mi>t</mi><mo class="MathClass-close" stretchy="false">)</mo></mrow></math>
+      <span class="ecti-1200">is measurable on </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>E</mi></math>
+      <span class="ecti-1200">and integrable over </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>E</mi></math><span class="ecti-1200">,</span>
+      </dd><dt class="enumerate-enumitem">
+   <span class="ecti-1200">2.</span> </dt><dd class="enumerate-enumitem"><span class="ecti-1200">for every </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>t</mi></math>
+      <span class="ecti-1200">in </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>I</mi></math><span class="ecti-1200">,
+      the function </span><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+                                                                          
+
+                                                                          
+      <math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                                        <mi>x</mi><mo class="MathClass-rel" stretchy="false">↦</mo><mfrac><mrow><mi mathvariant="italic">∂f</mi></mrow> 
+<mrow><mi mathvariant="italic">∂t</mi></mrow></mfrac> <mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-punc" stretchy="false">,</mo><mi>t</mi><mo class="MathClass-close" stretchy="false">)</mo>
+</mrow></math></td></tr></table>
+      </div><p class="noindent"><span class="ecti-1200">is measurable on </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>E</mi></math><span class="ecti-1200">, and there
+      exists a measurable set </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>Z</mi> <mo class="MathClass-rel" stretchy="false">⊂</mo> <mi>E</mi></mrow></math>
+      <span class="ecti-1200">with </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>μ</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>E</mi> <mo class="MathClass-bin" stretchy="false">∖</mo> <mi>Z</mi><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-rel" stretchy="false">=</mo> <mn>0</mn></mrow></math> <span class="ecti-1200">such
+      that, for every </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>x</mi></math>
+      <span class="ecti-1200">in </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>Z</mi></math><span class="ecti-1200">,
+      the map</span> </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+      <math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                                         <mi>t</mi><mo class="MathClass-rel" stretchy="false">↦</mo><mi>f</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-punc" stretchy="false">,</mo><mi>t</mi><mo class="MathClass-close" stretchy="false">)</mo>
+</mrow></math></td></tr></table>
+      </div><p class="noindent"><span class="ecti-1200">is differentiable on </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>I</mi></math><span class="ecti-1200">,</span>
+      </p></dd><dt class="enumerate-enumitem">
+   <span class="ecti-1200">3.</span> </dt><dd class="enumerate-enumitem"><span class="ecti-1200">there exists a function </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>g</mi><mo class="MathClass-punc" stretchy="false">:</mo> <mi>E</mi> <mo class="MathClass-rel" stretchy="false">→</mo> <mo class="MathClass-open" stretchy="false">[</mo><mn>0</mn><mo class="MathClass-punc" stretchy="false">,</mo><mi>∞</mi><mo class="MathClass-close" stretchy="false">)</mo></mrow></math><span class="ecti-1200">,
+      integrable over </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>E</mi></math><span class="ecti-1200">,
+      such that </span><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+                                                                          
+
+                                                                          
+      <math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                                     <mstyle mathsize="2.03em"><mrow><mo fence="true" form="prefix"> |</mo><mrow></mrow><mo fence="true" form="postfix"></mo></mrow></mstyle><mfrac><mrow><mi mathvariant="italic">∂f</mi></mrow> 
+<mrow><mi mathvariant="italic">∂t</mi></mrow></mfrac> <mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-punc" stretchy="false">,</mo><mi>t</mi><mo class="MathClass-close" stretchy="false">)</mo><mstyle mathsize="2.03em"><mrow><mo fence="true" form="prefix"> |</mo><mrow></mrow><mo fence="true" form="postfix"></mo></mrow></mstyle> <mo class="MathClass-rel" stretchy="false">≤</mo> <mi>g</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo>
+</mrow></math></td></tr></table>
+      </div><p class="noindent"><span class="ecti-1200">for every </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>x</mi></math>
+      <span class="ecti-1200">in </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>Z</mi></math> <span class="ecti-1200">and
+      every </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>t</mi></math>
+      <span class="ecti-1200">in </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>I</mi></math><span class="ecti-1200">.</span></p></dd></dl>
+<p class="noindent"><span class="ecti-1200">Then the map</span> </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                          <mi>F</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>t</mi><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-rel" stretchy="false">=</mo><msub><mrow><mo> ∫
+ </mo></mrow><mrow><mi>E</mi></mrow></msub><mi>f</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-punc" stretchy="false">,</mo><mi>t</mi><mo class="MathClass-close" stretchy="false">)</mo><mspace class="thinspace" width="0.17em"></mspace><mi mathvariant="italic">dμ</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   <span class="ecti-1200">is differentiable on </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>I</mi></math>
+<span class="ecti-1200">and</span> </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+                                                                          
+
+                                                                          
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                        <msup><mrow><mi>F</mi></mrow><mrow><mi>′</mi></mrow></msup><mo class="MathClass-open" stretchy="false">(</mo><mi>t</mi><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-rel" stretchy="false">=</mo><msub><mrow><mo> ∫
+ </mo></mrow><mrow><mi>E</mi></mrow></msub><mfrac><mrow><mi mathvariant="italic">∂f</mi></mrow> 
+<mrow><mi mathvariant="italic">∂t</mi></mrow></mfrac> <mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-punc" stretchy="false">,</mo><mi>t</mi><mo class="MathClass-close" stretchy="false">)</mo><mspace class="thinspace" width="0.17em"></mspace><mi mathvariant="italic">dμ</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   <span class="ecti-1200">for every </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>t</mi></math>
+<span class="ecti-1200">in </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>I</mi></math><span class="ecti-1200">.</span>
+</p>
+   </div>
+</div>
+   <div class="proof">
+<p class="indent">   <span class="head">
+<span class="ecti-1200">Proof.</span> </span>We apply Theorem <a href="#ref-th-derint">9.3</a> at each point <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mi>t</mi></mrow><mrow><mn>0</mn></mrow></msub></math>
+in <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>I</mi></math>.
+                                                                         □
+</p>
+   </div>
+   <div class="statement statement-orange">
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-59009r5"></a>
+<span class="ecbx-1200">Example 9.5 </span>(Gamma function)<span class="ecbx-1200">.</span>  </span><span class="ecti-1200">For</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>y</mi> <mo class="MathClass-rel" stretchy="false">&gt;</mo> <mn>0</mn></mrow></math><span class="ecti-1200">, we
+define</span> </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+                                                                          
+
+                                                                          
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                         <mi>Γ</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>y</mi><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-punc" stretchy="false">:</mo><mo class="MathClass-rel" stretchy="false">=</mo><msubsup><mrow><mo> ∫
+ </mo></mrow><mrow><mn>0</mn></mrow><mrow><mi>∞</mi></mrow></msubsup><msup><mrow><mi>e</mi></mrow><mrow><mo class="MathClass-bin" stretchy="false">−</mo><mi>x</mi></mrow></msup><msup><mrow><mi>x</mi></mrow><mrow><mi>y</mi><mo class="MathClass-bin" stretchy="false">−</mo><mn>1</mn></mrow></msup><mspace class="thinspace" width="0.17em"></mspace><mspace class="thinspace" width="0.17em"></mspace><mi mathvariant="italic">dx</mi><mo class="MathClass-punc" stretchy="false">.</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   <span class="ecti-1200">Then </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>Γ</mi></math> <span class="ecti-1200">is well
+defined and of class </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msup><mrow><mi>C</mi></mrow><mrow><mi>∞</mi></mrow></msup></math>
+<span class="ecti-1200">on </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-close" stretchy="false">]</mo><mn>0</mn><mo class="MathClass-punc" stretchy="false">,</mo><mi>∞</mi><mo class="MathClass-open" stretchy="false">[</mo></mrow></math><span class="ecti-1200">. More precisely,
+for every integer </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>k</mi> <mo class="MathClass-rel" stretchy="false">≥</mo> <mn>1</mn></mrow></math>
+<span class="ecti-1200">and every </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>y</mi> <mo class="MathClass-rel" stretchy="false">&gt;</mo> <mn>0</mn></mrow></math><span class="ecti-1200">,</span>
+</p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                     <msup><mrow><mi>Γ</mi></mrow><mrow><mo class="MathClass-open" stretchy="false">(</mo><mi>k</mi><mo class="MathClass-close" stretchy="false">)</mo></mrow></msup><mo class="MathClass-open" stretchy="false">(</mo><mi>y</mi><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-rel" stretchy="false">=</mo><msubsup><mrow><mo> ∫
+ </mo></mrow><mrow><mn>0</mn></mrow><mrow><mi>∞</mi></mrow></msubsup><msup><mrow><mi>e</mi></mrow><mrow><mo class="MathClass-bin" stretchy="false">−</mo><mi>x</mi></mrow></msup><msup><mrow><mi>x</mi></mrow><mrow><mi>y</mi><mo class="MathClass-bin" stretchy="false">−</mo><mn>1</mn></mrow></msup><msup><mrow><mo class="MathClass-open" stretchy="false">(</mo><mtext class="qopname">log</mtext><mo> ⁡</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo></mrow><mrow><mi>k</mi></mrow></msup><mspace class="thinspace" width="0.17em"></mspace><mspace class="thinspace" width="0.17em"></mspace><mi mathvariant="italic">dx</mi><mo class="MathClass-punc" stretchy="false">.</mo>
+</mrow></math></td></tr></table>
+   </div></div>
+</div>
+   <div class="proof">
+<p class="indent">   <span class="head">
+<span class="ecti-1200">Proof.</span> </span><span class="ecbx-1200">Step 1. Well-definedness. </span>Let us first prove that
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>Γ</mi></math> is well defined.
+Fix <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>y</mi> <mo class="MathClass-rel" stretchy="false">&gt;</mo> <mn>0</mn></mrow></math>. Splitting
+the integral at <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mn>1</mn></math>,
+we obtain </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+                                                                          
+
+                                                                          
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+           <msubsup><mrow><mo>∫
+ </mo></mrow><mrow><mn>0</mn></mrow><mrow><mi>∞</mi></mrow></msubsup><msup><mrow><mi>e</mi></mrow><mrow><mo class="MathClass-bin" stretchy="false">−</mo><mi>x</mi></mrow></msup><msup><mrow><mi>x</mi></mrow><mrow><mi>y</mi><mo class="MathClass-bin" stretchy="false">−</mo><mn>1</mn></mrow></msup><mspace class="thinspace" width="0.17em"></mspace><mspace class="thinspace" width="0.17em"></mspace><mi mathvariant="italic">dx</mi> <mo class="MathClass-rel" stretchy="false">=</mo><msubsup><mrow><mo> ∫ 
+</mo></mrow><mrow><mn>0</mn></mrow><mrow><mn>1</mn></mrow></msubsup><msup><mrow><mi>e</mi></mrow><mrow><mo class="MathClass-bin" stretchy="false">−</mo><mi>x</mi></mrow></msup><msup><mrow><mi>x</mi></mrow><mrow><mi>y</mi><mo class="MathClass-bin" stretchy="false">−</mo><mn>1</mn></mrow></msup><mspace class="thinspace" width="0.17em"></mspace><mspace class="thinspace" width="0.17em"></mspace><mi mathvariant="italic">dx</mi> <mo class="MathClass-bin" stretchy="false">+</mo><msubsup><mrow><mo> ∫ 
+</mo></mrow><mrow><mn>1</mn></mrow><mrow><mi>∞</mi></mrow></msubsup><msup><mrow><mi>e</mi></mrow><mrow><mo class="MathClass-bin" stretchy="false">−</mo><mi>x</mi></mrow></msup><msup><mrow><mi>x</mi></mrow><mrow><mi>y</mi><mo class="MathClass-bin" stretchy="false">−</mo><mn>1</mn></mrow></msup><mspace class="thinspace" width="0.17em"></mspace><mspace class="thinspace" width="0.17em"></mspace><mi mathvariant="italic">dx</mi><mo class="MathClass-punc" stretchy="false">.</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   On <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-close" stretchy="false">]</mo><mn>0</mn><mo class="MathClass-punc" stretchy="false">,</mo> <mn>1</mn><mo class="MathClass-close" stretchy="false">]</mo></mrow></math>,
+we have <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msup><mrow><mi>e</mi></mrow><mrow><mo class="MathClass-bin" stretchy="false">−</mo><mi>x</mi></mrow></msup> <mo class="MathClass-rel" stretchy="false">≤</mo> <mn>1</mn></mrow></math>,
+hence </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                           <mn>0</mn> <mo class="MathClass-rel" stretchy="false">≤</mo> <msup><mrow><mi>e</mi></mrow><mrow><mo class="MathClass-bin" stretchy="false">−</mo><mi>x</mi></mrow></msup><msup><mrow><mi>x</mi></mrow><mrow><mi>y</mi><mo class="MathClass-bin" stretchy="false">−</mo><mn>1</mn></mrow></msup> <mo class="MathClass-rel" stretchy="false">≤</mo> <msup><mrow><mi>x</mi></mrow><mrow><mi>y</mi><mo class="MathClass-bin" stretchy="false">−</mo><mn>1</mn></mrow></msup><mo class="MathClass-punc" stretchy="false">,</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   and the function <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>x</mi><mo class="MathClass-rel" stretchy="false">↦</mo><msup><mrow><mi>x</mi></mrow><mrow><mi>y</mi><mo class="MathClass-bin" stretchy="false">−</mo><mn>1</mn></mrow></msup></mrow></math>
+is integrable on <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-close" stretchy="false">]</mo><mn>0</mn><mo class="MathClass-punc" stretchy="false">,</mo> <mn>1</mn><mo class="MathClass-close" stretchy="false">]</mo></mrow></math>
+because <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>y</mi> <mo class="MathClass-rel" stretchy="false">&gt;</mo> <mn>0</mn></mrow></math>.
+On <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-open" stretchy="false">[</mo><mn>1</mn><mo class="MathClass-punc" stretchy="false">,</mo><mi>∞</mi><mo class="MathClass-open" stretchy="false">[</mo></mrow></math>, the
+factor <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msup><mrow><mi>e</mi></mrow><mrow><mo class="MathClass-bin" stretchy="false">−</mo><mi>x</mi></mrow></msup></math>
+gives exponential decay. More explicitly, there exists
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mrow><mi>C</mi></mrow><mrow><mi>y</mi></mrow></msub> <mo class="MathClass-rel" stretchy="false">&gt;</mo> <mn>0</mn></mrow></math> such
+that <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msup><mrow><mi>x</mi></mrow><mrow><mi>y</mi><mo class="MathClass-bin" stretchy="false">−</mo><mn>1</mn></mrow></msup> <mo class="MathClass-rel" stretchy="false">≤</mo> <msub><mrow><mi>C</mi></mrow><mrow>
+<mi>y</mi></mrow></msub><msup><mrow><mi>e</mi></mrow><mrow><mi>x</mi><mo class="MathClass-bin" stretchy="false">∕</mo><mn>2</mn></mrow></msup></mrow></math> for
+all <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>x</mi> <mo class="MathClass-rel" stretchy="false">≥</mo> <mn>1</mn></mrow></math>,
+and therefore </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+                                                                          
+
+                                                                          
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                          <mn>0</mn> <mo class="MathClass-rel" stretchy="false">≤</mo> <msup><mrow><mi>e</mi></mrow><mrow><mo class="MathClass-bin" stretchy="false">−</mo><mi>x</mi></mrow></msup><msup><mrow><mi>x</mi></mrow><mrow><mi>y</mi><mo class="MathClass-bin" stretchy="false">−</mo><mn>1</mn></mrow></msup> <mo class="MathClass-rel" stretchy="false">≤</mo> <msub><mrow><mi>C</mi></mrow><mrow>
+<mi>y</mi></mrow></msub><msup><mrow><mi>e</mi></mrow><mrow><mo class="MathClass-bin" stretchy="false">−</mo><mi>x</mi><mo class="MathClass-bin" stretchy="false">∕</mo><mn>2</mn></mrow></msup>
+</mrow></math></td></tr></table>
+</div><p class="indent">   for all <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>x</mi> <mo class="MathClass-rel" stretchy="false">≥</mo> <mn>1</mn></mrow></math>. Thus
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>x</mi><mo class="MathClass-rel" stretchy="false">↦</mo><msup><mrow><mi>e</mi></mrow><mrow><mo class="MathClass-bin" stretchy="false">−</mo><mi>x</mi></mrow></msup><msup><mrow><mi>x</mi></mrow><mrow><mi>y</mi><mo class="MathClass-bin" stretchy="false">−</mo><mn>1</mn></mrow></msup></mrow></math> is integrable
+on <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-open" stretchy="false">[</mo><mn>1</mn><mo class="MathClass-punc" stretchy="false">,</mo><mi>∞</mi><mo class="MathClass-open" stretchy="false">[</mo></mrow></math>. Therefore
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>Γ</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>y</mi><mo class="MathClass-close" stretchy="false">)</mo></mrow></math> is well defined
+for every <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>y</mi> <mo class="MathClass-rel" stretchy="false">&gt;</mo> <mn>0</mn></mrow></math>.
+</p><p class="indent">   <span class="ecbx-1200">Step 2. Uniform dominators on compact parameter intervals. </span>We
+now prove continuity and smoothness on an arbitrary compact interval
+</p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                            <mi>J</mi> <mo class="MathClass-rel" stretchy="false">=</mo> <mo class="MathClass-open" stretchy="false">[</mo><mi>a</mi><mo class="MathClass-punc" stretchy="false">,</mo><mi>b</mi><mo class="MathClass-close" stretchy="false">]</mo> <mo class="MathClass-rel" stretchy="false">⊂</mo><mo class="MathClass-close" stretchy="false">]</mo><mn>0</mn><mo class="MathClass-punc" stretchy="false">,</mo><mi>∞</mi><mo class="MathClass-open" stretchy="false">[</mo><mo class="MathClass-punc" stretchy="false">.</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   For every integer <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>r</mi> <mo class="MathClass-rel" stretchy="false">≥</mo> <mn>0</mn></mrow></math>,
+every <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>y</mi></math> in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>J</mi></math>, and
+every <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>x</mi> <mo class="MathClass-rel" stretchy="false">&gt;</mo> <mn>0</mn></mrow></math>,
+set </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+                                                                          
+
+                                                                          
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                        <msub><mrow><mi>F</mi></mrow><mrow><mi>r</mi></mrow></msub><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-punc" stretchy="false">,</mo><mi>y</mi><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-punc" stretchy="false">:</mo><mo class="MathClass-rel" stretchy="false">=</mo> <msup><mrow><mi>e</mi></mrow><mrow><mo class="MathClass-bin" stretchy="false">−</mo><mi>x</mi></mrow></msup><msup><mrow><mi>x</mi></mrow><mrow><mi>y</mi><mo class="MathClass-bin" stretchy="false">−</mo><mn>1</mn></mrow></msup><msup><mrow><mo class="MathClass-open" stretchy="false">(</mo><mtext class="qopname">log</mtext><mo> ⁡</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo></mrow><mrow><mi>r</mi></mrow></msup><mo class="MathClass-punc" stretchy="false">.</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   For <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>r</mi> <mo class="MathClass-rel" stretchy="false">=</mo> <mn>0</mn></mrow></math>, this is the
+original integrand. If <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mn>0</mn> <mo class="MathClass-rel" stretchy="false">&lt;</mo> <mi>x</mi> <mo class="MathClass-rel" stretchy="false">≤</mo> <mn>1</mn></mrow></math>,
+then <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>a</mi> <mo class="MathClass-rel" stretchy="false">≤</mo> <mi>y</mi></mrow></math>
+and therefore </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                         <mo class="MathClass-rel" stretchy="false">|</mo><msub><mrow><mi>F</mi></mrow><mrow><mi>r</mi></mrow></msub><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-punc" stretchy="false">,</mo><mi>y</mi><mo class="MathClass-close" stretchy="false">)</mo><mo class="MathClass-rel" stretchy="false">|</mo><mo class="MathClass-rel" stretchy="false">≤</mo> <msup><mrow><mi>x</mi></mrow><mrow><mi>a</mi><mo class="MathClass-bin" stretchy="false">−</mo><mn>1</mn></mrow></msup><mo class="MathClass-rel" stretchy="false">|</mo><mtext class="qopname"> log</mtext><mo> ⁡</mo><mi>x</mi><msup><mrow><mo class="MathClass-rel" stretchy="false">|</mo></mrow><mrow><mi>r</mi></mrow></msup><mo class="MathClass-punc" stretchy="false">.</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   The function on the right is integrable on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-close" stretchy="false">]</mo><mn>0</mn><mo class="MathClass-punc" stretchy="false">,</mo> <mn>1</mn><mo class="MathClass-close" stretchy="false">]</mo></mrow></math>.
+Indeed, by the classical one-dimensional change of variable
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>x</mi> <mo class="MathClass-rel" stretchy="false">=</mo> <msup><mrow><mi>e</mi></mrow><mrow><mo class="MathClass-bin" stretchy="false">−</mo><mi>t</mi></mrow></msup></mrow></math>,
+</p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+                                                                          
+
+                                                                          
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                 <msubsup><mrow><mo>∫
+ </mo></mrow><mrow><mn>0</mn></mrow><mrow><mn>1</mn></mrow></msubsup><msup><mrow><mi>x</mi></mrow><mrow><mi>a</mi><mo class="MathClass-bin" stretchy="false">−</mo><mn>1</mn></mrow></msup><mo class="MathClass-rel" stretchy="false">|</mo><mtext class="qopname"> log</mtext><mo> ⁡</mo><mi>x</mi><msup><mrow><mo class="MathClass-rel" stretchy="false">|</mo></mrow><mrow><mi>r</mi></mrow></msup><mspace class="thinspace" width="0.17em"></mspace><mspace class="thinspace" width="0.17em"></mspace><mi mathvariant="italic">dx</mi> <mo class="MathClass-rel" stretchy="false">=</mo><msubsup><mrow><mo> ∫ 
+</mo></mrow><mrow><mn>0</mn></mrow><mrow><mi>∞</mi></mrow></msubsup><msup><mrow><mi>e</mi></mrow><mrow><mo class="MathClass-bin" stretchy="false">−</mo><mi mathvariant="italic">at</mi></mrow></msup><msup><mrow><mi>t</mi></mrow><mrow><mi>r</mi></mrow></msup><mspace class="thinspace" width="0.17em"></mspace><mspace class="thinspace" width="0.17em"></mspace><mi mathvariant="italic">dt</mi> <mo class="MathClass-rel" stretchy="false">&lt;</mo> <mi>∞</mi><mo class="MathClass-punc" stretchy="false">.</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   If <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>x</mi> <mo class="MathClass-rel" stretchy="false">≥</mo> <mn>1</mn></mrow></math>,
+then <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>y</mi> <mo class="MathClass-rel" stretchy="false">≤</mo> <mi>b</mi></mrow></math>
+and </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                       <mo class="MathClass-rel" stretchy="false">|</mo><msub><mrow><mi>F</mi></mrow><mrow><mi>r</mi></mrow></msub><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-punc" stretchy="false">,</mo><mi>y</mi><mo class="MathClass-close" stretchy="false">)</mo><mo class="MathClass-rel" stretchy="false">|</mo><mo class="MathClass-rel" stretchy="false">≤</mo> <msup><mrow><mi>e</mi></mrow><mrow><mo class="MathClass-bin" stretchy="false">−</mo><mi>x</mi></mrow></msup><msup><mrow><mi>x</mi></mrow><mrow><mi>b</mi><mo class="MathClass-bin" stretchy="false">−</mo><mn>1</mn></mrow></msup><msup><mrow><mo class="MathClass-open" stretchy="false">(</mo><mtext class="qopname">log</mtext><mo> ⁡</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo></mrow><mrow><mi>r</mi></mrow></msup><mo class="MathClass-punc" stretchy="false">.</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   The function on the right is integrable on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-open" stretchy="false">[</mo><mn>1</mn><mo class="MathClass-punc" stretchy="false">,</mo><mi>∞</mi><mo class="MathClass-open" stretchy="false">[</mo></mrow></math>
+because the exponential factor dominates the polynomial-logarithmic growth.
+Thus </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+           <msub><mrow><mi>g</mi></mrow><mrow><mi>r</mi></mrow></msub><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-punc" stretchy="false">:</mo><mo class="MathClass-rel" stretchy="false">=</mo><msub><mrow> <mi mathvariant="bold">1</mi></mrow><mrow><mo class="MathClass-close" stretchy="false">]</mo><mn>0</mn><mo class="MathClass-punc" stretchy="false">,</mo><mn>1</mn><mo class="MathClass-close" stretchy="false">]</mo></mrow></msub><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo><msup><mrow><mi>x</mi></mrow><mrow><mi>a</mi><mo class="MathClass-bin" stretchy="false">−</mo><mn>1</mn></mrow></msup><mo class="MathClass-rel" stretchy="false">|</mo><mtext class="qopname"> log</mtext><mo> ⁡</mo><mi>x</mi><msup><mrow><mo class="MathClass-rel" stretchy="false">|</mo></mrow><mrow><mi>r</mi></mrow></msup> <mo class="MathClass-bin" stretchy="false">+</mo><msub><mrow> <mi mathvariant="bold">1</mi></mrow><mrow>
+<mo class="MathClass-open" stretchy="false">[</mo><mn>1</mn><mo class="MathClass-punc" stretchy="false">,</mo><mi>∞</mi><mo class="MathClass-open" stretchy="false">[</mo></mrow></msub><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo><msup><mrow><mi>e</mi></mrow><mrow><mo class="MathClass-bin" stretchy="false">−</mo><mi>x</mi></mrow></msup><msup><mrow><mi>x</mi></mrow><mrow><mi>b</mi><mo class="MathClass-bin" stretchy="false">−</mo><mn>1</mn></mrow></msup><msup><mrow><mo class="MathClass-open" stretchy="false">(</mo><mtext class="qopname">log</mtext><mo> ⁡</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo></mrow><mrow><mi>r</mi></mrow></msup>
+</mrow></math></td></tr></table>
+                                                                          
+
+                                                                          
+</div><p class="indent">   is an integrable dominator for <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mrow><mi>F</mi></mrow><mrow><mi>r</mi></mrow></msub><mo class="MathClass-open" stretchy="false">(</mo><mo class="MathClass-bin" stretchy="false">⋅</mo><mo class="MathClass-punc" stretchy="false">,</mo><mi>y</mi><mo class="MathClass-close" stretchy="false">)</mo></mrow></math>,
+uniformly for <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>y</mi></math>
+in <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>J</mi></math>.
+</p><p class="indent">   <span class="ecbx-1200">Step 3. Continuity of the candidate derivatives. </span>For each fixed
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>x</mi> <mo class="MathClass-rel" stretchy="false">&gt;</mo> <mn>0</mn></mrow></math>, the map
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>y</mi><mo class="MathClass-rel" stretchy="false">↦</mo><msub><mrow><mi>F</mi></mrow><mrow><mi>r</mi></mrow></msub><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-punc" stretchy="false">,</mo><mi>y</mi><mo class="MathClass-close" stretchy="false">)</mo></mrow></math> is continuous on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>J</mi></math>. Theorem <a href="#ref-th-contint">9.1</a>
+applied to <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mi>F</mi></mrow><mrow><mn>0</mn></mrow></msub></math> gives
+the continuity of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>Γ</mi></math>
+on <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>J</mi></math>. More generally,
+for every <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>r</mi> <mo class="MathClass-rel" stretchy="false">≥</mo> <mn>0</mn></mrow></math>,
+Theorem <a href="#ref-th-contint">9.1</a> shows that the map </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                         <msub><mrow><mi>G</mi></mrow><mrow><mi>r</mi></mrow></msub><mo class="MathClass-open" stretchy="false">(</mo><mi>y</mi><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-punc" stretchy="false">:</mo><mo class="MathClass-rel" stretchy="false">=</mo><msubsup><mrow><mo> ∫
+ </mo></mrow><mrow><mn>0</mn></mrow><mrow><mi>∞</mi></mrow></msubsup><msub><mrow><mi>F</mi></mrow><mrow>
+<mi>r</mi></mrow></msub><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-punc" stretchy="false">,</mo><mi>y</mi><mo class="MathClass-close" stretchy="false">)</mo><mspace class="thinspace" width="0.17em"></mspace><mspace class="thinspace" width="0.17em"></mspace><mi mathvariant="italic">dx</mi>
+</mrow></math></td></tr></table>
+</div><p class="indent">   is continuous on <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>J</mi></math>.
+</p><p class="indent">   <span class="ecbx-1200">Step 4. Induction on the order of differentiation. </span>We now prove by induction that
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>Γ</mi></math> is of class
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msup><mrow><mi>C</mi></mrow><mrow><mi>k</mi></mrow></msup></math> on the interior
+of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>J</mi></math> and that
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msup><mrow><mi>Γ</mi></mrow><mrow><mo class="MathClass-open" stretchy="false">(</mo><mi>k</mi><mo class="MathClass-close" stretchy="false">)</mo></mrow></msup> <mo class="MathClass-rel" stretchy="false">=</mo> <msub><mrow><mi>G</mi></mrow><mrow>
+<mi>k</mi></mrow></msub></mrow></math> there for every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>k</mi> <mo class="MathClass-rel" stretchy="false">≥</mo> <mn>0</mn></mrow></math>. The case
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>k</mi> <mo class="MathClass-rel" stretchy="false">=</mo> <mn>0</mn></mrow></math> has just been
+proved. Assume that <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>Γ</mi></math>
+is of class <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msup><mrow><mi>C</mi></mrow><mrow><mi>k</mi></mrow></msup></math> on
+the interior of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>J</mi></math>
+and that <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msup><mrow><mi>Γ</mi></mrow><mrow><mo class="MathClass-open" stretchy="false">(</mo><mi>k</mi><mo class="MathClass-close" stretchy="false">)</mo></mrow></msup> <mo class="MathClass-rel" stretchy="false">=</mo> <msub><mrow><mi>G</mi></mrow><mrow>
+<mi>k</mi></mrow></msub></mrow></math>. Since,
+for every <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>x</mi> <mo class="MathClass-rel" stretchy="false">&gt;</mo> <mn>0</mn></mrow></math>,
+</p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+                                                                          
+
+                                                                          
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                          <mfrac><mrow><mi>∂</mi><msub><mrow><mi>F</mi></mrow><mrow><mi>k</mi></mrow></msub></mrow>
+ <mrow><mi mathvariant="italic">∂y</mi></mrow></mfrac> <mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-punc" stretchy="false">,</mo><mi>y</mi><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-rel" stretchy="false">=</mo> <msub><mrow><mi>F</mi></mrow><mrow><mi>k</mi><mo class="MathClass-bin" stretchy="false">+</mo><mn>1</mn></mrow></msub><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-punc" stretchy="false">,</mo><mi>y</mi><mo class="MathClass-close" stretchy="false">)</mo><mo class="MathClass-punc" stretchy="false">,</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   and since <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mi>g</mi></mrow><mrow><mi>k</mi><mo class="MathClass-bin" stretchy="false">+</mo><mn>1</mn></mrow></msub></math> is an
+integrable dominator for <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mi>F</mi></mrow><mrow><mi>k</mi><mo class="MathClass-bin" stretchy="false">+</mo><mn>1</mn></mrow></msub></math>
+on <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>J</mi></math>, Theorem <a href="#ref-th-derint">9.3</a>
+applies at each point <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>y</mi></math>
+in the interior of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>J</mi></math>,
+after choosing a smaller open interval around
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>y</mi></math> contained in
+the interior of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>J</mi></math>.
+Hence </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                  <msubsup><mrow><mi>G</mi></mrow><mrow><mi>k</mi></mrow><mrow><mi>′</mi></mrow></msubsup><mo class="MathClass-open" stretchy="false">(</mo><mi>y</mi><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-rel" stretchy="false">=</mo><msubsup><mrow><mo> ∫
+ </mo></mrow><mrow><mn>0</mn></mrow><mrow><mi>∞</mi></mrow></msubsup><msub><mrow><mi>F</mi></mrow><mrow>
+<mi>k</mi><mo class="MathClass-bin" stretchy="false">+</mo><mn>1</mn></mrow></msub><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-punc" stretchy="false">,</mo><mi>y</mi><mo class="MathClass-close" stretchy="false">)</mo><mspace class="thinspace" width="0.17em"></mspace><mspace class="thinspace" width="0.17em"></mspace><mi mathvariant="italic">dx</mi> <mo class="MathClass-rel" stretchy="false">=</mo> <msub><mrow><mi>G</mi></mrow><mrow><mi>k</mi><mo class="MathClass-bin" stretchy="false">+</mo><mn>1</mn></mrow></msub><mo class="MathClass-open" stretchy="false">(</mo><mi>y</mi><mo class="MathClass-close" stretchy="false">)</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   for every <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>y</mi></math> in
+the interior of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>J</mi></math>.
+Since <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mi>G</mi></mrow><mrow><mi>k</mi><mo class="MathClass-bin" stretchy="false">+</mo><mn>1</mn></mrow></msub></math> is
+continuous on <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>J</mi></math>,
+this proves that <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>Γ</mi></math>
+is of class <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msup><mrow><mi>C</mi></mrow><mrow><mi>k</mi><mo class="MathClass-bin" stretchy="false">+</mo><mn>1</mn></mrow></msup></math> on
+the interior of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>J</mi></math>
+                                                                          
+
+                                                                          
+and that <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msup><mrow><mi>Γ</mi></mrow><mrow><mo class="MathClass-open" stretchy="false">(</mo><mi>k</mi><mo class="MathClass-bin" stretchy="false">+</mo><mn>1</mn><mo class="MathClass-close" stretchy="false">)</mo></mrow></msup> <mo class="MathClass-rel" stretchy="false">=</mo> <msub><mrow><mi>G</mi></mrow><mrow>
+<mi>k</mi><mo class="MathClass-bin" stretchy="false">+</mo><mn>1</mn></mrow></msub></mrow></math> there.
+Hence, for every <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>k</mi> <mo class="MathClass-rel" stretchy="false">≥</mo> <mn>1</mn></mrow></math>
+and every <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>y</mi></math> in
+the interior of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>J</mi></math>,
+</p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                     <msup><mrow><mi>Γ</mi></mrow><mrow><mo class="MathClass-open" stretchy="false">(</mo><mi>k</mi><mo class="MathClass-close" stretchy="false">)</mo></mrow></msup><mo class="MathClass-open" stretchy="false">(</mo><mi>y</mi><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-rel" stretchy="false">=</mo><msubsup><mrow><mo> ∫
+ </mo></mrow><mrow><mn>0</mn></mrow><mrow><mi>∞</mi></mrow></msubsup><msup><mrow><mi>e</mi></mrow><mrow><mo class="MathClass-bin" stretchy="false">−</mo><mi>x</mi></mrow></msup><msup><mrow><mi>x</mi></mrow><mrow><mi>y</mi><mo class="MathClass-bin" stretchy="false">−</mo><mn>1</mn></mrow></msup><msup><mrow><mo class="MathClass-open" stretchy="false">(</mo><mtext class="qopname">log</mtext><mo> ⁡</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo></mrow><mrow><mi>k</mi></mrow></msup><mspace class="thinspace" width="0.17em"></mspace><mspace class="thinspace" width="0.17em"></mspace><mi mathvariant="italic">dx</mi><mo class="MathClass-punc" stretchy="false">.</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   Since every point of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-close" stretchy="false">]</mo><mn>0</mn><mo class="MathClass-punc" stretchy="false">,</mo><mi>∞</mi><mo class="MathClass-open" stretchy="false">[</mo></mrow></math>
+lies in the interior of some such compact interval
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>J</mi></math>, the
+function <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>Γ</mi></math> is
+of class <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msup><mrow><mi>C</mi></mrow><mrow><mi>∞</mi></mrow></msup></math> on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-close" stretchy="false">]</mo><mn>0</mn><mo class="MathClass-punc" stretchy="false">,</mo><mi>∞</mi><mo class="MathClass-open" stretchy="false">[</mo></mrow></math> and the displayed
+formula holds for all <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>y</mi> <mo class="MathClass-rel" stretchy="false">&gt;</mo> <mn>0</mn></mrow></math>.   □
+</p>
+   </div>
+<nav class="previous-next" aria-label="Previous and next chapter"><a class="previous" href="chapter-08.html"><span>Previous</span>Dominated convergence, ℒ¹(μ) and L¹(μ)</a><a class="next" href="chapter-10.html"><span>Next</span>Product measures, the Fubini and Tonelli theorems</a></nav>
+<footer class="chapter-footer"><a href="#chapter">Back to the beginning</a><a href="course.pdf#page=91">This chapter in the PDF</a></footer></main></div></body></html>

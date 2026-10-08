@@ -1,0 +1,648 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>σ-algebras · Franck Sueur</title><meta name="description" content="σ-algebras. Integration and measure theory lecture notes by Franck Sueur, University of Luxembourg.">
+<link rel="canonical" href="https://franck-sueur.github.io/.github.io/integration/chapter-01.html">
+<link rel="stylesheet" href="course.css"><link rel="stylesheet" href="reading.css">
+<script>window.MathJax={options:{enableMenu:false},svg:{fontCache:'global'}};</script><script defer src="assets/mathjax-mml-svg.js"></script><script defer src="reading.js"></script>
+</head><body><a class="skip-link" href="#chapter">Skip to content</a>
+<header class="course-header"><a class="author" href="https://franck-sueur.github.io/.github.io/">Franck Sueur</a><span class="course-meta">University of Luxembourg · Lecture notes</span></header>
+<div class="reading-layout"><aside class="sidebar"><p class="course-label">Lecture notes</p><a class="course-name" href="index.html">Integration and<br> measure theory</a>
+<label class="picker-label" for="chapter-picker">Choose a chapter</label><select class="chapter-picker" id="chapter-picker" aria-label="Choose a chapter"><option value="index.html">Course contents</option><option value="chapter-01.html" selected>1. σ-algebras</option><option value="chapter-02.html">2. Measures</option><option value="chapter-03.html">3. Outer measures and Carathéodory’s extension theorem</option><option value="chapter-04.html">4. Measurable functions</option><option value="chapter-05.html">5. Simple functions and their Lebesgue integral</option><option value="chapter-06.html">6. Lebesgue integral of positive measurable functions</option><option value="chapter-07.html">7. Lebesgue’s monotone convergence theorem</option><option value="chapter-08.html">8. Dominated convergence, ℒ¹(μ) and L¹(μ)</option><option value="chapter-09.html">9. Integrals with parameters</option><option value="chapter-10.html">10. Product measures, the Fubini and Tonelli theorems</option><option value="chapter-11.html">11. Modes of convergence</option><option value="chapter-12.html">12. Absolute continuity, Lebesgue decomposition and the Radon–Nikodym theorem</option><option value="chapter-13.html">13. Fundamental theorem of calculus and change of variables</option><option value="chapter-14.html">14. Radon measures, Riesz representation and the Lebesgue measure</option><option value="chapter-15.html">15. Lebesgue spaces Lᵖ(μ)</option><option value="chapter-16.html">16. Appendix. Topology and functional analysis reminders</option></select>
+<div class="course-links"><a href="index.html">All chapters</a><a href="course.pdf">Full course PDF</a><a href="history.html">Historical milestones</a><a href="bibliography.html">Bibliography</a></div>
+<details class="contents" open><summary>On this page</summary><nav aria-label="Page contents"><a class="toc-link section" href="#first-definitions"><span class="toc-number">1.1</span><span>First definitions</span></a>
+<a class="toc-link section" href="#main-properties"><span class="toc-number">1.2</span><span>Main properties</span></a>
+<a class="toc-link section" href="#sigmaalgebra-associated-with-a-topological-space"><span class="toc-number">1.3</span><span>σ-algebra associated with a topological space</span></a>
+<a class="toc-link section" href="#a-few-words-on-the-completed-real-line"><span class="toc-number">1.4</span><span>A few words on the completed real line</span></a></nav></details><p class="sidebar-note">Bachelor in Mathematics<br>Summer semester 2025–26</p></aside><main class="chapter" id="chapter" tabindex="-1"><h1 class="chapterHead" id="sigmaalgebras"><span class="titlemark">Chapter 1</span><br><a id="x1-30001"></a><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>σ</mi></math>-algebras</h1>
+<p class="noindent">We introduce the collections of subsets that will serve as measurable sets throughout
+the notes. The chapter starts from the abstract definition, then explains how
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>σ</mi></math>-algebras are generated,
+how Borel <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>σ</mi></math>-algebras
+arise from topology, and why the completed real line will be useful for
+extended-valued functions.
+</p>
+   <h2 class="sectionHead" id="first-definitions"><span class="titlemark">1.1   </span> <a id="x1-40001.1"></a>First definitions</h2>
+<p class="noindent">This is the first fundamental notion in measure theory. The elements of a
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>σ</mi></math>-algebra
+are precisely the subsets of a set that will be declared measurable. A measure will
+later assign sizes only to the sets in such a collection.
+</p><p class="indent">   In the following, if <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>X</mi></math>
+is a set, we denote by <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mstyle mathvariant="script"><mi>P</mi></mstyle><mo class="MathClass-open" stretchy="false">(</mo><mi>X</mi><mo class="MathClass-close" stretchy="false">)</mo></mrow></math>
+its power set, that is, the set of all subsets of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>X</mi></math>, the empty
+set <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>∅</mi></math> and the
+set <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>X</mi></math> being
+included. If <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>A</mi> <mo class="MathClass-rel" stretchy="false">⊂</mo> <mi>X</mi></mrow></math>, we
+denote by <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msup><mrow><mi>A</mi></mrow><mrow><mtext class="MathClass-ord">∁</mtext></mrow></msup> <mo class="MathClass-punc" stretchy="false">:</mo><mo class="MathClass-rel" stretchy="false">=</mo> <mi>X</mi> <mo class="MathClass-bin" stretchy="false">∖</mo> <mi>A</mi></mrow></math> its
+complement in <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>X</mi></math>.
+</p>
+   <div class="statement statement-green">
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-4001r1"></a>
+<span class="ecbx-1200">Definition 1.1 </span>(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>σ</mi></math>-algebras)<span class="ecbx-1200">.</span>
+</span><span class="ecti-1200">Let </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>X</mi></math> <span class="ecti-1200">be a set.
+A collection </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mstyle mathvariant="script"><mi>A</mi></mstyle> <mo class="MathClass-rel" stretchy="false">⊂</mo><mstyle mathvariant="script"><mi>P</mi></mstyle><mo class="MathClass-open" stretchy="false">(</mo><mi>X</mi><mo class="MathClass-close" stretchy="false">)</mo></mrow></math>
+<span class="ecti-1200">is a </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>σ</mi></math>-algebra
+on <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>X</mi></math> <span class="ecti-1200">if
+the following properties are satisfied:</span>
+                                                                          
+
+                                                                          
+      </p><dl class="enumerate-enumitem"><dt class="enumerate-enumitem">
+   <span class="ecti-1200">1.</span> </dt><dd class="enumerate-enumitem"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>X</mi> <mo class="MathClass-rel" stretchy="false">∈</mo><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow></math><span class="ecti-1200">,</span>
+      </dd><dt class="enumerate-enumitem">
+   <span class="ecti-1200">2.</span> </dt><dd class="enumerate-enumitem"><span class="ecti-1200">if </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>A</mi> <mo class="MathClass-rel" stretchy="false">∈</mo><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow></math>
+      <span class="ecti-1200">then </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msup><mrow><mi>A</mi></mrow><mrow><mtext class="MathClass-ord">∁</mtext></mrow></msup> <mo class="MathClass-rel" stretchy="false">∈</mo><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow></math><span class="ecti-1200">,</span>
+      </dd><dt class="enumerate-enumitem">
+   <span class="ecti-1200">3.</span> </dt><dd class="enumerate-enumitem"><span class="ecti-1200">for every family </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mi>A</mi></mrow><mrow><mi>i</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow><mrow><mi>i</mi><mo class="MathClass-rel" stretchy="false">∈</mo><mi>I</mi></mrow></msub></math>
+      <span class="ecti-1200">of elements of </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mstyle mathvariant="script"><mi>A</mi></mstyle></math>
+      <span class="ecti-1200">indexed by a countable set </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>I</mi></math><span class="ecti-1200">,
+      we have </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mrow><mi class="MathClass-op">⋃</mi><mo> ⁡</mo>
+ </mrow><mrow><mi>i</mi><mo class="MathClass-rel" stretchy="false">∈</mo><mi>I</mi></mrow></msub><msub><mrow><mi>A</mi></mrow><mrow><mi>i</mi></mrow></msub> <mo class="MathClass-rel" stretchy="false">∈</mo><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow></math><span class="ecti-1200">.</span></dd></dl>
+   </div>
+</div> <div class="statement statement-green">
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-4005r2"></a>
+<span class="ecbx-1200">Definition 1.2 </span>(Measurable spaces)<span class="ecbx-1200">.</span>  </span><span class="ecti-1200">Let </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>X</mi></math>
+<span class="ecti-1200">be a set and let </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mstyle mathvariant="script"><mi>A</mi></mstyle></math>
+<span class="ecti-1200">be a </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>σ</mi></math><span class="ecti-1200">-algebra
+on </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>X</mi></math><span class="ecti-1200">.
+The pair </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-open" stretchy="false">(</mo><mi>X</mi><mo class="MathClass-punc" stretchy="false">,</mo><mstyle mathvariant="script"><mi>A</mi></mstyle><mo class="MathClass-close" stretchy="false">)</mo></mrow></math>
+<span class="ecti-1200">is called a </span>measurable space<span class="ecti-1200">.</span>
+</p>
+   </div>
+</div><p> The following picture illustrates the distinction between the underlying set
+</p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>X</mi></math><p> and a
+</p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>σ</mi></math><p>-algebra on
+</p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>X</mi></math><p>, which is a family
+of subsets of </p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>X</mi></math><p>.
+   </p><span id="ref-fig-sigma-algebra-illustration" class="reference-anchor"></span><figure class="figure" id="x1-4006r1"><span id="a-set-x-with-three-elements-a-b-and-c-on-level-and-a-algebra-a-abcx-px-on-level-"></span> 
+
+                                                                          
+
+                                                                          
+
+                                                                          
+
+                                                                          
+<p class="noindent"><a href="figures/sigma-algebra.png" target="_blank" class="figure-link" aria-label="Enlarge this diagram"><img alt="A three-element set X and the sigma-algebra consisting of the empty set, {a}, {b,c}, and X, shown at two levels." class="diagram diagram-sigma-algebra" src="figures/sigma-algebra.png">
+</a></p>
+<figcaption class="caption"><span class="id">Figure 1.1: </span><span class="content">A set <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>X</mi></math>
+with three elements <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>a</mi></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>b</mi></math>,
+and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>c</mi></math>
+on Level <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mn>0</mn></math>,
+and a <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>σ</mi></math>-algebra
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mstyle mathvariant="script"><mi>A</mi></mstyle> <mo class="MathClass-punc" stretchy="false">:</mo><mo class="MathClass-rel" stretchy="false">=</mo> <mo class="MathClass-open" stretchy="false">{</mo><mi>∅</mi><mo class="MathClass-punc" stretchy="false">,</mo><mo class="MathClass-open" stretchy="false">{</mo><mi>a</mi><mo class="MathClass-close" stretchy="false">}</mo><mo class="MathClass-punc" stretchy="false">,</mo><mo class="MathClass-open" stretchy="false">{</mo><mi>b</mi><mo class="MathClass-punc" stretchy="false">,</mo><mi>c</mi><mo class="MathClass-close" stretchy="false">}</mo><mo class="MathClass-punc" stretchy="false">,</mo><mi>X</mi><mo class="MathClass-close" stretchy="false">}</mo><mo class="MathClass-rel" stretchy="false">⊂</mo><mstyle mathvariant="script"><mi>P</mi></mstyle><mo class="MathClass-open" stretchy="false">(</mo><mi>X</mi><mo class="MathClass-close" stretchy="false">)</mo></mrow></math>
+on Level <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mn>1</mn></math>.</span></figcaption></figure>
+   <div class="newtheorem unboxed-statement">
+<p class="noindent"><span class="head">
+<a id="x1-4007r3"></a>
+<span class="ecbx-1200">Remark 1.3 </span>(Countable and uncountable sets)<span class="ecbx-1200">.</span>  </span>Recall that a set <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>E</mi></math>
+is <span class="ecti-1200">countable </span>if it is finite or if there exists a bijection from <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>ℕ</mi></math>
+onto <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>E</mi></math>.
+Equivalently, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>E</mi></math>
+injects into <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>ℕ</mi></math>.
+Otherwise, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>E</mi></math>
+is said to be <span class="ecti-1200">uncountable</span>. Every subset of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>ℕ</mi></math>
+is countable. Finite products of countable sets, countable unions of countable
+sets, and the set of rational numbers <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>ℚ</mi></math>
+are countable. On the other hand, Cantor’s theorem shows that the set of real
+numbers <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>ℝ</mi></math>
+is uncountable. Consequently, the set <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>ℝ</mi> <mo class="MathClass-bin" stretchy="false">∖</mo> <mi>ℚ</mi></mrow></math>
+of irrational numbers is uncountable. Finally, note that if <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>E</mi></math>
+is a countable infinite set, then there exists a bijection <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>φ</mi><mo class="MathClass-punc" stretchy="false">:</mo> <mi>ℕ</mi> <mo class="MathClass-rel" stretchy="false">→</mo> <mi>E</mi></mrow></math>,
+so that the elements of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>E</mi></math>
+can be enumerated as <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>E</mi> <mo class="MathClass-rel" stretchy="false">=</mo> <mo class="MathClass-open" stretchy="false">{</mo><msub><mrow><mi>e</mi></mrow><mrow><mn>1</mn></mrow></msub><mo class="MathClass-punc" stretchy="false">,</mo><msub><mrow><mi>e</mi></mrow><mrow><mn>2</mn></mrow></msub><mo class="MathClass-punc" stretchy="false">,</mo><mo>…</mo><mo class="MathClass-punc" stretchy="false">,</mo><msub><mrow><mi>e</mi></mrow><mrow><mi>n</mi></mrow></msub><mo class="MathClass-punc" stretchy="false">,</mo><mo>…</mo><mo class="MathClass-close" stretchy="false">}</mo></mrow></math>.
+</p>
+   </div>
+<p class="indent">   Let  us  give  two  examples  of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>σ</mi></math>-algebras available
+for any set <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>X</mi></math>:
+</p>
+      <ul class="itemize1">
+      <li class="itemize">the set <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mstyle mathvariant="script"><mi>P</mi></mstyle><mo class="MathClass-open" stretchy="false">(</mo><mi>X</mi><mo class="MathClass-close" stretchy="false">)</mo></mrow></math>
+      is a <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>σ</mi></math>-algebra
+      on <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>X</mi></math>,
+                                                                          
+
+                                                                          
+      </li>
+      <li class="itemize">the set <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-open" stretchy="false">{</mo><mi>∅</mi><mo class="MathClass-punc" stretchy="false">,</mo><mi>X</mi><mo class="MathClass-close" stretchy="false">}</mo></mrow></math>
+      is also a <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>σ</mi></math>-algebra
+      on <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>X</mi></math>.</li></ul>
+   <h2 class="sectionHead" id="main-properties"><span class="titlemark">1.2   </span> <a id="x1-50001.2"></a>Main properties</h2>
+<p class="noindent">Here are a few properties easily derived from the definition.
+</p>
+   <div class="statement statement-pink">
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-5001r4"></a>
+<span class="ecbx-1200">Lemma 1.4 </span>(Elementary properties of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>σ</mi></math>-algebras)<span class="ecbx-1200">.</span>
+</span><span class="ecti-1200">Let </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>X</mi></math> <span class="ecti-1200">be a
+set and </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mstyle mathvariant="script"><mi>A</mi></mstyle></math> <span class="ecti-1200">a</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>σ</mi></math><span class="ecti-1200">-algebra
+on </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>X</mi></math><span class="ecti-1200">.
+We have the following:</span>
+      </p><dl class="enumerate-enumitem"><dt class="enumerate-enumitem">
+  <span class="ecti-1200">(a)</span> </dt><dd class="enumerate-enumitem"><span class="ecti-1200">The empty set </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>∅</mi></math>
+      <span class="ecti-1200">is in </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mstyle mathvariant="script"><mi>A</mi></mstyle></math><span class="ecti-1200">,</span>
+      </dd><dt class="enumerate-enumitem">
+  <span class="ecti-1200">(b)</span> </dt><dd class="enumerate-enumitem"><span class="ecti-1200">any countable intersection of elements of </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mstyle mathvariant="script"><mi>A</mi></mstyle></math>
+      <span class="ecti-1200">is still an element of </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mstyle mathvariant="script"><mi>A</mi></mstyle></math><span class="ecti-1200">,</span>
+      </dd><dt class="enumerate-enumitem">
+  <span class="ecti-1200">(c)</span> </dt><dd class="enumerate-enumitem"><span class="ecti-1200">if </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>A</mi><mo class="MathClass-punc" stretchy="false">,</mo><mi>B</mi> <mo class="MathClass-rel" stretchy="false">∈</mo><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow></math>
+      <span class="ecti-1200">then </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>A</mi> <mo class="MathClass-bin" stretchy="false">∖</mo> <mi>B</mi> <mo class="MathClass-rel" stretchy="false">∈</mo><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow></math><span class="ecti-1200">.</span></dd></dl>
+   </div>
+</div>
+                                                                          
+
+                                                                          
+   <div class="proof">
+<p class="indent">   <span class="head">
+<span class="ecti-1200">Proof.</span> </span>To prove (a), combine axioms 1) and 2). For (b), if
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mi>A</mi></mrow><mrow><mi>i</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow><mrow><mi>i</mi><mo class="MathClass-rel" stretchy="false">∈</mo><mi>I</mi></mrow></msub></math> is a countable
+family in <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mstyle mathvariant="script"><mi>A</mi></mstyle></math>,
+then De Morgan’s formula gives </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                          <munder class="msub"><mrow><mo>⋂</mo>
+  </mrow><mrow><mi>i</mi><mo class="MathClass-rel" stretchy="false">∈</mo><mi>I</mi></mrow></munder><msub><mrow><mi>A</mi></mrow><mrow><mi>i</mi></mrow></msub> <mo class="MathClass-rel" stretchy="false">=</mo><msup><mrow> <mrow><mo fence="true" form="prefix"> (</mo><mrow><munder class="msub"><mrow><mo>⋃</mo>
+  </mrow><mrow><mi>i</mi><mo class="MathClass-rel" stretchy="false">∈</mo><mi>I</mi></mrow></munder><msubsup><mrow><mi>A</mi></mrow><mrow><mi>i</mi></mrow><mrow><mtext class="MathClass-ord">∁</mtext></mrow></msubsup></mrow><mo fence="true" form="postfix">)</mo></mrow></mrow><mrow><mtext class="MathClass-ord">∁</mtext></mrow></msup><mo class="MathClass-punc" stretchy="false">,</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   and axioms 2) and 3) apply. For (c), note that
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>A</mi> <mo class="MathClass-bin" stretchy="false">∖</mo> <mi>B</mi> <mo class="MathClass-rel" stretchy="false">=</mo> <mi>A</mi> <mo class="MathClass-bin" stretchy="false">∩</mo> <msup><mrow><mi>B</mi></mrow><mrow><mtext class="MathClass-ord">∁</mtext></mrow></msup></mrow></math> and
+use (b) and axiom 2).                                                                      □
+</p>
+   </div>
+   <div class="table">
+                                                                          
+
+                                                                          
+<p class="indent" id="a-comparison-between-the-axioms-of-a-algebra-and-those-of-a-topology">   <span id="ref-tab-sigma-topology" class="reference-anchor"></span><a id="x1-5002r1"></a></p><figure class="float">
+                                                                          
+
+                                                                          
+
+ <div class="data-table" tabindex="0" aria-label="Comparison table; scroll horizontally if needed"><table class="tabular" id="TBL-4"><colgroup id="TBL-4-1g"><col id="TBL-4-1"><col id="TBL-4-2"><col id="TBL-4-3"></colgroup><tr id="TBL-4-1-" style="vertical-align:baseline;"><th class="td01" id="TBL-4-1-1" style="text-align:left;" scope="col"><p class="noindent"><span class="ecrm-1095">Operation
+/
+axiom</span>                              </p></th><th class="td11" id="TBL-4-1-2" style="text-align:left;" scope="col"> <p class="noindent"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>σ</mi></math><span class="ecrm-1095">-algebra</span>
+  <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mstyle mathvariant="script"><mi>A</mi></mstyle></math> </p></th><th class="td10" id="TBL-4-1-3" style="text-align:left;" scope="col"> <p class="noindent"><span class="ecrm-1095">Topology</span>
+  <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mstyle mathvariant="script"><mi>T</mi></mstyle></math></p></th>
+
+</tr><tr id="TBL-4-2-" style="vertical-align:baseline;"><td class="td01" id="TBL-4-2-1" style="text-align:left;"><p class="noindent"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>∅</mi></math>
+<span class="ecrm-1095">and</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>X</mi></math>
+<span class="ecrm-1095">belong
+to
+the
+family</span>                               </p></td><td class="td11" id="TBL-4-2-2" style="text-align:left;"> <p class="noindent"><span class="ecrm-1095">Yes</span>                   </p></td><td class="td10" id="TBL-4-2-3" style="text-align:left;"> <p class="noindent"><span class="ecrm-1095">Yes</span>                        </p></td>
+</tr><tr id="TBL-4-3-" style="vertical-align:baseline;"><td class="td01" id="TBL-4-3-1" style="text-align:left;"><p class="noindent"><span class="ecrm-1095">Closed
+under
+complements</span>                      </p></td><td class="td11" id="TBL-4-3-2" style="text-align:left;"> <p class="noindent"><span class="ecrm-1095">Yes</span>                   </p></td><td class="td10" id="TBL-4-3-3" style="text-align:left;"> <p class="noindent"><span class="ecrm-1095">No
+  (not
+  required,
+  not
+  true
+  in
+  general)</span>                  </p></td>
+</tr><tr id="TBL-4-4-" style="vertical-align:baseline;"><td class="td01" id="TBL-4-4-1" style="text-align:left;"><p class="noindent"><span class="ecrm-1095">Closed
+under
+finite
+unions</span>                               </p></td><td class="td11" id="TBL-4-4-2" style="text-align:left;"> <p class="noindent"><span class="ecrm-1095">Yes
+  (follows)</span>            </p></td><td class="td10" id="TBL-4-4-3" style="text-align:left;"> <p class="noindent"><span class="ecrm-1095">Yes
+  (follows
+  from
+  arbitrary
+  unions)</span>                  </p></td>
+</tr><tr id="TBL-4-5-" style="vertical-align:baseline;"><td class="td01" id="TBL-4-5-1" style="text-align:left;"><p class="noindent"><span class="ecrm-1095">Closed
+under
+countable
+unions</span>                               </p></td><td class="td11" id="TBL-4-5-2" style="text-align:left;"> <p class="noindent"><span class="ecrm-1095">Yes
+  (axiom)</span>             </p></td><td class="td10" id="TBL-4-5-3" style="text-align:left;"> <p class="noindent"><span class="ecrm-1095">Yes
+  (since
+  arbitrary
+  unions
+  are
+  allowed)</span>                 </p></td>
+</tr><tr id="TBL-4-6-" style="vertical-align:baseline;"><td class="td01" id="TBL-4-6-1" style="text-align:left;"><p class="noindent"><span class="ecrm-1095">Closed
+under
+arbitrary
+unions</span>                               </p></td><td class="td11" id="TBL-4-6-2" style="text-align:left;"> <p class="noindent"><span class="ecrm-1095">No
+  in
+  general</span>              </p></td><td class="td10" id="TBL-4-6-3" style="text-align:left;"> <p class="noindent"><span class="ecrm-1095">Yes
+  (axiom)</span>                  </p></td>
+</tr><tr id="TBL-4-7-" style="vertical-align:baseline;"><td class="td01" id="TBL-4-7-1" style="text-align:left;"><p class="noindent"><span class="ecrm-1095">Closed
+under
+finite
+intersections</span>                       </p></td><td class="td11" id="TBL-4-7-2" style="text-align:left;"> <p class="noindent"><span class="ecrm-1095">Yes
+  (follows)</span>            </p></td><td class="td10" id="TBL-4-7-3" style="text-align:left;"> <p class="noindent"><span class="ecrm-1095">Yes
+  (axiom)</span>                  </p></td>
+</tr><tr id="TBL-4-8-" style="vertical-align:baseline;"><td class="td01" id="TBL-4-8-1" style="text-align:left;"><p class="noindent"><span class="ecrm-1095">Closed
+under
+countable
+intersections</span>                       </p></td><td class="td11" id="TBL-4-8-2" style="text-align:left;"> <p class="noindent"><span class="ecrm-1095">Yes
+  (follows)</span>            </p></td><td class="td10" id="TBL-4-8-3" style="text-align:left;"> <p class="noindent"><span class="ecrm-1095">No
+  in
+  general</span>                   </p></td>
+
+</tr></table>
+</div><figcaption class="caption"><span class="id">Table 1.1:      </span><span class="content">A      comparison      between      the      axioms      of      a
+                                                                          
+
+                                                                          
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>σ</mi></math>-algebra
+and those of a topology.</span></figcaption></figure>
+   </div>
+<p class="indent">   The following result states that any intersection of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>σ</mi></math>-algebras is
+a <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>σ</mi></math>-algebra.
+</p><div class="statement statement-pink">
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<span id="ref-lem-ele" class="reference-anchor"></span><a id="x1-5003r5"></a>
+<span class="ecbx-1200">Lemma 1.5 </span>(Intersections of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>σ</mi></math>-algebras)<span class="ecbx-1200">.</span>
+</span> <span class="ecti-1200">Let </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>X</mi></math> <span class="ecti-1200">be a set. Let</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>I</mi><mo class="MathClass-rel" stretchy="false">≠</mo><mi>∅</mi></mrow></math> <span class="ecti-1200">be any set of
+indices and let </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow><mrow><mi>i</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow><mrow><mi>i</mi><mo class="MathClass-rel" stretchy="false">∈</mo><mi>I</mi></mrow></msub></math> <span class="ecti-1200">be a
+family of </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>σ</mi></math><span class="ecti-1200">-algebras
+on </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>X</mi></math><span class="ecti-1200">,
+then the intersection</span> </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                   <munder class="msub"><mrow><mo>⋂</mo>
+  </mrow><mrow><mi>i</mi><mo class="MathClass-rel" stretchy="false">∈</mo><mi>I</mi></mrow></munder><msub><mrow><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow><mrow><mi>i</mi></mrow></msub> <mo class="MathClass-punc" stretchy="false">:</mo><mo class="MathClass-rel" stretchy="false">=</mo> <mo class="MathClass-open" stretchy="false">{</mo><mi>A</mi> <mo class="MathClass-rel" stretchy="false">⊂</mo> <mi>X</mi> <mo class="MathClass-punc" stretchy="false">:</mo> <mi class="MathClass-op">∀</mi><mo> ⁡</mo><mi>i</mi> <mo class="MathClass-rel" stretchy="false">∈</mo> <mi>I</mi><mo class="MathClass-punc" stretchy="false">,</mo><mspace class="thinspace" width="0.17em"></mspace><mi>A</mi> <mo class="MathClass-rel" stretchy="false">∈</mo><msub><mrow><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow><mrow><mi>i</mi></mrow></msub><mo class="MathClass-close" stretchy="false">}</mo><mo class="MathClass-punc" stretchy="false">,</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   <span class="ecti-1200">is a </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>σ</mi></math><span class="ecti-1200">-algebra
+on </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>X</mi></math><span class="ecti-1200">.</span>
+</p>
+   </div>
+</div>
+   <div class="proof">
+<p class="indent">   <span class="head">
+                                                                          
+
+                                                                          
+<span class="ecti-1200">Proof.</span> </span>The set <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>X</mi></math>
+belongs to every <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow><mrow><mi>i</mi></mrow></msub></math>,
+hence to the intersection. If <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>A</mi></math>
+belongs to the intersection, then <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>A</mi></math>
+belongs to every <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow><mrow><mi>i</mi></mrow></msub></math>,
+and therefore <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msup><mrow><mi>A</mi></mrow><mrow><mtext class="MathClass-ord">∁</mtext></mrow></msup></math>
+belongs to every <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow><mrow><mi>i</mi></mrow></msub></math>.
+Finally, if <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mi>A</mi></mrow><mrow><mi>n</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow><mrow><mi>n</mi><mo class="MathClass-rel" stretchy="false">≥</mo><mn>1</mn></mrow></msub></math>
+is a sequence of elements of the intersection, then each <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mi>A</mi></mrow><mrow><mi>n</mi></mrow></msub></math>
+belongs to every <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow><mrow><mi>i</mi></mrow></msub></math>,
+so <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mrow> <mi class="MathClass-op">⋃</mi><mo> ⁡</mo>
+ </mrow><mrow><mi>n</mi><mo class="MathClass-rel" stretchy="false">≥</mo><mn>1</mn></mrow></msub><msub><mrow><mi>A</mi></mrow><mrow><mi>n</mi></mrow></msub></mrow></math>
+belongs to every <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow><mrow><mi>i</mi></mrow></msub></math>.
+Thus the intersection is a <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>σ</mi></math>-algebra.
+                                                                         □
+</p>
+   </div>
+<p class="indent">   In particular, this result allows us to prove the following consequence.
+</p>
+   <div class="statement statement-pink">
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<span id="ref-lem-sigma-algebra-generated" class="reference-anchor"></span><a id="x1-5004r6"></a>
+<span class="ecbx-1200">Lemma 1.6 </span>(Generated <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>σ</mi></math>-algebra)<span class="ecbx-1200">.</span>  </span>
+<span class="ecti-1200">Let </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>X</mi></math> <span class="ecti-1200">be a set
+and let </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mstyle mathvariant="script"><mi>E</mi></mstyle> <mo class="MathClass-rel" stretchy="false">⊂</mo><mstyle mathvariant="script"><mi>P</mi></mstyle><mo class="MathClass-open" stretchy="false">(</mo><mi>X</mi><mo class="MathClass-close" stretchy="false">)</mo></mrow></math><span class="ecti-1200">. Let</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mstyle mathvariant="script"><mi>S</mi></mstyle></math> <span class="ecti-1200">denote the set
+of all </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>σ</mi></math><span class="ecti-1200">-algebras
+on </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>X</mi></math>
+<span class="ecti-1200">containing </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mstyle mathvariant="script"><mi>E</mi></mstyle></math><span class="ecti-1200">.
+We set</span> </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+                                                                          
+
+                                                                          
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                            <mi>σ</mi><mo class="MathClass-open" stretchy="false">(</mo><mstyle mathvariant="script"><mi>E</mi></mstyle><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-punc" stretchy="false">:</mo><mo class="MathClass-rel" stretchy="false">=</mo><munder class="msub"><mrow><mo> ⋂</mo>
+  </mrow><mrow><mstyle mathvariant="script"><mi>B</mi></mstyle><mo class="MathClass-rel" stretchy="false">∈</mo><mstyle mathvariant="script"><mi>S</mi></mstyle></mrow></munder><mstyle mathvariant="script"><mi>B</mi></mstyle><mo class="MathClass-punc" stretchy="false">.</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   <span class="ecti-1200">Then </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>σ</mi><mo class="MathClass-open" stretchy="false">(</mo><mstyle mathvariant="script"><mi>E</mi></mstyle><mo class="MathClass-close" stretchy="false">)</mo></mrow></math> <span class="ecti-1200">is the
+smallest </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>σ</mi></math><span class="ecti-1200">-algebra
+on </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>X</mi></math>
+<span class="ecti-1200">containing </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mstyle mathvariant="script"><mi>E</mi></mstyle></math><span class="ecti-1200">.</span>
+</p>
+   </div>
+</div>
+<p class="indent">   The <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>σ</mi></math>-algebra
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>σ</mi><mo class="MathClass-open" stretchy="false">(</mo><mstyle mathvariant="script"><mi>E</mi></mstyle><mo class="MathClass-close" stretchy="false">)</mo></mrow></math> is called the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>σ</mi></math><span class="ecti-1200">-algebra
+generated by </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mstyle mathvariant="script"><mi>E</mi></mstyle></math>
+<span class="ecti-1200">on </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>X</mi></math>. To say
+that <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>σ</mi><mo class="MathClass-open" stretchy="false">(</mo><mstyle mathvariant="script"><mi>E</mi></mstyle><mo class="MathClass-close" stretchy="false">)</mo></mrow></math> is the
+smallest <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>σ</mi></math>-algebra
+on <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>X</mi></math>
+containing <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mstyle mathvariant="script"><mi>E</mi></mstyle></math>
+means that <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>σ</mi><mo class="MathClass-open" stretchy="false">(</mo><mstyle mathvariant="script"><mi>E</mi></mstyle><mo class="MathClass-close" stretchy="false">)</mo></mrow></math>
+is a <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>σ</mi></math>-algebra
+on <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>X</mi></math>, that
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mstyle mathvariant="script"><mi>E</mi></mstyle> <mo class="MathClass-rel" stretchy="false">⊂</mo> <mi>σ</mi><mo class="MathClass-open" stretchy="false">(</mo><mstyle mathvariant="script"><mi>E</mi></mstyle><mo class="MathClass-close" stretchy="false">)</mo></mrow></math>, and that
+every <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>σ</mi></math>-algebra
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mstyle mathvariant="script"><mi>A</mi></mstyle></math> on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>X</mi></math> containing
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mstyle mathvariant="script"><mi>E</mi></mstyle></math> satisfies
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>σ</mi><mo class="MathClass-open" stretchy="false">(</mo><mstyle mathvariant="script"><mi>E</mi></mstyle><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-rel" stretchy="false">⊂</mo><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow></math>.
+</p>
+   <div class="proof">
+<p class="indent">   <span class="head">
+<span class="ecti-1200">Proof.</span> </span>We observe that <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mstyle mathvariant="script"><mi>S</mi></mstyle><mo class="MathClass-rel" stretchy="false">≠</mo><mi>∅</mi></mrow></math>
+                                                                          
+
+                                                                          
+because <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mstyle mathvariant="script"><mi>P</mi></mstyle><mo class="MathClass-open" stretchy="false">(</mo><mi>X</mi><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-rel" stretchy="false">∈</mo><mstyle mathvariant="script"><mi>S</mi></mstyle></mrow></math>.
+By the previous lemma, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>σ</mi><mo class="MathClass-open" stretchy="false">(</mo><mstyle mathvariant="script"><mi>E</mi></mstyle><mo class="MathClass-close" stretchy="false">)</mo></mrow></math>
+is a <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>σ</mi></math>-algebra
+on <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>X</mi></math>.
+Moreover, for every <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mstyle mathvariant="script"><mi>B</mi></mstyle></math>
+in <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mstyle mathvariant="script"><mi>S</mi></mstyle></math>,
+we have <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mstyle mathvariant="script"><mi>E</mi></mstyle> <mo class="MathClass-rel" stretchy="false">⊂</mo><mstyle mathvariant="script"><mi>B</mi></mstyle></mrow></math>.
+Therefore <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mstyle mathvariant="script"><mi>E</mi></mstyle> <mo class="MathClass-rel" stretchy="false">⊂</mo> <mi>σ</mi><mo class="MathClass-open" stretchy="false">(</mo><mstyle mathvariant="script"><mi>E</mi></mstyle><mo class="MathClass-close" stretchy="false">)</mo></mrow></math>.
+Thus <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>σ</mi><mo class="MathClass-open" stretchy="false">(</mo><mstyle mathvariant="script"><mi>E</mi></mstyle><mo class="MathClass-close" stretchy="false">)</mo></mrow></math>
+is a <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>σ</mi></math>-algebra
+on <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>X</mi></math>
+and contains <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mstyle mathvariant="script"><mi>E</mi></mstyle></math>.
+</p><p class="indent">   Furthermore, if <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mstyle mathvariant="script"><mi>A</mi></mstyle></math>
+is another <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>σ</mi></math>-algebra
+on <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>X</mi></math>
+containing <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mstyle mathvariant="script"><mi>E</mi></mstyle></math>,
+then <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mstyle mathvariant="script"><mi>A</mi></mstyle> <mo class="MathClass-rel" stretchy="false">∈</mo><mstyle mathvariant="script"><mi>S</mi></mstyle></mrow></math>.
+Since <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>σ</mi><mo class="MathClass-open" stretchy="false">(</mo><mstyle mathvariant="script"><mi>E</mi></mstyle><mo class="MathClass-close" stretchy="false">)</mo></mrow></math>
+is the intersection of all elements of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mstyle mathvariant="script"><mi>S</mi></mstyle></math>,
+we have <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>σ</mi><mo class="MathClass-open" stretchy="false">(</mo><mstyle mathvariant="script"><mi>E</mi></mstyle><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-rel" stretchy="false">⊂</mo><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow></math>.
+                                                                         □
+</p>
+   </div>
+   <h2 class="sectionHead" id="sigmaalgebra-associated-with-a-topological-space"><span class="titlemark">1.3   </span> <a id="x1-60001.3"></a><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>σ</mi></math>-algebra
+associated with a topological space</h2>
+<p class="noindent">It is important not to mix the axioms defining the notion of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>σ</mi></math>-algebra with those
+defining the notion of topology, especially since the following definition canonically associates
+a <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>σ</mi></math>-algebra
+with any topology.
+</p>
+   <div class="statement statement-green">
+   <div class="newtheorem">
+                                                                          
+
+                                                                          
+<p class="noindent"><span class="head">
+<a id="x1-6001r7"></a>
+<span class="ecbx-1200">Definition 1.7 </span>(Borel <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>σ</mi></math>-algebra)<span class="ecbx-1200">.</span>
+</span><span class="ecti-1200">Let </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-open" stretchy="false">(</mo><mi>X</mi><mo class="MathClass-punc" stretchy="false">,</mo><mi>τ</mi><mo class="MathClass-close" stretchy="false">)</mo></mrow></math> <span class="ecti-1200">be a topological
+space (</span>i.e. <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>τ</mi></math> <span class="ecti-1200">forms the
+collection of open sets of </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>X</mi></math><span class="ecti-1200">).
+The Borel </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>σ</mi></math><span class="ecti-1200">-algebra
+of </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>X</mi></math> <span class="ecti-1200">relative to
+the topology </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>τ</mi></math>
+<span class="ecti-1200">is</span> </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                              <mstyle mathvariant="script"><mi>B</mi></mstyle><mo class="MathClass-open" stretchy="false">(</mo><mi>X</mi><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-punc" stretchy="false">:</mo><mo class="MathClass-rel" stretchy="false">=</mo> <mi>σ</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>τ</mi><mo class="MathClass-close" stretchy="false">)</mo><mo class="MathClass-punc" stretchy="false">.</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   <span class="ecti-1200">An element of </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mstyle mathvariant="script"><mi>B</mi></mstyle><mo class="MathClass-open" stretchy="false">(</mo><mi>X</mi><mo class="MathClass-close" stretchy="false">)</mo></mrow></math>
+<span class="ecti-1200">is a </span>Borel set <span class="ecti-1200">of </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>X</mi></math>
+<span class="ecti-1200">(relative to </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>τ</mi></math><span class="ecti-1200">).
+When the topology is clear from the context, we suppress it from the notation.</span>
+</p>
+   </div>
+</div><p> The following properties are easy to obtain. </p><div class="statement statement-orange">
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-6002r8"></a>
+<span class="ecbx-1200">Proposition 1.8 </span>(Elementary properties of Borel <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>σ</mi></math>-algebras)<span class="ecbx-1200">.</span>
+</span><span class="ecti-1200">Let </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-open" stretchy="false">(</mo><mi>X</mi><mo class="MathClass-punc" stretchy="false">,</mo><mi>τ</mi><mo class="MathClass-close" stretchy="false">)</mo></mrow></math> <span class="ecti-1200">be a topological
+                                                                          
+
+                                                                          
+space, and let </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mstyle mathvariant="script"><mi>B</mi></mstyle></math> <span class="ecti-1200">be the
+associated Borel </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>σ</mi></math><span class="ecti-1200">-algebra.
+We have the following properties.</span>
+      </p><dl class="enumerate-enumitem"><dt class="enumerate-enumitem">
+  <span class="ecti-1200">(i)</span> </dt><dd class="enumerate-enumitem"><span class="ecti-1200">Any closed subset of </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>X</mi></math>
+      <span class="ecti-1200">is an element of </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mstyle mathvariant="script"><mi>B</mi></mstyle></math><span class="ecti-1200">,</span>
+      </dd><dt class="enumerate-enumitem">
+ <span class="ecti-1200">(ii)</span> </dt><dd class="enumerate-enumitem"><span class="ecti-1200">Any countable union of closed subsets of </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>X</mi></math>
+      <span class="ecti-1200">is an element of </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mstyle mathvariant="script"><mi>B</mi></mstyle></math><span class="ecti-1200">,</span>
+      </dd><dt class="enumerate-enumitem">
+ <span class="ecti-1200">(iii)</span> </dt><dd class="enumerate-enumitem"><span class="ecti-1200">Any countable intersection of open sets of </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>X</mi></math>
+      <span class="ecti-1200">is an element of </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mstyle mathvariant="script"><mi>B</mi></mstyle></math><span class="ecti-1200">.</span></dd></dl>
+   </div>
+</div>
+   <div class="proof">
+<p class="indent">   <span class="head">
+<span class="ecti-1200">Proof.</span> </span>If <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>F</mi></math> is closed,
+then <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msup><mrow><mi>F</mi></mrow><mrow><mi>c</mi></mrow></msup></math> is open and
+therefore belongs to <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>τ</mi> <mo class="MathClass-rel" stretchy="false">⊂</mo><mstyle mathvariant="script"><mi>B</mi></mstyle></mrow></math>.
+Since <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mstyle mathvariant="script"><mi>B</mi></mstyle></math> is stable
+by complements, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>F</mi></math>
+belongs to <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mstyle mathvariant="script"><mi>B</mi></mstyle></math>.
+Countable unions of closed sets then belong to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mstyle mathvariant="script"><mi>B</mi></mstyle></math> by countable
+stability. Finally, if <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mi>U</mi></mrow><mrow><mi>n</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow><mrow><mi>n</mi><mo class="MathClass-rel" stretchy="false">≥</mo><mn>1</mn></mrow></msub></math>
+is a sequence of open sets, then </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+                                                                          
+
+                                                                          
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                       <munderover accent="false" accentunder="false"><mrow><mo>⋂</mo>
+  </mrow><mrow><mi>n</mi><mo class="MathClass-rel" stretchy="false">=</mo><mn>1</mn></mrow><mrow><mi>∞</mi></mrow></munderover><msub><mrow><mi>U</mi></mrow><mrow>
+<mi>n</mi></mrow></msub> <mo class="MathClass-rel" stretchy="false">=</mo><msup><mrow> <mrow><mo fence="true" form="prefix"> (</mo><mrow><munderover accent="false" accentunder="false"><mrow><mo>⋃</mo>
+</mrow><mrow><mi>n</mi><mo class="MathClass-rel" stretchy="false">=</mo><mn>1</mn></mrow><mrow><mi>∞</mi></mrow></munderover><msubsup><mrow><mi>U</mi></mrow><mrow>
+<mi>n</mi></mrow><mrow><mi>c</mi></mrow></msubsup></mrow><mo fence="true" form="postfix">)</mo></mrow> </mrow><mrow><mi>c</mi></mrow></msup><mo class="MathClass-punc" stretchy="false">,</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   and the right-hand side is Borel.                                                   □
+</p>
+   </div>
+<p class="indent">   In the special case of the Euclidean space
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msup><mrow><mi>ℝ</mi></mrow><mrow><mi>n</mi></mrow></msup></math>, for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>n</mi> <mo class="MathClass-rel" stretchy="false">≥</mo> <mn>1</mn></mrow></math>, let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mstyle mathvariant="script"><mi>D</mi></mstyle></mrow><mrow><mi>n</mi></mrow></msub></math> be
+the family of open blocks </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+          <mi>D</mi><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mi>x</mi></mrow><mrow><mi>i</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow><mrow><mi>i</mi></mrow></msub><mo class="MathClass-punc" stretchy="false">,</mo> <msub><mrow><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mi>y</mi></mrow><mrow><mi>i</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow><mrow><mi>i</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-punc" stretchy="false">:</mo><mo class="MathClass-rel" stretchy="false">=</mo> <mo class="MathClass-open" stretchy="false">{</mo><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mi>z</mi></mrow><mrow><mn>1</mn></mrow></msub><mo class="MathClass-punc" stretchy="false">,</mo><msub><mrow><mi>z</mi></mrow><mrow><mn>2</mn></mrow></msub><mo class="MathClass-punc" stretchy="false">,</mo><mo>…</mo><mo class="MathClass-punc" stretchy="false">,</mo><msub><mrow><mi>z</mi></mrow><mrow><mi>n</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-rel" stretchy="false">∈</mo> <msup><mrow><mi>ℝ</mi></mrow><mrow><mi>n</mi></mrow></msup><mo class="MathClass-punc" stretchy="false">:</mo> <mi class="MathClass-op">∀</mi><mo> ⁡</mo><mi>i</mi><mo class="MathClass-punc" stretchy="false">,</mo><mspace class="thinspace" width="0.17em"></mspace><msub><mrow><mi>x</mi></mrow><mrow>
+<mi>i</mi></mrow></msub> <mo class="MathClass-rel" stretchy="false">&lt;</mo> <msub><mrow><mi>z</mi></mrow><mrow><mi>i</mi></mrow></msub> <mo class="MathClass-rel" stretchy="false">&lt;</mo> <msub><mrow><mi>y</mi></mrow><mrow><mi>i</mi></mrow></msub><mo class="MathClass-close" stretchy="false">}</mo><mspace class="thinspace" width="0.17em"></mspace><mo class="MathClass-punc" stretchy="false">,</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   where the pairs <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mi>x</mi></mrow><mrow><mi>i</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow><mrow><mi>i</mi></mrow></msub><mo class="MathClass-punc" stretchy="false">,</mo> <msub><mrow><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mi>y</mi></mrow><mrow><mi>i</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow><mrow><mi>i</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow></math> vary
+among the <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>n</mi></math>-tuples of
+real numbers satisfying <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mrow><mi>x</mi></mrow><mrow><mi>i</mi></mrow></msub> <mo class="MathClass-rel" stretchy="false">&lt;</mo> <msub><mrow><mi>y</mi></mrow><mrow><mi>i</mi></mrow></msub></mrow></math>
+for <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mn>1</mn> <mo class="MathClass-rel" stretchy="false">≤</mo> <mi>i</mi> <mo class="MathClass-rel" stretchy="false">≤</mo> <mi>n</mi></mrow></math>.
+Then </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+                                                                          
+
+                                                                          
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                             <mstyle mathvariant="script"><mi>B</mi></mstyle><mo class="MathClass-open" stretchy="false">(</mo><msup><mrow><mi>ℝ</mi></mrow><mrow><mi>n</mi></mrow></msup><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-rel" stretchy="false">=</mo> <mi>σ</mi><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mstyle mathvariant="script"><mi>D</mi></mstyle></mrow><mrow>
+<mi>n</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo><mo class="MathClass-punc" stretchy="false">.</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   Indeed, the subfamily of blocks with rational endpoints is countable
+and forms a basis of the Euclidean topology: for every open set
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>U</mi></math> and
+every <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>x</mi></math> in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>U</mi></math>, there is a
+rational block <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>D</mi></math>
+such that <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>x</mi></math>
+is in <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>D</mi> <mo class="MathClass-rel" stretchy="false">⊂</mo> <mi>U</mi></mrow></math>.
+Hence every open set is the union of the rational blocks contained in it, and this is a
+countable union. Since every block is open, this proves that the open sets generate exactly
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>σ</mi><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mstyle mathvariant="script"><mi>D</mi></mstyle></mrow><mrow><mi>n</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow></math>. In particular,
+in the case <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>n</mi> <mo class="MathClass-rel" stretchy="false">=</mo> <mn>1</mn></mrow></math>, the
+Borel <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>σ</mi></math>-algebra
+of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>ℝ</mi></math> is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>σ</mi><mo class="MathClass-open" stretchy="false">(</mo><mstyle mathvariant="script"><mi>I</mi></mstyle><mo class="MathClass-close" stretchy="false">)</mo></mrow></math>, where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mstyle mathvariant="script"><mi>I</mi></mstyle></math> is the family of open
+intervals of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>ℝ</mi></math>. Recall that
+the usual absolute value <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mtext class="MathClass-rel" stretchy="false">|⋅|</mtext></mrow></math>
+equips <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>ℝ</mi></math>
+with a metric topology that we call the <span class="ecti-1200">standard topology of</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>ℝ</mi></math>. If we fix
+any norm <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mtext class="MathClass-rel" stretchy="false">∥⋅∥</mtext></mrow></math>
+on <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msup><mrow><mi>ℝ</mi></mrow><mrow><mi>n</mi></mrow></msup></math>,
+then <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msup><mrow><mi>ℝ</mi></mrow><mrow><mi>n</mi></mrow></msup></math>
+is endowed with the associated metric topology. This topology is
+independent of the chosen norm, since all norms are equivalent on
+the same finite-dimensional space. We call it the <span class="ecti-1200">standard topology </span>of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msup><mrow><mi>ℝ</mi></mrow><mrow><mi>n</mi></mrow></msup></math>.
+                                                                          
+
+                                                                          
+</p><h2 class="sectionHead" id="a-few-words-on-the-completed-real-line"><span class="titlemark">1.4   </span> <span id="ref-subsec-completed-real-line" class="reference-anchor"></span><a id="x1-70001.4"></a>A few words on the completed real line</h2>
+<p class="noindent">In what follows, we will have to consider functions that can
+take on infinite values (think, for example, of the function
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>x</mi><mo class="MathClass-rel" stretchy="false">↦</mo><mn>1</mn><mo class="MathClass-bin" stretchy="false">∕</mo><msqrt><mrow><mi>x</mi></mrow></msqrt></mrow></math>, which is
+integrable on <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-close" stretchy="false">]</mo><mn>0</mn><mo class="MathClass-punc" stretchy="false">,</mo> <mn>1</mn><mo class="MathClass-close" stretchy="false">]</mo></mrow></math>
+and tends to <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow> <mo class="MathClass-bin" stretchy="false">+</mo> <mi>∞</mi></mrow></math>
+as <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>x</mi> <mo class="MathClass-rel" stretchy="false">→</mo> <msup><mrow><mn>0</mn></mrow><mrow><mo class="MathClass-bin" stretchy="false">+</mo></mrow></msup></mrow></math>).
+We define </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                           <mover accent="false" class="mml-overline"><mrow><mi>ℝ</mi></mrow><mo accent="true">¯</mo></mover> <mo class="MathClass-rel" stretchy="false">=</mo> <mi>ℝ</mi> <mo class="MathClass-bin" stretchy="false">∪</mo><mo class="MathClass-open" stretchy="false">{</mo><mo class="MathClass-bin" stretchy="false">−</mo><mi>∞</mi><mo class="MathClass-punc" stretchy="false">,</mo> <mo class="MathClass-bin" stretchy="false">+</mo><mi>∞</mi><mo class="MathClass-close" stretchy="false">}</mo><mspace class="thinspace" width="0.17em"></mspace><mo class="MathClass-punc" stretchy="false">,</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   and generalized “intervals”: </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+           <mo class="MathClass-close" stretchy="false">]</mo><mi>a</mi><mo class="MathClass-punc" stretchy="false">,</mo> <mo class="MathClass-bin" stretchy="false">+</mo><mi>∞</mi><mo class="MathClass-close" stretchy="false">]</mo> <mo class="MathClass-rel" stretchy="false">=</mo><mo class="MathClass-close" stretchy="false">]</mo><mi>a</mi><mo class="MathClass-punc" stretchy="false">,</mo> <mo class="MathClass-bin" stretchy="false">+</mo><mi>∞</mi><mo class="MathClass-open" stretchy="false">[</mo><mo class="MathClass-bin" stretchy="false">∪</mo><mo class="MathClass-open" stretchy="false">{</mo><mo class="MathClass-bin" stretchy="false">+</mo><mi>∞</mi><mo class="MathClass-close" stretchy="false">}</mo><mo class="MathClass-punc" stretchy="false">,</mo><mspace class="thinspace" width="0.17em"></mspace><mspace class="qquad" width="2em"></mspace><mo class="MathClass-open" stretchy="false">[</mo><mo class="MathClass-bin" stretchy="false">−</mo><mi>∞</mi><mo class="MathClass-punc" stretchy="false">,</mo><mi>b</mi><mo class="MathClass-open" stretchy="false">[</mo><mo class="MathClass-rel" stretchy="false">=</mo><mo class="MathClass-close" stretchy="false">]</mo> <mo class="MathClass-bin" stretchy="false">−</mo><mi>∞</mi><mo class="MathClass-punc" stretchy="false">,</mo><mi>b</mi><mo class="MathClass-open" stretchy="false">[</mo><mo class="MathClass-bin" stretchy="false">∪</mo><mo class="MathClass-open" stretchy="false">{</mo><mo class="MathClass-bin" stretchy="false">−</mo><mi>∞</mi><mo class="MathClass-close" stretchy="false">}</mo><mspace class="thinspace" width="0.17em"></mspace><mo class="MathClass-punc" stretchy="false">,</mo>
+</mrow></math></td></tr></table>
+   </div><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+                                                                          
+
+                                                                          
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+          <mo class="MathClass-open" stretchy="false">[</mo><mi>a</mi><mo class="MathClass-punc" stretchy="false">,</mo> <mo class="MathClass-bin" stretchy="false">+</mo><mi>∞</mi><mo class="MathClass-close" stretchy="false">]</mo> <mo class="MathClass-rel" stretchy="false">=</mo> <mo class="MathClass-open" stretchy="false">[</mo><mi>a</mi><mo class="MathClass-punc" stretchy="false">,</mo> <mo class="MathClass-bin" stretchy="false">+</mo><mi>∞</mi><mo class="MathClass-open" stretchy="false">[</mo><mo class="MathClass-bin" stretchy="false">∪</mo><mo class="MathClass-open" stretchy="false">{</mo><mo class="MathClass-bin" stretchy="false">+</mo><mi>∞</mi><mo class="MathClass-close" stretchy="false">}</mo><mo class="MathClass-punc" stretchy="false">,</mo><mspace class="thinspace" width="0.17em"></mspace><mspace class="qquad" width="2em"></mspace><mo class="MathClass-open" stretchy="false">[</mo><mo class="MathClass-bin" stretchy="false">−</mo><mi>∞</mi><mo class="MathClass-punc" stretchy="false">,</mo><mi>b</mi><mo class="MathClass-close" stretchy="false">]</mo> <mo class="MathClass-rel" stretchy="false">=</mo><mo class="MathClass-close" stretchy="false">]</mo> <mo class="MathClass-bin" stretchy="false">−</mo><mi>∞</mi><mo class="MathClass-punc" stretchy="false">,</mo><mi>b</mi><mo class="MathClass-close" stretchy="false">]</mo> <mo class="MathClass-bin" stretchy="false">∪</mo><mo class="MathClass-open" stretchy="false">{</mo><mo class="MathClass-bin" stretchy="false">−</mo><mi>∞</mi><mo class="MathClass-close" stretchy="false">}</mo><mspace class="thinspace" width="0.17em"></mspace><mo class="MathClass-punc" stretchy="false">,</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   for all <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>a</mi><mo class="MathClass-punc" stretchy="false">,</mo><mi>b</mi> <mo class="MathClass-rel" stretchy="false">∈</mo> <mi>ℝ</mi></mrow></math>.
+We endow <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mover accent="false" class="mml-overline"><mrow><mi>ℝ</mi></mrow><mo accent="true">¯</mo></mover></math>
+with the topology generated by the basis consisting of the intervals </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                          <mo class="MathClass-close" stretchy="false">]</mo><mi>a</mi><mo class="MathClass-punc" stretchy="false">,</mo><mi>b</mi><mo class="MathClass-open" stretchy="false">[</mo><mo class="MathClass-punc" stretchy="false">,</mo><mspace class="qquad" width="2em"></mspace><mo class="MathClass-open" stretchy="false">[</mo><mo class="MathClass-bin" stretchy="false">−</mo><mi>∞</mi><mo class="MathClass-punc" stretchy="false">,</mo><mi>b</mi><mo class="MathClass-open" stretchy="false">[</mo><mo class="MathClass-punc" stretchy="false">,</mo><mspace class="qquad" width="2em"></mspace><mo class="MathClass-close" stretchy="false">]</mo><mi>a</mi><mo class="MathClass-punc" stretchy="false">,</mo> <mo class="MathClass-bin" stretchy="false">+</mo><mi>∞</mi><mo class="MathClass-close" stretchy="false">]</mo><mo class="MathClass-punc" stretchy="false">,</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   with <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>a</mi><mo class="MathClass-punc" stretchy="false">,</mo><mi>b</mi></mrow></math>
+in <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>ℝ</mi></math>
+and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>a</mi> <mo class="MathClass-rel" stretchy="false">&lt;</mo> <mi>b</mi></mrow></math>.
+Equivalently, it is enough to use rational endpoints; this gives a
+countable basis. This topology is called the <span class="ecti-1200">standard topology </span>of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mover accent="false" class="mml-overline"><mrow><mi>ℝ</mi></mrow><mo accent="true">¯</mo></mover></math>. If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mstyle mathvariant="script"><mi>G</mi></mstyle></math>
+denotes the family consisting of the open intervals of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>ℝ</mi></math> and the
+intervals <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-close" stretchy="false">]</mo><mi>a</mi><mo class="MathClass-punc" stretchy="false">,</mo> <mo class="MathClass-bin" stretchy="false">+</mo><mi>∞</mi><mo class="MathClass-close" stretchy="false">]</mo></mrow></math>
+and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-open" stretchy="false">[</mo><mo class="MathClass-bin" stretchy="false">−</mo><mi>∞</mi><mo class="MathClass-punc" stretchy="false">,</mo><mi>b</mi><mo class="MathClass-open" stretchy="false">[</mo></mrow></math>, for
+all <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>a</mi><mo class="MathClass-punc" stretchy="false">,</mo><mi>b</mi></mrow></math> in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>ℝ</mi></math>, then
+</p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+                                                                          
+
+                                                                          
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                              <mstyle mathvariant="script"><mi>B</mi></mstyle><mo class="MathClass-open" stretchy="false">(</mo><mover accent="false" class="mml-overline"><mrow><mi>ℝ</mi></mrow><mo accent="true">¯</mo></mover><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-rel" stretchy="false">=</mo> <mi>σ</mi><mo class="MathClass-open" stretchy="false">(</mo><mstyle mathvariant="script"><mi>G</mi></mstyle><mo class="MathClass-close" stretchy="false">)</mo><mo class="MathClass-punc" stretchy="false">.</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   Indeed, the topology is generated by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mstyle mathvariant="script"><mi>G</mi></mstyle></math>,
+and the rational-endpoint subfamily shows that every open subset of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mover accent="false" class="mml-overline"><mrow><mi>ℝ</mi></mrow><mo accent="true">¯</mo></mover></math> is a countable union
+of elements of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mstyle mathvariant="script"><mi>G</mi></mstyle></math>.
+</p><p class="indent">   Next chapter introduces the concept of a measure on a measurable
+space. Such measures can take infinite values, <span class="ecti-1200">i.e. </span>values in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-open" stretchy="false">[</mo><mn>0</mn><mo class="MathClass-punc" stretchy="false">,</mo> <mo class="MathClass-bin" stretchy="false">+</mo><mi>∞</mi><mo class="MathClass-close" stretchy="false">]</mo> <mo class="MathClass-rel" stretchy="false">⊂</mo><mover accent="false" class="mml-overline"><mrow><mi>ℝ</mi></mrow><mo accent="true">¯</mo></mover></mrow></math>.
+To do this, we set out some conventions for calculations in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-open" stretchy="false">[</mo><mn>0</mn><mo class="MathClass-punc" stretchy="false">,</mo><mi>∞</mi><mo class="MathClass-close" stretchy="false">]</mo></mrow></math>: for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>a</mi> <mo class="MathClass-rel" stretchy="false">∈</mo> <msub><mrow><mi>ℝ</mi></mrow><mrow><mo class="MathClass-rel" stretchy="false">≥</mo><mn>0</mn></mrow></msub></mrow></math>,
+</p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                        <mi>a</mi> <mo class="MathClass-bin" stretchy="false">+</mo> <mi>∞</mi> <mo class="MathClass-punc" stretchy="false">:</mo><mo class="MathClass-rel" stretchy="false">=</mo> <mi>∞</mi><mspace class="thinspace" width="0.17em"></mspace><mo class="MathClass-punc" stretchy="false">,</mo><mspace class="qquad" width="2em"></mspace><mi>∞</mi> <mo class="MathClass-bin" stretchy="false">+</mo> <mi>a</mi> <mo class="MathClass-punc" stretchy="false">:</mo><mo class="MathClass-rel" stretchy="false">=</mo> <mi>∞</mi><mspace class="thinspace" width="0.17em"></mspace><mo class="MathClass-punc" stretchy="false">.</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   Also, </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+                                                                          
+
+                                                                          
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                    <mi>a</mi> <mo class="MathClass-bin" stretchy="false">×</mo><mi>∞</mi> <mo class="MathClass-punc" stretchy="false">:</mo><mo class="MathClass-rel" stretchy="false">=</mo> <mi>∞</mi><mspace class="thinspace" width="0.17em"></mspace><mo class="MathClass-punc" stretchy="false">,</mo><mspace class="qquad" width="2em"></mspace><mi>∞</mi><mo class="MathClass-bin" stretchy="false">×</mo> <mi>a</mi> <mo class="MathClass-punc" stretchy="false">:</mo><mo class="MathClass-rel" stretchy="false">=</mo> <mi>∞</mi><mspace class="qquad" width="2em"></mspace><mstyle class="text"><mtext>for </mtext></mstyle><mi>a</mi> <mo class="MathClass-rel" stretchy="false">&gt;</mo> <mn>0</mn><mo class="MathClass-punc" stretchy="false">,</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   whereas </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                         <mn>0</mn> <mo class="MathClass-bin" stretchy="false">×</mo><mi>∞</mi> <mo class="MathClass-punc" stretchy="false">:</mo><mo class="MathClass-rel" stretchy="false">=</mo> <mn>0</mn><mspace class="thinspace" width="0.17em"></mspace><mo class="MathClass-punc" stretchy="false">,</mo><mspace class="qquad" width="2em"></mspace><mi>∞</mi><mo class="MathClass-bin" stretchy="false">×</mo> <mn>0</mn> <mo class="MathClass-punc" stretchy="false">:</mo><mo class="MathClass-rel" stretchy="false">=</mo> <mn>0</mn><mo class="MathClass-punc" stretchy="false">.</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   With these conventions, the algebraic identities used
+below for nonnegative extended quantities remain valid on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-open" stretchy="false">[</mo><mn>0</mn><mo class="MathClass-punc" stretchy="false">,</mo><mi>∞</mi><mo class="MathClass-close" stretchy="false">]</mo></mrow></math>. Another convenient
+consequence of “adding <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>∞</mi></math>”
+to <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-open" stretchy="false">[</mo><mn>0</mn><mo class="MathClass-punc" stretchy="false">,</mo><mi>∞</mi><mo class="MathClass-open" stretchy="false">[</mo></mrow></math> is that any
+<span class="ecti-1200">increasing </span>sequence in <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-open" stretchy="false">[</mo><mn>0</mn><mo class="MathClass-punc" stretchy="false">,</mo><mi>∞</mi><mo class="MathClass-close" stretchy="false">]</mo></mrow></math>
+converges. We can even extend the usual properties, as follows. </p><div class="statement statement-orange">
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-7001r9"></a>
+<span class="ecbx-1200">Proposition 1.9 </span>(Increasing limits in <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-open" stretchy="false">{</mo><mn>0</mn> <mo class="MathClass-rel" stretchy="false">≤</mo> <mi>x</mi> <mo class="MathClass-rel" stretchy="false">≤</mo><mi>∞</mi><mo class="MathClass-close" stretchy="false">}</mo></mrow></math>)<span class="ecbx-1200">.</span>
+</span><span class="ecti-1200">If </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mi>a</mi></mrow><mrow><mi>n</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow><mrow><mi>n</mi><mo class="MathClass-rel" stretchy="false">≥</mo><mn>1</mn></mrow></msub></math> <span class="ecti-1200">and</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mi>b</mi></mrow><mrow><mi>n</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow><mrow><mi>n</mi><mo class="MathClass-rel" stretchy="false">≥</mo><mn>1</mn></mrow></msub></math> <span class="ecti-1200">are two increasing
+sequences in </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-open" stretchy="false">[</mo><mn>0</mn><mo class="MathClass-punc" stretchy="false">,</mo><mi>∞</mi><mo class="MathClass-close" stretchy="false">]</mo></mrow></math>
+                                                                          
+
+                                                                          
+<span class="ecti-1200">with limits </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mrow><mi>ℓ</mi></mrow><mrow><mi>a</mi></mrow></msub><mo class="MathClass-punc" stretchy="false">,</mo><msub><mrow><mi>ℓ</mi></mrow><mrow><mi>b</mi></mrow></msub></mrow></math> <span class="ecti-1200">in</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-open" stretchy="false">[</mo><mn>0</mn><mo class="MathClass-punc" stretchy="false">,</mo><mi>∞</mi><mo class="MathClass-close" stretchy="false">]</mo></mrow></math> <span class="ecti-1200">respectively, then
+the sequences </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mi>a</mi></mrow><mrow><mi>n</mi></mrow></msub> <mo class="MathClass-bin" stretchy="false">+</mo> <msub><mrow><mi>b</mi></mrow><mrow><mi>n</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow><mrow><mi>n</mi><mo class="MathClass-rel" stretchy="false">≥</mo><mn>1</mn></mrow></msub></math>
+<span class="ecti-1200">and </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mi>a</mi></mrow><mrow><mi>n</mi></mrow></msub><msub><mrow><mi>b</mi></mrow><mrow><mi>n</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow><mrow><mi>n</mi><mo class="MathClass-rel" stretchy="false">≥</mo><mn>1</mn></mrow></msub></math>
+<span class="ecti-1200">converge in </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-open" stretchy="false">[</mo><mn>0</mn><mo class="MathClass-punc" stretchy="false">,</mo> <mo class="MathClass-bin" stretchy="false">+</mo><mi>∞</mi><mo class="MathClass-close" stretchy="false">]</mo></mrow></math>
+<span class="ecti-1200">and</span> </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+            <munder class="msub"><mrow><mtext class="qopname">lim</mtext><mo> ⁡</mo> </mrow><mrow><mi>n</mi><mo class="MathClass-rel" stretchy="false">→</mo><mi>∞</mi></mrow></munder><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mi>a</mi></mrow><mrow><mi>n</mi></mrow></msub> <mo class="MathClass-bin" stretchy="false">+</mo> <msub><mrow><mi>b</mi></mrow><mrow><mi>n</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-rel" stretchy="false">=</mo> <msub><mrow><mi>ℓ</mi></mrow><mrow><mi>a</mi></mrow></msub> <mo class="MathClass-bin" stretchy="false">+</mo> <msub><mrow><mi>ℓ</mi></mrow><mrow><mi>b</mi></mrow></msub><mspace class="thinspace" width="0.17em"></mspace><mo class="MathClass-punc" stretchy="false">,</mo><mspace class="qquad" width="2em"></mspace><munder class="msub"><mrow><mtext class="qopname"> lim</mtext><mo> ⁡</mo> </mrow><mrow><mi>n</mi><mo class="MathClass-rel" stretchy="false">→</mo><mi>∞</mi></mrow></munder><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mi>a</mi></mrow><mrow><mi>n</mi></mrow></msub><msub><mrow><mi>b</mi></mrow><mrow><mi>n</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-rel" stretchy="false">=</mo> <msub><mrow><mi>ℓ</mi></mrow><mrow><mi>a</mi></mrow></msub> <mo class="MathClass-bin" stretchy="false">×</mo> <msub><mrow><mi>ℓ</mi></mrow><mrow><mi>b</mi></mrow></msub><mspace class="thinspace" width="0.17em"></mspace><mo class="MathClass-punc" stretchy="false">.</mo>
+</mrow></math></td></tr></table>
+   </div></div>
+</div>
+   <div class="proof">
+<p class="indent">   <span class="head">
+<span class="ecti-1200">Proof.</span> </span>The sequence <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mi>a</mi></mrow><mrow><mi>n</mi></mrow></msub> <mo class="MathClass-bin" stretchy="false">+</mo> <msub><mrow><mi>b</mi></mrow><mrow><mi>n</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow><mrow><mi>n</mi><mo class="MathClass-rel" stretchy="false">≥</mo><mn>1</mn></mrow></msub></math>
+is increasing and has limit <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mrow><mi>ℓ</mi></mrow><mrow><mi>a</mi></mrow></msub> <mo class="MathClass-bin" stretchy="false">+</mo> <msub><mrow><mi>ℓ</mi></mrow><mrow><mi>b</mi></mrow></msub></mrow></math>.
+If both limits are finite, this is the usual rule for limits in <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>ℝ</mi></math>.
+If one limit is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow> <mo class="MathClass-bin" stretchy="false">+</mo> <mi>∞</mi></mrow></math>,
+the conclusion follows from monotonicity and the definition of convergence to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow> <mo class="MathClass-bin" stretchy="false">+</mo> <mi>∞</mi></mrow></math>.
+</p><p class="indent">   For the product, the sequence <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mi>a</mi></mrow><mrow><mi>n</mi></mrow></msub><msub><mrow><mi>b</mi></mrow><mrow><mi>n</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow><mrow><mi>n</mi><mo class="MathClass-rel" stretchy="false">≥</mo><mn>1</mn></mrow></msub></math>
+is increasing. If <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mi>ℓ</mi></mrow><mrow><mi>a</mi></mrow></msub></math>
+and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mi>ℓ</mi></mrow><mrow><mi>b</mi></mrow></msub></math>
+are finite, the usual real-valued rule applies. If, for instance, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mrow><mi>ℓ</mi></mrow><mrow><mi>a</mi></mrow></msub> <mo class="MathClass-rel" stretchy="false">=</mo> <mo class="MathClass-bin" stretchy="false">+</mo><mi>∞</mi></mrow></math>
+and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mrow><mi>ℓ</mi></mrow><mrow><mi>b</mi></mrow></msub> <mo class="MathClass-rel" stretchy="false">&gt;</mo> <mn>0</mn></mrow></math>,
+choose <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>c</mi> <mo class="MathClass-rel" stretchy="false">&gt;</mo> <mn>0</mn></mrow></math>
+and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mi>n</mi></mrow><mrow><mn>0</mn></mrow></msub></math>
+                                                                          
+
+                                                                          
+such that <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mrow><mi>b</mi></mrow><mrow><mi>n</mi></mrow></msub> <mo class="MathClass-rel" stretchy="false">≥</mo> <mi>c</mi></mrow></math>
+for <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>n</mi> <mo class="MathClass-rel" stretchy="false">≥</mo> <msub><mrow><mi>n</mi></mrow><mrow><mn>0</mn></mrow></msub></mrow></math>;
+then <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mrow><mi>a</mi></mrow><mrow><mi>n</mi></mrow></msub><msub><mrow><mi>b</mi></mrow><mrow><mi>n</mi></mrow></msub> <mo class="MathClass-rel" stretchy="false">≥</mo> <mi>c</mi><msub><mrow><mi>a</mi></mrow><mrow><mi>n</mi></mrow></msub></mrow></math>
+tends to <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow> <mo class="MathClass-bin" stretchy="false">+</mo> <mi>∞</mi></mrow></math>.
+The case <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mrow><mi>ℓ</mi></mrow><mrow><mi>b</mi></mrow></msub> <mo class="MathClass-rel" stretchy="false">=</mo> <mo class="MathClass-bin" stretchy="false">+</mo><mi>∞</mi></mrow></math>
+and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mrow><mi>ℓ</mi></mrow><mrow><mi>a</mi></mrow></msub> <mo class="MathClass-rel" stretchy="false">&gt;</mo> <mn>0</mn></mrow></math>
+is symmetric. Finally, if <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mrow><mi>ℓ</mi></mrow><mrow><mi>b</mi></mrow></msub> <mo class="MathClass-rel" stretchy="false">=</mo> <mn>0</mn></mrow></math>,
+then <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mrow><mi>b</mi></mrow><mrow><mi>n</mi></mrow></msub> <mo class="MathClass-rel" stretchy="false">=</mo> <mn>0</mn></mrow></math>
+for every <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>n</mi></math>
+because <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mi>b</mi></mrow><mrow><mi>n</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow></math>
+is increasing and nonnegative; hence <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mrow><mi>a</mi></mrow><mrow><mi>n</mi></mrow></msub><msub><mrow><mi>b</mi></mrow><mrow><mi>n</mi></mrow></msub> <mo class="MathClass-rel" stretchy="false">=</mo> <mn>0</mn></mrow></math>
+for every <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>n</mi></math>.
+The case <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mrow><mi>ℓ</mi></mrow><mrow><mi>a</mi></mrow></msub> <mo class="MathClass-rel" stretchy="false">=</mo> <mn>0</mn></mrow></math>
+is  symmetric.  This  proves  the  formula  in  all  cases,  with  the  convention
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mn>0</mn> <mo class="MathClass-bin" stretchy="false">×</mo><mi>∞</mi> <mo class="MathClass-rel" stretchy="false">=</mo> <mn>0</mn></mrow></math>.
+                                                                         □
+</p>
+   </div>
+<nav class="previous-next" aria-label="Previous and next chapter"><a class="previous" href="index.html"><span>Previous</span>Course contents</a><a class="next" href="chapter-02.html"><span>Next</span>Measures</a></nav>
+<footer class="chapter-footer"><a href="#chapter">Back to the beginning</a><a href="course.pdf#page=7">This chapter in the PDF</a></footer></main></div></body></html>

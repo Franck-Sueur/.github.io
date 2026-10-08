@@ -1,0 +1,639 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Measurable functions · Franck Sueur</title><meta name="description" content="Measurable functions. Integration and measure theory lecture notes by Franck Sueur, University of Luxembourg.">
+<link rel="canonical" href="https://franck-sueur.github.io/.github.io/integration/chapter-04.html">
+<link rel="stylesheet" href="course.css"><link rel="stylesheet" href="reading.css">
+<script>window.MathJax={options:{enableMenu:false},svg:{fontCache:'global'}};</script><script defer src="assets/mathjax-mml-svg.js"></script><script defer src="reading.js"></script>
+</head><body><a class="skip-link" href="#chapter">Skip to content</a>
+<header class="course-header"><a class="author" href="https://franck-sueur.github.io/.github.io/">Franck Sueur</a><span class="course-meta">University of Luxembourg · Lecture notes</span></header>
+<div class="reading-layout"><aside class="sidebar"><p class="course-label">Lecture notes</p><a class="course-name" href="index.html">Integration and<br> measure theory</a>
+<label class="picker-label" for="chapter-picker">Choose a chapter</label><select class="chapter-picker" id="chapter-picker" aria-label="Choose a chapter"><option value="index.html">Course contents</option><option value="chapter-01.html">1. σ-algebras</option><option value="chapter-02.html">2. Measures</option><option value="chapter-03.html">3. Outer measures and Carathéodory’s extension theorem</option><option value="chapter-04.html" selected>4. Measurable functions</option><option value="chapter-05.html">5. Simple functions and their Lebesgue integral</option><option value="chapter-06.html">6. Lebesgue integral of positive measurable functions</option><option value="chapter-07.html">7. Lebesgue’s monotone convergence theorem</option><option value="chapter-08.html">8. Dominated convergence, ℒ¹(μ) and L¹(μ)</option><option value="chapter-09.html">9. Integrals with parameters</option><option value="chapter-10.html">10. Product measures, the Fubini and Tonelli theorems</option><option value="chapter-11.html">11. Modes of convergence</option><option value="chapter-12.html">12. Absolute continuity, Lebesgue decomposition and the Radon–Nikodym theorem</option><option value="chapter-13.html">13. Fundamental theorem of calculus and change of variables</option><option value="chapter-14.html">14. Radon measures, Riesz representation and the Lebesgue measure</option><option value="chapter-15.html">15. Lebesgue spaces Lᵖ(μ)</option><option value="chapter-16.html">16. Appendix. Topology and functional analysis reminders</option></select>
+<div class="course-links"><a href="index.html">All chapters</a><a href="course.pdf">Full course PDF</a><a href="history.html">Historical milestones</a><a href="bibliography.html">Bibliography</a></div>
+<details class="contents" open><summary>On this page</summary><nav aria-label="Page contents"><a class="toc-link section" href="#gentle-reminder-on-the-notion-of-preimage"><span class="toc-number">4.1</span><span>Gentle reminder on the notion of preimage</span></a>
+<a class="toc-link section" href="#definition-of-a-measurable-function"><span class="toc-number">4.2</span><span>Definition of a measurable function</span></a>
+<a class="toc-link section" href="#a-maximal-sigmaalgebra-on-the-target-and-a-related-criterion"><span class="toc-number">4.3</span><span>A maximal σ-algebra on the target and a related criterion</span></a>
+<a class="toc-link section" href="#measurability-versus-continuity"><span class="toc-number">4.4</span><span>Measurability versus continuity</span></a>
+<a class="toc-link section" href="#stability-of-measurable-functions"><span class="toc-number">4.5</span><span>Stability of measurable functions</span></a></nav></details><p class="sidebar-note">Bachelor in Mathematics<br>Summer semester 2025–26</p></aside><main class="chapter" id="chapter" tabindex="-1"><h1 class="chapterHead" id="measurable-functions"><span class="titlemark">Chapter 4</span><br><a id="x1-250004"></a>Measurable functions</h1>
+<p class="noindent">Having defined measurable sets and measures, we now pass to measurable
+functions. The chapter recalls the role of preimages, gives practical criteria for
+measurability, and develops the stability properties that let us build large
+classes of measurable functions from simpler ones and from continuous
+functions.
+</p>
+   <h2 class="sectionHead" id="gentle-reminder-on-the-notion-of-preimage"><span class="titlemark">4.1   </span> <a id="x1-260004.1"></a>Gentle reminder on the notion of preimage</h2>
+<p class="noindent">Let us start with a few reminders and notations in the general case of set maps. Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>f</mi> <mo class="MathClass-punc" stretchy="false">:</mo> <mspace class="thinspace" width="0.17em"></mspace><mi>X</mi> <mo class="MathClass-rel" stretchy="false">→</mo> <mi>Y</mi> </mrow></math> be a map
+from a set <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>X</mi></math> to
+a set <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>Y</mi> </mrow></math>. For any
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>B</mi> <mo class="MathClass-rel" stretchy="false">⊂</mo> <mi>Y</mi> </mrow></math>, we define the preimage
+(or reciprocal image) of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>B</mi></math>
+by <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>f</mi></math>:
+</p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                      <msup><mrow><mi>f</mi></mrow><mrow><mo class="MathClass-bin" stretchy="false">−</mo><mn>1</mn></mrow></msup><mo class="MathClass-open" stretchy="false">(</mo><mi>B</mi><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-punc" stretchy="false">:</mo><mo class="MathClass-rel" stretchy="false">=</mo> <mo class="MathClass-open" stretchy="false">{</mo><mi>x</mi> <mo class="MathClass-rel" stretchy="false">∈</mo> <mi>X</mi> <mo class="MathClass-punc" stretchy="false">:</mo> <mi>f</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-rel" stretchy="false">∈</mo> <mi>B</mi><mo class="MathClass-close" stretchy="false">}</mo><mo class="MathClass-punc" stretchy="false">.</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   Remember that this is simple notation and does not imply that
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>f</mi></math> is invertible. Of
+course, we have <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msup><mrow><mi>f</mi></mrow><mrow><mo class="MathClass-bin" stretchy="false">−</mo><mn>1</mn></mrow></msup><mo class="MathClass-open" stretchy="false">(</mo><mi>Y</mi> <mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-rel" stretchy="false">=</mo> <mi>X</mi></mrow></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msup><mrow><mi>f</mi></mrow><mrow><mo class="MathClass-bin" stretchy="false">−</mo><mn>1</mn></mrow></msup><mo class="MathClass-open" stretchy="false">(</mo><mi>∅</mi><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-rel" stretchy="false">=</mo> <mi>∅</mi></mrow></math>, and recall the formulas,
+valid for any <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>A</mi><mo class="MathClass-punc" stretchy="false">,</mo><mi>B</mi> <mo class="MathClass-rel" stretchy="false">⊂</mo> <mi>Y</mi> </mrow></math>, where
+complements are taken in <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>Y</mi> </mrow></math>
+and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>X</mi></math>
+respectively:
+                                                                          
+
+                                                                          
+</p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mtable class="align-star" columnalign="left" displaystyle="true">
+                     <mtr><mtd class="align-odd" columnalign="right"><msup><mrow><mi>f</mi></mrow><mrow><mo class="MathClass-bin" stretchy="false">−</mo><mn>1</mn></mrow></msup><mo class="MathClass-open" stretchy="false">(</mo><mi>A</mi> <mo class="MathClass-bin" stretchy="false">∩</mo> <mi>B</mi><mo class="MathClass-close" stretchy="false">)</mo></mtd>                     <mtd class="align-even"> <mo class="MathClass-rel" stretchy="false">=</mo> <msup><mrow><mi>f</mi></mrow><mrow><mo class="MathClass-bin" stretchy="false">−</mo><mn>1</mn></mrow></msup><mo class="MathClass-open" stretchy="false">(</mo><mi>A</mi><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-bin" stretchy="false">∩</mo> <msup><mrow><mi>f</mi></mrow><mrow><mo class="MathClass-bin" stretchy="false">−</mo><mn>1</mn></mrow></msup><mo class="MathClass-open" stretchy="false">(</mo><mi>B</mi><mo class="MathClass-close" stretchy="false">)</mo><mo class="MathClass-punc" stretchy="false">,</mo><mspace width="2em"></mspace></mtd>                     <mtd class="align-label" columnalign="right"></mtd>                     <mtd class="align-label">
+                     <mspace width="2em"></mspace></mtd></mtr><mtr><mtd class="align-odd" columnalign="right"><msup><mrow><mi>f</mi></mrow><mrow><mo class="MathClass-bin" stretchy="false">−</mo><mn>1</mn></mrow></msup><mo class="MathClass-open" stretchy="false">(</mo><mi>A</mi> <mo class="MathClass-bin" stretchy="false">∪</mo> <mi>B</mi><mo class="MathClass-close" stretchy="false">)</mo></mtd>                     <mtd class="align-even"> <mo class="MathClass-rel" stretchy="false">=</mo> <msup><mrow><mi>f</mi></mrow><mrow><mo class="MathClass-bin" stretchy="false">−</mo><mn>1</mn></mrow></msup><mo class="MathClass-open" stretchy="false">(</mo><mi>A</mi><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-bin" stretchy="false">∪</mo> <msup><mrow><mi>f</mi></mrow><mrow><mo class="MathClass-bin" stretchy="false">−</mo><mn>1</mn></mrow></msup><mo class="MathClass-open" stretchy="false">(</mo><mi>B</mi><mo class="MathClass-close" stretchy="false">)</mo><mo class="MathClass-punc" stretchy="false">,</mo><mspace width="2em"></mspace></mtd>                     <mtd class="align-label" columnalign="right"></mtd>                     <mtd class="align-label">
+                     <mspace width="2em"></mspace></mtd></mtr><mtr><mtd class="align-odd" columnalign="right"><msup><mrow><mi>f</mi></mrow><mrow><mo class="MathClass-bin" stretchy="false">−</mo><mn>1</mn></mrow></msup><mo class="MathClass-open" stretchy="false">(</mo><msup><mrow><mi>A</mi></mrow><mrow><mtext class="MathClass-ord">∁</mtext></mrow></msup><mo class="MathClass-close" stretchy="false">)</mo></mtd>                         <mtd class="align-even"> <mo class="MathClass-rel" stretchy="false">=</mo> <msup><mrow><mo class="MathClass-open" stretchy="false">(</mo><msup><mrow><mi>f</mi></mrow><mrow><mo class="MathClass-bin" stretchy="false">−</mo><mn>1</mn></mrow></msup><mo class="MathClass-open" stretchy="false">(</mo><mi>A</mi><mo class="MathClass-close" stretchy="false">)</mo><mo class="MathClass-close" stretchy="false">)</mo></mrow><mrow><mtext class="MathClass-ord">∁</mtext></mrow></msup><mo class="MathClass-punc" stretchy="false">.</mo><mspace width="2em"></mspace></mtd>                            <mtd class="align-label" columnalign="right"></mtd>                     <mtd class="align-label">
+   <mspace width="2em"></mspace></mtd></mtr></mtable></math>
+</div><p class="noindent">If <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>I</mi></math>
+is any set of indices, the first two formulas generalize to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow> <msub><mrow><mo class="MathClass-bin" stretchy="false">∩</mo></mrow><mrow><mi>i</mi><mo class="MathClass-rel" stretchy="false">∈</mo><mi>I</mi></mrow></msub><msub><mrow><mi>A</mi></mrow><mrow><mi>i</mi></mrow></msub></mrow></math> and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow> <msub><mrow><mo class="MathClass-bin" stretchy="false">∪</mo></mrow><mrow><mi>i</mi><mo class="MathClass-rel" stretchy="false">∈</mo><mi>I</mi></mrow></msub><msub><mrow><mi>A</mi></mrow><mrow><mi>i</mi></mrow></msub></mrow></math>, where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mrow><mi>A</mi></mrow><mrow><mi>i</mi></mrow></msub> <mo class="MathClass-rel" stretchy="false">⊂</mo> <mi>Y</mi> </mrow></math> for
+all <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>i</mi></math>.
+</p><h2 class="sectionHead" id="definition-of-a-measurable-function"><span class="titlemark">4.2   </span> <a id="x1-270004.2"></a>Definition of a measurable function</h2>
+   <div class="statement statement-green">
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-27001r1"></a>
+<span class="ecbx-1200">Definition 4.1 </span>(Measurable maps)<span class="ecbx-1200">.</span>  </span><span class="ecti-1200">Let </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-open" stretchy="false">(</mo><mi>X</mi><mo class="MathClass-punc" stretchy="false">,</mo><msub><mrow><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow><mrow><mi>X</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow></math>
+<span class="ecti-1200">and </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-open" stretchy="false">(</mo><mi>Y</mi><mo class="MathClass-punc" stretchy="false">,</mo><msub><mrow><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow><mrow><mi>Y</mi> </mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow></math>
+<span class="ecti-1200">be measurable spaces and let </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>f</mi> <mo class="MathClass-punc" stretchy="false">:</mo> <mspace class="thinspace" width="0.17em"></mspace><mi>X</mi> <mo class="MathClass-rel" stretchy="false">→</mo> <mi>Y</mi> </mrow></math><span class="ecti-1200">.
+We say that </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>f</mi></math>
+<span class="ecti-1200">is </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow><mrow><mi>X</mi></mrow></msub><mo class="MathClass-punc" stretchy="false">,</mo><msub><mrow><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow><mrow><mi>Y</mi> </mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow></math>-measurable
+<span class="ecti-1200">(or simply </span>measurable <span class="ecti-1200">if there is no ambiguity on the </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>σ</mi></math><span class="ecti-1200">-algebras
+involved) if for all </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>B</mi></math>
+<span class="ecti-1200">in </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow><mrow><mi>Y</mi> </mrow></msub></math>
+                                                                          
+
+                                                                          
+<span class="ecti-1200">we have </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msup><mrow><mi>f</mi></mrow><mrow><mo class="MathClass-bin" stretchy="false">−</mo><mn>1</mn></mrow></msup><mo class="MathClass-open" stretchy="false">(</mo><mi>B</mi><mo class="MathClass-close" stretchy="false">)</mo></mrow></math>
+<span class="ecti-1200">in </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow><mrow><mi>X</mi></mrow></msub></math><span class="ecti-1200">.</span>
+</p>
+   </div>
+</div>
+<p class="noindent">Let us look at some basic examples of measurable functions. </p>
+      <ul class="itemize1">
+      <li class="itemize">Let <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-open" stretchy="false">(</mo><mi>X</mi><mo class="MathClass-punc" stretchy="false">,</mo><msub><mrow><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow><mrow><mi>X</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow></math>
+      be a measurable space. Then <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi mathvariant="italic">Id</mi><mo class="MathClass-punc" stretchy="false">:</mo> <mi>X</mi> <mo class="MathClass-rel" stretchy="false">→</mo> <mi>X</mi></mrow></math>,
+      defined by <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi mathvariant="italic">Id</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-rel" stretchy="false">=</mo> <mi>x</mi></mrow></math>,
+      is measurable.
+      </li>
+      <li class="itemize">If <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-open" stretchy="false">(</mo><mi>X</mi><mo class="MathClass-punc" stretchy="false">,</mo><msub><mrow><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow><mrow><mi>X</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow></math>
+      and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-open" stretchy="false">(</mo><mi>Y</mi><mo class="MathClass-punc" stretchy="false">,</mo><msub><mrow><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow><mrow><mi>Y</mi> </mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow></math>
+      are measurable spaces and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mi>y</mi></mrow><mrow><mn>0</mn></mrow></msub></math>
+      is in <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>Y</mi> </mrow></math>,
+      then the constant map <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>x</mi><mo class="MathClass-rel" stretchy="false">↦</mo><msub><mrow><mi>y</mi></mrow><mrow><mn>0</mn></mrow></msub></mrow></math>
+      is measurable, because the preimage of any measurable set in <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>Y</mi> </mrow></math>
+      is either <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>X</mi></math>
+      or <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>∅</mi></math>.</li></ul>
+   <div class="statement statement-orange">
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<span id="ref-prop-indicator-measurable" class="reference-anchor"></span><a id="x1-27002r2"></a>
+<span class="ecbx-1200">Proposition 4.2 </span>(Measurability of indicator functions)<span class="ecbx-1200">.</span>  </span> <span class="ecti-1200">Let </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-open" stretchy="false">(</mo><mi>X</mi><mo class="MathClass-punc" stretchy="false">,</mo><mstyle mathvariant="script"><mi>A</mi></mstyle><mo class="MathClass-close" stretchy="false">)</mo></mrow></math>
+<span class="ecti-1200">be a measurable space and let </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>A</mi> <mo class="MathClass-rel" stretchy="false">⊂</mo> <mi>X</mi></mrow></math><span class="ecti-1200">.
+Then </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>A</mi></math>
+<span class="ecti-1200">is in </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mstyle mathvariant="script"><mi>A</mi></mstyle></math>
+<span class="ecti-1200">if and only if </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mrow><mi mathvariant="bold">1</mi></mrow><mrow><mi>A</mi></mrow></msub><mo class="MathClass-punc" stretchy="false">:</mo> <mi>X</mi> <mo class="MathClass-rel" stretchy="false">→</mo> <mi>ℝ</mi></mrow></math>
+<span class="ecti-1200">is </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-open" stretchy="false">(</mo><mstyle mathvariant="script"><mi>A</mi></mstyle><mo class="MathClass-punc" stretchy="false">,</mo><mstyle mathvariant="script"><mi>B</mi></mstyle><mo class="MathClass-open" stretchy="false">(</mo><mi>ℝ</mi><mo class="MathClass-close" stretchy="false">)</mo><mo class="MathClass-close" stretchy="false">)</mo></mrow></math><span class="ecti-1200">-measurable.</span>
+                                                                          
+
+                                                                          
+</p>
+   </div>
+</div>
+   <div class="proof">
+<p class="indent">   <span class="head">
+<span class="ecti-1200">Proof.</span> </span>Suppose first that <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>A</mi></math>
+is in <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mstyle mathvariant="script"><mi>A</mi></mstyle></math>.
+Let <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>B</mi></math>
+in <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mstyle mathvariant="script"><mi>B</mi></mstyle><mo class="MathClass-open" stretchy="false">(</mo><mi>ℝ</mi><mo class="MathClass-close" stretchy="false">)</mo></mrow></math>.
+Since <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mi mathvariant="bold">1</mi></mrow><mrow><mi>A</mi></mrow></msub></math>
+only takes the values <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mn>0</mn></math>
+and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mn>1</mn></math>,
+the set <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msubsup><mrow><mi mathvariant="bold">1</mi></mrow><mrow><mi>A</mi></mrow><mrow><mo class="MathClass-bin" stretchy="false">−</mo><mn>1</mn></mrow></msubsup><mo class="MathClass-open" stretchy="false">(</mo><mi>B</mi><mo class="MathClass-close" stretchy="false">)</mo></mrow></math>
+is equal to <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>∅</mi></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>A</mi></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msup><mrow><mi>A</mi></mrow><mrow><mtext class="MathClass-ord">∁</mtext></mrow></msup></math>,
+or <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>X</mi></math>.
+In each case it belongs to <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mstyle mathvariant="script"><mi>A</mi></mstyle></math>.
+Thus <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mi mathvariant="bold">1</mi></mrow><mrow><mi>A</mi></mrow></msub></math>
+is measurable.
+</p><p class="indent">   Conversely, if <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mi mathvariant="bold">1</mi></mrow><mrow><mi>A</mi></mrow></msub></math>
+is measurable, then </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                              <mi>A</mi> <mo class="MathClass-rel" stretchy="false">=</mo><msubsup><mrow> <mi mathvariant="bold">1</mi></mrow><mrow><mi>A</mi></mrow><mrow><mo class="MathClass-bin" stretchy="false">−</mo><mn>1</mn></mrow></msubsup><mo class="MathClass-open" stretchy="false">(</mo><mo class="MathClass-open" stretchy="false">{</mo><mn>1</mn><mo class="MathClass-close" stretchy="false">}</mo><mo class="MathClass-close" stretchy="false">)</mo><mo class="MathClass-punc" stretchy="false">.</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   Since <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-open" stretchy="false">{</mo><mn>1</mn><mo class="MathClass-close" stretchy="false">}</mo></mrow></math> is
+closed in <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>ℝ</mi></math>, it is
+                                                                          
+
+                                                                          
+Borel, hence <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>A</mi></math>
+is in <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mstyle mathvariant="script"><mi>A</mi></mstyle></math>.   □
+</p>
+   </div>
+<h2 class="sectionHead" id="a-maximal-sigmaalgebra-on-the-target-and-a-related-criterion"><span class="titlemark">4.3   </span> <a id="x1-280004.3"></a>A maximal <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>σ</mi></math>-algebra
+on the target and a related criterion</h2>
+<p class="noindent">The following proposition associates with an arbitrary map
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>f</mi> <mo class="MathClass-punc" stretchy="false">:</mo> <mi>X</mi> <mo class="MathClass-rel" stretchy="false">→</mo> <mi>Y</mi> </mrow></math> the largest target
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>σ</mi></math>-algebra for which
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>f</mi></math> is measurable. This
+is the final <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>σ</mi></math>-algebra
+on <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>Y</mi> </mrow></math> induced
+by <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>f</mi></math>
+and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow><mrow><mi>X</mi></mrow></msub></math>.
+It is useful for proving the following generator criterion.
+</p>
+   <div class="statement statement-orange">
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<span id="ref-grow" class="reference-anchor"></span><a id="x1-28001r3"></a>
+<span class="ecbx-1200">Proposition 4.3 </span>(Measurable sets defined by level conditions)<span class="ecbx-1200">.</span>  </span> <span class="ecti-1200">Let</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-open" stretchy="false">(</mo><mi>X</mi><mo class="MathClass-punc" stretchy="false">,</mo><msub><mrow><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow><mrow><mi>X</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow></math> <span class="ecti-1200">and</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-open" stretchy="false">(</mo><mi>Y</mi><mo class="MathClass-punc" stretchy="false">,</mo><msub><mrow><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow><mrow><mi>Y</mi> </mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow></math> <span class="ecti-1200">be two measurable
+spaces. Let </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>f</mi> <mo class="MathClass-punc" stretchy="false">:</mo> <mspace class="thinspace" width="0.17em"></mspace><mi>X</mi> <mo class="MathClass-rel" stretchy="false">→</mo> <mi>Y</mi> </mrow></math>
+<span class="ecti-1200">be a map, which is not necessarily assumed to be measurable. We define</span>
+</p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+                                                                          
+
+                                                                          
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                    <msub><mrow><mi>f</mi></mrow><mrow><mo class="MathClass-bin" stretchy="false">∗</mo></mrow></msub><msub><mrow><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow><mrow><mi>X</mi></mrow></msub> <mo class="MathClass-punc" stretchy="false">:</mo><mo class="MathClass-rel" stretchy="false">=</mo> <mo class="MathClass-open" stretchy="false">{</mo><mi>B</mi> <mo class="MathClass-rel" stretchy="false">⊂</mo> <mi>Y</mi> <mo class="MathClass-punc" stretchy="false">:</mo> <mspace class="thinspace" width="0.17em"></mspace><msup><mrow><mi>f</mi></mrow><mrow><mo class="MathClass-bin" stretchy="false">−</mo><mn>1</mn></mrow></msup><mo class="MathClass-open" stretchy="false">(</mo><mi>B</mi><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-rel" stretchy="false">∈</mo><msub><mrow><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow><mrow>
+<mi>X</mi></mrow></msub><mo class="MathClass-close" stretchy="false">}</mo><mo class="MathClass-punc" stretchy="false">,</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   <span class="ecti-1200">which is a subset of </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mstyle mathvariant="script"><mi>P</mi></mstyle><mo class="MathClass-open" stretchy="false">(</mo><mi>Y</mi> <mo class="MathClass-close" stretchy="false">)</mo></mrow></math><span class="ecti-1200">.
+Then</span>
+      </p><dl class="enumerate-enumitem"><dt class="enumerate-enumitem">
+   <span class="ecti-1200">1.</span> </dt><dd class="enumerate-enumitem"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mrow><mi>f</mi></mrow><mrow><mo class="MathClass-bin" stretchy="false">∗</mo></mrow></msub><msub><mrow><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow><mrow><mi>X</mi></mrow></msub></mrow></math>
+      <span class="ecti-1200">is a </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>σ</mi></math><span class="ecti-1200">-algebra
+      on </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>Y</mi> </mrow></math><span class="ecti-1200">,</span>
+      </dd><dt class="enumerate-enumitem">
+   <span class="ecti-1200">2.</span> </dt><dd class="enumerate-enumitem"><span class="ecti-1200">moreover, a map </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>f</mi> <mo class="MathClass-punc" stretchy="false">:</mo> <mspace class="thinspace" width="0.17em"></mspace><mi>X</mi> <mo class="MathClass-rel" stretchy="false">→</mo> <mi>Y</mi> </mrow></math>
+      <span class="ecti-1200">is </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow><mrow><mi>X</mi></mrow></msub><mo class="MathClass-punc" stretchy="false">,</mo><msub><mrow><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow><mrow><mi>Y</mi> </mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow></math><span class="ecti-1200">-measurable
+      if and only if </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mrow><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow><mrow><mi>Y</mi> </mrow></msub> <mo class="MathClass-rel" stretchy="false">⊂</mo> <msub><mrow><mi>f</mi></mrow><mrow><mo class="MathClass-bin" stretchy="false">∗</mo></mrow></msub><msub><mrow><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow><mrow><mi>X</mi></mrow></msub></mrow></math><span class="ecti-1200">,</span>
+      </dd><dt class="enumerate-enumitem">
+   <span class="ecti-1200">3.</span> </dt><dd class="enumerate-enumitem"><span class="ecti-1200">and finally, </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mrow><mi>f</mi></mrow><mrow><mo class="MathClass-bin" stretchy="false">∗</mo></mrow></msub><msub><mrow><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow><mrow><mi>X</mi></mrow></msub></mrow></math>
+      <span class="ecti-1200">is the largest </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>σ</mi></math><span class="ecti-1200">-algebra</span>
+      <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mstyle mathvariant="script"><mi>S</mi></mstyle></math>
+      <span class="ecti-1200">on </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>Y</mi> </mrow></math>
+      <span class="ecti-1200">such that </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>f</mi></math>
+      <span class="ecti-1200">is measurable from </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-open" stretchy="false">(</mo><mi>X</mi><mo class="MathClass-punc" stretchy="false">,</mo><msub><mrow><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow><mrow><mi>X</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow></math>
+      <span class="ecti-1200">to </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-open" stretchy="false">(</mo><mi>Y</mi><mo class="MathClass-punc" stretchy="false">,</mo><mstyle mathvariant="script"><mi>S</mi></mstyle><mo class="MathClass-close" stretchy="false">)</mo></mrow></math><span class="ecti-1200">.</span></dd></dl>
+   </div>
+</div>
+   <div class="proof">
+<p class="indent">   <span class="head">
+<span class="ecti-1200">Proof.</span> </span>We first prove 1). Since <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msup><mrow><mi>f</mi></mrow><mrow><mo class="MathClass-bin" stretchy="false">−</mo><mn>1</mn></mrow></msup><mo class="MathClass-open" stretchy="false">(</mo><mi>Y</mi> <mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-rel" stretchy="false">=</mo> <mi>X</mi></mrow></math>
+and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>X</mi></math> is in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow><mrow><mi>X</mi></mrow></msub></math>, we
+have <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>Y</mi> </mrow></math>
+                                                                          
+
+                                                                          
+in <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mrow><mi>f</mi></mrow><mrow><mo class="MathClass-bin" stretchy="false">∗</mo></mrow></msub><msub><mrow><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow><mrow><mi>X</mi></mrow></msub></mrow></math>. If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>B</mi></math> is in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mrow><mi>f</mi></mrow><mrow><mo class="MathClass-bin" stretchy="false">∗</mo></mrow></msub><msub><mrow><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow><mrow><mi>X</mi></mrow></msub></mrow></math>, then
+</p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                           <msup><mrow><mi>f</mi></mrow><mrow><mo class="MathClass-bin" stretchy="false">−</mo><mn>1</mn></mrow></msup><mo class="MathClass-open" stretchy="false">(</mo><msup><mrow><mi>B</mi></mrow><mrow><mtext class="MathClass-ord">∁</mtext></mrow></msup><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-rel" stretchy="false">=</mo> <msup><mrow><mo class="MathClass-open" stretchy="false">(</mo><msup><mrow><mi>f</mi></mrow><mrow><mo class="MathClass-bin" stretchy="false">−</mo><mn>1</mn></mrow></msup><mo class="MathClass-open" stretchy="false">(</mo><mi>B</mi><mo class="MathClass-close" stretchy="false">)</mo><mo class="MathClass-close" stretchy="false">)</mo></mrow><mrow><mtext class="MathClass-ord">∁</mtext></mrow></msup><mo class="MathClass-punc" stretchy="false">,</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   and the right-hand side is in <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow><mrow><mi>X</mi></mrow></msub></math>.
+Hence <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msup><mrow><mi>B</mi></mrow><mrow><mtext class="MathClass-ord">∁</mtext></mrow></msup></math> is in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mrow><mi>f</mi></mrow><mrow><mo class="MathClass-bin" stretchy="false">∗</mo></mrow></msub><msub><mrow><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow><mrow><mi>X</mi></mrow></msub></mrow></math>. Finally, if
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mi>B</mi></mrow><mrow><mi>n</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow><mrow><mi>n</mi><mo class="MathClass-rel" stretchy="false">≥</mo><mn>1</mn></mrow></msub></math> is a sequence
+of elements of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mrow><mi>f</mi></mrow><mrow><mo class="MathClass-bin" stretchy="false">∗</mo></mrow></msub><msub><mrow><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow><mrow><mi>X</mi></mrow></msub></mrow></math>,
+then </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                      <msup><mrow><mi>f</mi></mrow><mrow><mo class="MathClass-bin" stretchy="false">−</mo><mn>1</mn></mrow></msup><mstyle mathsize="1.61em"><mrow><mo fence="true" form="prefix"> (</mo><mrow></mrow><mo fence="true" form="postfix"></mo></mrow></mstyle><munder class="msub"><mrow><mo> ⋃</mo>
+  </mrow><mrow><mi>n</mi><mo class="MathClass-rel" stretchy="false">≥</mo><mn>1</mn></mrow></munder><msub><mrow><mi>B</mi></mrow><mrow><mi>n</mi></mrow></msub><mstyle mathsize="1.61em"><mrow><mo fence="true" form="prefix"> )</mo><mrow></mrow><mo fence="true" form="postfix"></mo></mrow></mstyle> <mo class="MathClass-rel" stretchy="false">=</mo><munder class="msub"><mrow><mo> ⋃</mo>
+  </mrow><mrow><mi>n</mi><mo class="MathClass-rel" stretchy="false">≥</mo><mn>1</mn></mrow></munder><msup><mrow><mi>f</mi></mrow><mrow><mo class="MathClass-bin" stretchy="false">−</mo><mn>1</mn></mrow></msup><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mi>B</mi></mrow><mrow>
+<mi>n</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo><mo class="MathClass-punc" stretchy="false">,</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   and the right-hand side belongs to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow><mrow><mi>X</mi></mrow></msub></math>. Therefore
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow> <msub><mrow><mo class="MathClass-bin" stretchy="false">∪</mo></mrow><mrow><mi>n</mi><mo class="MathClass-rel" stretchy="false">≥</mo><mn>1</mn></mrow></msub><msub><mrow><mi>B</mi></mrow><mrow><mi>n</mi></mrow></msub></mrow></math> is in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mrow><mi>f</mi></mrow><mrow><mo class="MathClass-bin" stretchy="false">∗</mo></mrow></msub><msub><mrow><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow><mrow><mi>X</mi></mrow></msub></mrow></math>. We have
+proved that <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mrow><mi>f</mi></mrow><mrow><mo class="MathClass-bin" stretchy="false">∗</mo></mrow></msub><msub><mrow><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow><mrow><mi>X</mi></mrow></msub></mrow></math>
+                                                                          
+
+                                                                          
+is a <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>σ</mi></math>-algebra
+on <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>Y</mi> </mrow></math>.
+</p><p class="indent">   Property 2) is just a reformulation of the definition of measurability: saying that
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>f</mi></math> is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow><mrow><mi>X</mi></mrow></msub><mo class="MathClass-punc" stretchy="false">,</mo><msub><mrow><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow><mrow><mi>Y</mi> </mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow></math>-measurable means
+exactly that for every <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>B</mi></math>
+in <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow><mrow><mi>Y</mi> </mrow></msub></math>, the
+preimage <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msup><mrow><mi>f</mi></mrow><mrow><mo class="MathClass-bin" stretchy="false">−</mo><mn>1</mn></mrow></msup><mo class="MathClass-open" stretchy="false">(</mo><mi>B</mi><mo class="MathClass-close" stretchy="false">)</mo></mrow></math>
+belongs to <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow><mrow><mi>X</mi></mrow></msub></math>, <span class="ecti-1200">i.e.</span>
+that every <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>B</mi></math>
+in <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow><mrow><mi>Y</mi> </mrow></msub></math> belongs
+to <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mrow><mi>f</mi></mrow><mrow><mo class="MathClass-bin" stretchy="false">∗</mo></mrow></msub><msub><mrow><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow><mrow><mi>X</mi></mrow></msub></mrow></math>.
+</p><p class="indent">   We finally prove 3). By 1), <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mrow><mi>f</mi></mrow><mrow><mo class="MathClass-bin" stretchy="false">∗</mo></mrow></msub><msub><mrow><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow><mrow><mi>X</mi></mrow></msub></mrow></math>
+is a <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>σ</mi></math>-algebra
+on <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>Y</mi> </mrow></math>, and by 2)
+the inclusion <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mrow><mi>f</mi></mrow><mrow><mo class="MathClass-bin" stretchy="false">∗</mo></mrow></msub><msub><mrow><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow><mrow><mi>X</mi></mrow></msub> <mo class="MathClass-rel" stretchy="false">⊂</mo> <msub><mrow><mi>f</mi></mrow><mrow><mo class="MathClass-bin" stretchy="false">∗</mo></mrow></msub><msub><mrow><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow><mrow><mi>X</mi></mrow></msub></mrow></math>
+shows that <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>f</mi></math> is
+measurable from <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-open" stretchy="false">(</mo><mi>X</mi><mo class="MathClass-punc" stretchy="false">,</mo><msub><mrow><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow><mrow><mi>X</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow></math>
+to <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-open" stretchy="false">(</mo><mi>Y</mi><mo class="MathClass-punc" stretchy="false">,</mo><msub><mrow><mi>f</mi></mrow><mrow><mo class="MathClass-bin" stretchy="false">∗</mo></mrow></msub><msub><mrow><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow><mrow><mi>X</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow></math>. Conversely,
+if <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mstyle mathvariant="script"><mi>S</mi></mstyle></math> is a
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>σ</mi></math>-algebra on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>Y</mi> </mrow></math> such that
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>f</mi></math> is measurable
+from <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-open" stretchy="false">(</mo><mi>X</mi><mo class="MathClass-punc" stretchy="false">,</mo><msub><mrow><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow><mrow><mi>X</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow></math> to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-open" stretchy="false">(</mo><mi>Y</mi><mo class="MathClass-punc" stretchy="false">,</mo><mstyle mathvariant="script"><mi>S</mi></mstyle><mo class="MathClass-close" stretchy="false">)</mo></mrow></math>, then 2)
+gives <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mstyle mathvariant="script"><mi>S</mi></mstyle> <mo class="MathClass-rel" stretchy="false">⊂</mo> <msub><mrow><mi>f</mi></mrow><mrow><mo class="MathClass-bin" stretchy="false">∗</mo></mrow></msub><msub><mrow><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow><mrow><mi>X</mi></mrow></msub></mrow></math>. Thus
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mrow><mi>f</mi></mrow><mrow><mo class="MathClass-bin" stretchy="false">∗</mo></mrow></msub><msub><mrow><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow><mrow><mi>X</mi></mrow></msub></mrow></math> is the largest
+such <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>σ</mi></math>-algebra.   □
+</p>
+   </div>
+   <div class="statement statement-orange">
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<span id="ref-prop-criterionmeas" class="reference-anchor"></span><a id="x1-28005r4"></a>
+<span class="ecbx-1200">Proposition 4.4 </span>(Criteria for measurable functions)<span class="ecbx-1200">.</span>  </span> <span class="ecti-1200">Let</span>
+                                                                          
+
+                                                                          
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-open" stretchy="false">(</mo><mi>X</mi><mo class="MathClass-punc" stretchy="false">,</mo><msub><mrow><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow><mrow><mi>X</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow></math> <span class="ecti-1200">be a measurable
+space, let </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>Y</mi> </mrow></math> <span class="ecti-1200">be a set,
+let </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>S</mi></math> <span class="ecti-1200">be a collection
+of subsets of </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>Y</mi> </mrow></math><span class="ecti-1200">,
+and let </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mrow><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow><mrow><mi>Y</mi> </mrow></msub> <mo class="MathClass-punc" stretchy="false">:</mo><mo class="MathClass-rel" stretchy="false">=</mo> <mi>σ</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>S</mi><mo class="MathClass-close" stretchy="false">)</mo></mrow></math><span class="ecti-1200">. Then
+a function </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>f</mi> <mo class="MathClass-punc" stretchy="false">:</mo> <mspace class="thinspace" width="0.17em"></mspace><mi>X</mi> <mo class="MathClass-rel" stretchy="false">→</mo> <mi>Y</mi> </mrow></math> <span class="ecti-1200">is</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow><mrow><mi>X</mi></mrow></msub><mo class="MathClass-punc" stretchy="false">,</mo><msub><mrow><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow><mrow><mi>Y</mi> </mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow></math><span class="ecti-1200">-measurable
+if and only if</span> </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                          <mi class="MathClass-op">∀</mi><mo> ⁡</mo><mi>B</mi> <mo class="MathClass-rel" stretchy="false">∈</mo> <mi>S</mi><mo class="MathClass-punc" stretchy="false">,</mo><mspace class="thinspace" width="0.17em"></mspace><mspace class="thinspace" width="0.17em"></mspace><msup><mrow><mi>f</mi></mrow><mrow><mo class="MathClass-bin" stretchy="false">−</mo><mn>1</mn></mrow></msup><mo class="MathClass-open" stretchy="false">(</mo><mi>B</mi><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-rel" stretchy="false">∈</mo><msub><mrow><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow><mrow>
+<mi>X</mi></mrow></msub><mo class="MathClass-punc" stretchy="false">.</mo>
+</mrow></math></td></tr></table>
+   </div></div>
+</div>
+   <div class="proof">
+<p class="indent">   <span class="head">
+<span class="ecti-1200">Proof.</span> </span>Only the reciprocal implication requires a proof. We have <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>S</mi> <mo class="MathClass-rel" stretchy="false">⊂</mo> <msub><mrow><mi>f</mi></mrow><mrow><mo class="MathClass-bin" stretchy="false">∗</mo></mrow></msub><msub><mrow><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow><mrow><mi>X</mi></mrow></msub></mrow></math>
+by hypothesis, so, since <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mrow><mi>f</mi></mrow><mrow><mo class="MathClass-bin" stretchy="false">∗</mo></mrow></msub><msub><mrow><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow><mrow><mi>X</mi></mrow></msub></mrow></math>
+is a <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>σ</mi></math>-algebra
+on <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>Y</mi> </mrow></math>,
+we deduce that <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mrow><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow><mrow><mi>Y</mi> </mrow></msub> <mo class="MathClass-rel" stretchy="false">⊂</mo> <msub><mrow><mi>f</mi></mrow><mrow><mo class="MathClass-bin" stretchy="false">∗</mo></mrow></msub><msub><mrow><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow><mrow><mi>X</mi></mrow></msub></mrow></math>.
+Thus <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>f</mi></math>
+is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow><mrow><mi>X</mi></mrow></msub><mo class="MathClass-punc" stretchy="false">,</mo><msub><mrow><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow><mrow><mi>Y</mi> </mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow></math>-measurable.
+                                                                         □
+</p>
+   </div>
+                                                                          
+
+                                                                          
+<h2 class="sectionHead" id="measurability-versus-continuity"><span class="titlemark">4.4   </span> <a id="x1-290004.4"></a>Measurability versus continuity</h2>
+<p class="noindent">When topological spaces are involved, the Borel
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>σ</mi></math>-algebras
+provide a natural bridge between continuity and measurability.
+</p>
+   <div class="statement statement-green">
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-29001r5"></a>
+<span class="ecbx-1200">Definition 4.5 </span>(Borel measurable maps)<span class="ecbx-1200">.</span>  </span><span class="ecti-1200">Let </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-open" stretchy="false">(</mo><mi>X</mi><mo class="MathClass-punc" stretchy="false">,</mo><msub><mrow><mi>τ</mi></mrow><mrow><mi>X</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow></math>
+<span class="ecti-1200">and </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-open" stretchy="false">(</mo><mi>Y</mi><mo class="MathClass-punc" stretchy="false">,</mo><msub><mrow><mi>τ</mi></mrow><mrow><mi>Y</mi> </mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow></math>
+<span class="ecti-1200">be topological spaces and let </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mstyle mathvariant="script"><mi>B</mi></mstyle></mrow><mrow><mi>X</mi></mrow></msub></math><span class="ecti-1200">,</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mstyle mathvariant="script"><mi>B</mi></mstyle></mrow><mrow><mi>Y</mi> </mrow></msub></math>
+<span class="ecti-1200">be the Borel </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>σ</mi></math><span class="ecti-1200">-algebras
+associated with </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mi>τ</mi></mrow><mrow><mi>X</mi></mrow></msub></math>
+<span class="ecti-1200">and </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mi>τ</mi></mrow><mrow><mi>Y</mi> </mrow></msub></math>
+<span class="ecti-1200">respectively. We say that </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>f</mi> <mo class="MathClass-punc" stretchy="false">:</mo> <mspace class="thinspace" width="0.17em"></mspace><mi>X</mi> <mo class="MathClass-rel" stretchy="false">→</mo> <mi>Y</mi> </mrow></math>
+<span class="ecti-1200">is a </span>Borel function <span class="ecti-1200">if </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>f</mi></math>
+<span class="ecti-1200">is </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mstyle mathvariant="script"><mi>B</mi></mstyle></mrow><mrow><mi>X</mi></mrow></msub><mo class="MathClass-punc" stretchy="false">,</mo><msub><mrow><mstyle mathvariant="script"><mi>B</mi></mstyle></mrow><mrow><mi>Y</mi> </mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow></math><span class="ecti-1200">-measurable.</span>
+</p>
+   </div>
+</div>
+   <div class="statement statement-brown">
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<span id="ref-th-continuous-borel-measurable" class="reference-anchor"></span><a id="x1-29002r6"></a>
+<span class="ecbx-1200">Theorem 4.6 </span>(Borel measurability of continuous maps)<span class="ecbx-1200">.</span>  </span> <span class="ecti-1200">Let </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-open" stretchy="false">(</mo><mi>X</mi><mo class="MathClass-punc" stretchy="false">,</mo><msub><mrow><mi>τ</mi></mrow><mrow><mi>X</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow></math>
+<span class="ecti-1200">and </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-open" stretchy="false">(</mo><mi>Y</mi><mo class="MathClass-punc" stretchy="false">,</mo><msub><mrow><mi>τ</mi></mrow><mrow><mi>Y</mi> </mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow></math>
+<span class="ecti-1200">be topological spaces and let </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mstyle mathvariant="script"><mi>B</mi></mstyle></mrow><mrow><mi>X</mi></mrow></msub></math><span class="ecti-1200">,</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mstyle mathvariant="script"><mi>B</mi></mstyle></mrow><mrow><mi>Y</mi> </mrow></msub></math>
+<span class="ecti-1200">be the Borel </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>σ</mi></math><span class="ecti-1200">-algebras
+                                                                          
+
+                                                                          
+associated with </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mi>τ</mi></mrow><mrow><mi>X</mi></mrow></msub></math>
+<span class="ecti-1200">and </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mi>τ</mi></mrow><mrow><mi>Y</mi> </mrow></msub></math>
+<span class="ecti-1200">respectively. If </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>f</mi> <mo class="MathClass-punc" stretchy="false">:</mo> <mi>X</mi> <mo class="MathClass-rel" stretchy="false">→</mo> <mi>Y</mi> </mrow></math>
+<span class="ecti-1200">is continuous then </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>f</mi></math>
+<span class="ecti-1200">is </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mstyle mathvariant="script"><mi>B</mi></mstyle></mrow><mrow><mi>X</mi></mrow></msub><mo class="MathClass-punc" stretchy="false">,</mo><msub><mrow><mstyle mathvariant="script"><mi>B</mi></mstyle></mrow><mrow><mi>Y</mi> </mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow></math><span class="ecti-1200">-measurable.</span>
+</p>
+   </div>
+</div>
+<p class="indent">   <span class="attention-marker">!</span> The converse implication is false in general. For instance,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mrow><mi mathvariant="bold">1</mi></mrow><mrow><mo class="MathClass-close" stretchy="false">]</mo><mn>0</mn><mo class="MathClass-punc" stretchy="false">,</mo><mn>1</mn><mo class="MathClass-open" stretchy="false">[</mo></mrow></msub><mo class="MathClass-punc" stretchy="false">:</mo> <mi>ℝ</mi> <mo class="MathClass-rel" stretchy="false">→</mo> <mi>ℝ</mi></mrow></math> is Borel measurable
+but discontinuous at <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mn>0</mn></math>
+and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mn>1</mn></math>.
+</p>
+   <div class="proof">
+<p class="indent">   <span class="head">
+<span class="ecti-1200">Proof.</span> </span>By Proposition <a href="#ref-prop-criterionmeas">4.4</a>, it is enough to check the measurability of the
+preimages of the open subsets of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>Y</mi> </mrow></math>.
+Let <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>U</mi></math>
+be an open subset of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>Y</mi> </mrow></math>.
+Since <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>f</mi></math>
+is continuous, we have <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msup><mrow><mi>f</mi></mrow><mrow><mo class="MathClass-bin" stretchy="false">−</mo><mn>1</mn></mrow></msup><mo class="MathClass-open" stretchy="false">(</mo><mi>U</mi><mo class="MathClass-close" stretchy="false">)</mo></mrow></math>
+in <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mrow><mi>τ</mi></mrow><mrow><mi>X</mi></mrow></msub> <mo class="MathClass-rel" stretchy="false">⊂</mo><msub><mrow><mstyle mathvariant="script"><mi>B</mi></mstyle></mrow><mrow><mi>X</mi></mrow></msub></mrow></math>.
+Thus <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>f</mi></math>
+is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mstyle mathvariant="script"><mi>B</mi></mstyle></mrow><mrow><mi>X</mi></mrow></msub><mo class="MathClass-punc" stretchy="false">,</mo><msub><mrow><mstyle mathvariant="script"><mi>B</mi></mstyle></mrow><mrow><mi>Y</mi> </mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow></math>-measurable.
+                                                                         □
+</p>
+   </div>
+<h2 class="sectionHead" id="stability-of-measurable-functions"><span class="titlemark">4.5   </span> <a id="x1-300004.5"></a>Stability of measurable functions</h2>
+                                                                          
+
+                                                                          
+<p class="noindent">The following result proves that the composition of two measurable functions
+gives a measurable function.
+</p>
+   <div class="statement statement-orange">
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<span id="ref-prop-composition-measurable" class="reference-anchor"></span><a id="x1-30001r7"></a>
+<span class="ecbx-1200">Proposition 4.7 </span>(Composition of measurable maps)<span class="ecbx-1200">.</span>  </span> <span class="ecti-1200">Let</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-open" stretchy="false">(</mo><mi>X</mi><mo class="MathClass-punc" stretchy="false">,</mo><msub><mrow><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow><mrow><mi>X</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow></math><span class="ecti-1200">,</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-open" stretchy="false">(</mo><mi>Y</mi><mo class="MathClass-punc" stretchy="false">,</mo><msub><mrow><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow><mrow><mi>Y</mi> </mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow></math><span class="ecti-1200">, and</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-open" stretchy="false">(</mo><mi>Z</mi><mo class="MathClass-punc" stretchy="false">,</mo><msub><mrow><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow><mrow><mi>Z</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow></math> <span class="ecti-1200">be measurable
+spaces. If </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>f</mi> <mo class="MathClass-punc" stretchy="false">:</mo> <mi>X</mi> <mo class="MathClass-rel" stretchy="false">→</mo> <mi>Y</mi> </mrow></math>
+<span class="ecti-1200">and </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>g</mi><mo class="MathClass-punc" stretchy="false">:</mo> <mi>Y</mi> <mo class="MathClass-rel" stretchy="false">→</mo> <mi>Z</mi></mrow></math>
+<span class="ecti-1200">are measurable, then the composition</span> </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                              <mi>g</mi> <mo class="MathClass-bin" stretchy="false">∘</mo> <mi>f</mi> <mo class="MathClass-punc" stretchy="false">:</mo> <mi>X</mi> <mo class="MathClass-rel" stretchy="false">→</mo> <mi>Z</mi>
+</mrow></math></td></tr></table>
+</div><p class="indent">   <span class="ecti-1200">is measurable.</span>
+</p>
+   </div>
+</div>
+   <div class="proof">
+<p class="indent">   <span class="head">
+<span class="ecti-1200">Proof.</span> </span>Let <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>C</mi></math>
+                                                                          
+
+                                                                          
+in <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow><mrow><mi>Z</mi></mrow></msub></math>. Since
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>g</mi></math> is
+measurable, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msup><mrow><mi>g</mi></mrow><mrow><mo class="MathClass-bin" stretchy="false">−</mo><mn>1</mn></mrow></msup><mo class="MathClass-open" stretchy="false">(</mo><mi>C</mi><mo class="MathClass-close" stretchy="false">)</mo></mrow></math>
+is in <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow><mrow><mi>Y</mi> </mrow></msub></math>.
+Since <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>f</mi></math>
+is measurable, we deduce that </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                        <msup><mrow><mo class="MathClass-open" stretchy="false">(</mo><mi>g</mi> <mo class="MathClass-bin" stretchy="false">∘</mo> <mi>f</mi><mo class="MathClass-close" stretchy="false">)</mo></mrow><mrow><mo class="MathClass-bin" stretchy="false">−</mo><mn>1</mn></mrow></msup><mo class="MathClass-open" stretchy="false">(</mo><mi>C</mi><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-rel" stretchy="false">=</mo> <msup><mrow><mi>f</mi></mrow><mrow><mo class="MathClass-bin" stretchy="false">−</mo><mn>1</mn></mrow></msup><mo class="MathClass-open" stretchy="false">(</mo><msup><mrow><mi>g</mi></mrow><mrow><mo class="MathClass-bin" stretchy="false">−</mo><mn>1</mn></mrow></msup><mo class="MathClass-open" stretchy="false">(</mo><mi>C</mi><mo class="MathClass-close" stretchy="false">)</mo><mo class="MathClass-close" stretchy="false">)</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   belongs to <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow><mrow><mi>X</mi></mrow></msub></math>.
+Hence <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>g</mi> <mo class="MathClass-bin" stretchy="false">∘</mo> <mi>f</mi></mrow></math> is
+measurable.                                                                                  □
+</p>
+   </div>
+   <div class="statement statement-orange">
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<span id="ref-prop-fctsvalRn" class="reference-anchor"></span><a id="x1-30002r8"></a>
+<span class="ecbx-1200">Proposition 4.8 </span>(Vector-valued measurability criterion)<span class="ecbx-1200">.</span>  </span> <span class="ecti-1200">Let</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-open" stretchy="false">(</mo><mi>X</mi><mo class="MathClass-punc" stretchy="false">,</mo><mstyle mathvariant="script"><mi>A</mi></mstyle><mo class="MathClass-close" stretchy="false">)</mo></mrow></math> <span class="ecti-1200">be a measurable space.
+We endow each </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msup><mrow><mi>ℝ</mi></mrow><mrow><mi>k</mi></mrow></msup></math><span class="ecti-1200">,</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>k</mi> <mo class="MathClass-rel" stretchy="false">≥</mo> <mn>1</mn></mrow></math><span class="ecti-1200">, with its
+Borel </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>σ</mi></math><span class="ecti-1200">-algebra</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mstyle mathvariant="script"><mi>B</mi></mstyle><mo class="MathClass-open" stretchy="false">(</mo><msup><mrow><mi>ℝ</mi></mrow><mrow><mi>k</mi></mrow></msup><mo class="MathClass-close" stretchy="false">)</mo></mrow></math><span class="ecti-1200">. Let</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>n</mi> <mo class="MathClass-rel" stretchy="false">∈</mo> <msub><mrow><mi>ℕ</mi></mrow><mrow><mo class="MathClass-rel" stretchy="false">≥</mo><mn>1</mn></mrow></msub></mrow></math> <span class="ecti-1200">and
+let</span> </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+                                                                          
+
+                                                                          
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+               <mi>f</mi> <mo class="MathClass-rel" stretchy="false">=</mo> <mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mi>f</mi></mrow><mrow><mn>1</mn></mrow></msub><mo class="MathClass-punc" stretchy="false">,</mo><mo>…</mo><mo class="MathClass-punc" stretchy="false">,</mo><msub><mrow><mi>f</mi></mrow><mrow><mi>n</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo><mo class="MathClass-punc" stretchy="false">:</mo> <mi>X</mi> <mo class="MathClass-rel" stretchy="false">→</mo> <msup><mrow><mi>ℝ</mi></mrow><mrow><mi>n</mi></mrow></msup><mo class="MathClass-punc" stretchy="false">,</mo><mspace class="qquad" width="2em"></mspace><mi>x</mi><mo class="MathClass-rel" stretchy="false">↦</mo><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mi>f</mi></mrow><mrow>
+<mn>1</mn></mrow></msub><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo><mo class="MathClass-punc" stretchy="false">,</mo><mo>…</mo><mo class="MathClass-punc" stretchy="false">,</mo><msub><mrow><mi>f</mi></mrow><mrow><mi>n</mi></mrow></msub><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo><mo class="MathClass-close" stretchy="false">)</mo><mo class="MathClass-punc" stretchy="false">,</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   <span class="ecti-1200">be a map. Then </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>f</mi></math> <span class="ecti-1200">is
+measurable if and only if every </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mrow><mi>f</mi></mrow><mrow><mi>i</mi></mrow></msub><mo class="MathClass-punc" stretchy="false">:</mo> <mi>X</mi> <mo class="MathClass-rel" stretchy="false">→</mo> <mi>ℝ</mi></mrow></math>
+<span class="ecti-1200">is measurable.</span>
+</p>
+   </div>
+</div>
+   <div class="proof">
+<p class="indent">   <span class="head">
+<span class="ecti-1200">Proof.</span> </span>For any <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mn>1</mn> <mo class="MathClass-rel" stretchy="false">≤</mo> <mi>i</mi> <mo class="MathClass-rel" stretchy="false">≤</mo> <mi>n</mi></mrow></math>,
+let <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mrow><mi>π</mi></mrow><mrow><mi>i</mi></mrow></msub><mo class="MathClass-punc" stretchy="false">:</mo> <msup><mrow><mi>ℝ</mi></mrow><mrow><mi>n</mi></mrow></msup> <mo class="MathClass-rel" stretchy="false">→</mo> <mi>ℝ</mi></mrow></math>
+be the projection onto the <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>i</mi></math>-th
+coordinate. The map <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mi>π</mi></mrow><mrow><mi>i</mi></mrow></msub></math>
+is continuous and therefore Borel. So, if <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>f</mi></math>
+is measurable, then <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mrow><mi>f</mi></mrow><mrow><mi>i</mi></mrow></msub> <mo class="MathClass-rel" stretchy="false">=</mo> <msub><mrow><mi>π</mi></mrow><mrow><mi>i</mi></mrow></msub> <mo class="MathClass-bin" stretchy="false">∘</mo> <mi>f</mi></mrow></math>
+is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-open" stretchy="false">(</mo><mstyle mathvariant="script"><mi>A</mi></mstyle><mo class="MathClass-punc" stretchy="false">,</mo><mstyle mathvariant="script"><mi>B</mi></mstyle><mo class="MathClass-open" stretchy="false">(</mo><mi>ℝ</mi><mo class="MathClass-close" stretchy="false">)</mo><mo class="MathClass-close" stretchy="false">)</mo></mrow></math>-measurable.
+</p><p class="indent">   Conversely, assume that each <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mi>f</mi></mrow><mrow><mi>i</mi></mrow></msub></math>
+is measurable. If <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mstyle mathvariant="script"><mi>R</mi></mstyle></mrow><mrow><mi>n</mi></mrow></msub></math> denotes the
+family of open rectangles of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msup><mrow><mi>ℝ</mi></mrow><mrow><mi>n</mi></mrow></msup></math>,
+then <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mstyle mathvariant="script"><mi>B</mi></mstyle><mo class="MathClass-open" stretchy="false">(</mo><msup><mrow><mi>ℝ</mi></mrow><mrow><mi>n</mi></mrow></msup><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-rel" stretchy="false">=</mo> <mi>σ</mi><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mstyle mathvariant="script"><mi>R</mi></mstyle></mrow><mrow>
+<mi>n</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow></math>,
+where the rectangles are </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+                                                                          
+
+                                                                          
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+            <mi>D</mi><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mi>x</mi></mrow><mrow><mi>i</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow><mrow><mi>i</mi></mrow></msub><mo class="MathClass-punc" stretchy="false">,</mo> <msub><mrow><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mi>y</mi></mrow><mrow><mi>i</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow><mrow><mi>i</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-punc" stretchy="false">:</mo><mo class="MathClass-rel" stretchy="false">=</mo> <mo class="MathClass-open" stretchy="false">{</mo><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mi>z</mi></mrow><mrow><mn>1</mn></mrow></msub><mo class="MathClass-punc" stretchy="false">,</mo><mo>…</mo><mo class="MathClass-punc" stretchy="false">,</mo><msub><mrow><mi>z</mi></mrow><mrow><mi>n</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-rel" stretchy="false">∈</mo> <msup><mrow><mi>ℝ</mi></mrow><mrow><mi>n</mi></mrow></msup><mo class="MathClass-punc" stretchy="false">:</mo> <mi class="MathClass-op">∀</mi><mo> ⁡</mo><mi>i</mi><mo class="MathClass-punc" stretchy="false">,</mo><mspace class="thinspace" width="0.17em"></mspace><msub><mrow><mi>x</mi></mrow><mrow>
+<mi>i</mi></mrow></msub> <mo class="MathClass-rel" stretchy="false">&lt;</mo> <msub><mrow><mi>z</mi></mrow><mrow><mi>i</mi></mrow></msub> <mo class="MathClass-rel" stretchy="false">&lt;</mo> <msub><mrow><mi>y</mi></mrow><mrow><mi>i</mi></mrow></msub><mo class="MathClass-close" stretchy="false">}</mo><mo class="MathClass-punc" stretchy="false">.</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   For such a rectangle we have </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                <msup><mrow><mi>f</mi></mrow><mrow><mo class="MathClass-bin" stretchy="false">−</mo><mn>1</mn></mrow></msup><mo class="MathClass-open" stretchy="false">(</mo><mi>D</mi><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mi>x</mi></mrow><mrow>
+<mi>i</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow><mrow><mi>i</mi></mrow></msub><mo class="MathClass-punc" stretchy="false">,</mo> <msub><mrow><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mi>y</mi></mrow><mrow><mi>i</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow><mrow><mi>i</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-rel" stretchy="false">=</mo><munderover accent="false" accentunder="false"><mrow><mo> ⋂</mo>
+  </mrow><mrow><mi>k</mi><mo class="MathClass-rel" stretchy="false">=</mo><mn>1</mn></mrow><mrow><mi>n</mi></mrow></munderover><msubsup><mrow><mi>f</mi></mrow><mrow>
+<mi>k</mi></mrow><mrow><mo class="MathClass-bin" stretchy="false">−</mo><mn>1</mn></mrow></msubsup><mo class="MathClass-open" stretchy="false">(</mo><mo class="MathClass-close" stretchy="false">]</mo><msub><mrow><mi>x</mi></mrow><mrow>
+<mi>k</mi></mrow></msub><mo class="MathClass-punc" stretchy="false">,</mo><msub><mrow><mi>y</mi></mrow><mrow><mi>k</mi></mrow></msub><mo class="MathClass-open" stretchy="false">[</mo><mo class="MathClass-close" stretchy="false">)</mo><mo class="MathClass-punc" stretchy="false">,</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   which belongs to <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mstyle mathvariant="script"><mi>A</mi></mstyle></math>.
+Proposition <a href="#ref-prop-criterionmeas">4.4</a> therefore gives the measurability of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>f</mi></math>.   □
+</p>
+   </div>
+   <div class="statement statement-orange">
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<span id="ref-prop-phi" class="reference-anchor"></span><a id="x1-30003r9"></a>
+<span class="ecbx-1200">Proposition 4.9 </span>(Stability by continuous functional calculus)<span class="ecbx-1200">.</span>  </span> <span class="ecti-1200">Let</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-open" stretchy="false">(</mo><mi>X</mi><mo class="MathClass-punc" stretchy="false">,</mo><mstyle mathvariant="script"><mi>A</mi></mstyle><mo class="MathClass-close" stretchy="false">)</mo></mrow></math> <span class="ecti-1200">be a measurable space
+and let </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>u</mi><mo class="MathClass-punc" stretchy="false">,</mo><mi>v</mi><mo class="MathClass-punc" stretchy="false">:</mo> <mi>X</mi> <mo class="MathClass-rel" stretchy="false">→</mo> <mi>ℝ</mi></mrow></math> <span class="ecti-1200">be two measurable
+maps, where </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>ℝ</mi></math> <span class="ecti-1200">is provided
+with its Borel </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>σ</mi></math><span class="ecti-1200">-algebra.
+Let </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>ϕ</mi><mo class="MathClass-punc" stretchy="false">:</mo> <msup><mrow><mi>ℝ</mi></mrow><mrow><mn>2</mn></mrow></msup> <mo class="MathClass-rel" stretchy="false">→</mo> <mi>ℝ</mi></mrow></math>
+<span class="ecti-1200">be Borel measurable, in particular continuous. Then the map</span> </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+                                                                          
+
+                                                                          
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                        <mi>h</mi><mo class="MathClass-punc" stretchy="false">:</mo> <mi>X</mi> <mo class="MathClass-rel" stretchy="false">→</mo> <mi>ℝ</mi><mo class="MathClass-punc" stretchy="false">,</mo><mspace class="qquad" width="2em"></mspace><mi>x</mi><mo class="MathClass-rel" stretchy="false">↦</mo><mi>ϕ</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>u</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo><mo class="MathClass-punc" stretchy="false">,</mo><mi>v</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo><mo class="MathClass-close" stretchy="false">)</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   <span class="ecti-1200">is measurable.</span>
+</p>
+   </div>
+</div>
+   <div class="proof">
+<p class="indent">   <span class="head">
+<span class="ecti-1200">Proof.</span> </span>Let <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>F</mi> <mo class="MathClass-punc" stretchy="false">:</mo> <mi>X</mi> <mo class="MathClass-rel" stretchy="false">→</mo> <msup><mrow><mi>ℝ</mi></mrow><mrow><mn>2</mn></mrow></msup></mrow></math>
+be defined by </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                           <mi>F</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-punc" stretchy="false">:</mo><mo class="MathClass-rel" stretchy="false">=</mo> <mo class="MathClass-open" stretchy="false">(</mo><mi>u</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo><mo class="MathClass-punc" stretchy="false">,</mo><mi>v</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo><mo class="MathClass-close" stretchy="false">)</mo><mo class="MathClass-punc" stretchy="false">.</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   Since <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>u</mi></math> and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>v</mi></math> are measurable,
+Proposition <a href="#ref-prop-fctsvalRn">4.8</a> shows that <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>F</mi></math>
+is measurable. Since <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>ϕ</mi></math>
+is Borel, Proposition <a href="#ref-prop-composition-measurable">4.7</a> implies that </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+                                                                          
+
+                                                                          
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                                <mi>h</mi> <mo class="MathClass-rel" stretchy="false">=</mo> <mi>ϕ</mi> <mo class="MathClass-bin" stretchy="false">∘</mo> <mi>F</mi>
+</mrow></math></td></tr></table>
+</div><p class="indent">   is measurable.                                                                           □
+</p>
+   </div>
+<p class="indent">   We can now state the following theorem, which is constantly used in
+practice. We recall that, by definition, for a sequence of real numbers
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mi>a</mi></mrow><mrow><mi>n</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow><mrow><mi>n</mi></mrow></msub></math>,
+</p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+         <munder class="msub"><mrow><mstyle class="qopname"><mi>lim</mi><mspace class="thinspace" width="0.17em"></mspace><mi>sup</mi><mspace class="thinspace" width="0.17em"></mspace></mstyle><mo> ⁡</mo> </mrow><mrow><mi>n</mi></mrow></munder><msub><mrow><mi>a</mi></mrow><mrow><mi>n</mi></mrow></msub> <mo class="MathClass-punc" stretchy="false">:</mo><mo class="MathClass-rel" stretchy="false">=</mo><munder class="msub"><mrow><mtext class="qopname"> lim</mtext><mo> ⁡</mo> </mrow><mrow><mi>n</mi><mo class="MathClass-rel" stretchy="false">→</mo><mo class="MathClass-bin" stretchy="false">+</mo><mi>∞</mi></mrow></munder><munder class="msub"><mrow><mtext class="qopname"> sup</mtext><mo> ⁡</mo> </mrow><mrow><mi>k</mi><mo class="MathClass-rel" stretchy="false">≥</mo><mi>n</mi></mrow></munder><msub><mrow><mi>a</mi></mrow><mrow><mi>k</mi></mrow></msub><mspace class="thinspace" width="0.17em"></mspace><mstyle class="text"><mtext> and </mtext></mstyle><mspace class="thinspace" width="0.17em"></mspace><munder class="msub"><mrow><mstyle class="qopname"> <mi>lim</mi><mspace class="thinspace" width="0.17em"></mspace><mi>inf</mi><mspace class="thinspace" width="0.17em"></mspace></mstyle><mo> ⁡</mo> </mrow><mrow><mi>n</mi></mrow></munder><msub><mrow><mi>a</mi></mrow><mrow><mi>n</mi></mrow></msub> <mo class="MathClass-punc" stretchy="false">:</mo><mo class="MathClass-rel" stretchy="false">=</mo><munder class="msub"><mrow><mtext class="qopname"> lim</mtext><mo> ⁡</mo> </mrow><mrow><mi>n</mi><mo class="MathClass-rel" stretchy="false">→</mo><mo class="MathClass-bin" stretchy="false">+</mo><mi>∞</mi></mrow></munder><munder class="msub"><mrow><mtext class="qopname"> inf</mtext><mo> ⁡</mo> </mrow><mrow><mi>k</mi><mo class="MathClass-rel" stretchy="false">≥</mo><mi>n</mi></mrow></munder><msub><mrow><mi>a</mi></mrow><mrow><mi>k</mi></mrow></msub><mo class="MathClass-punc" stretchy="false">.</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   The same definitions apply to functions; then the previous formulas are
+applied pointwise.
+</p>
+   <div class="statement statement-brown">
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<span id="ref-th-propfctsmes" class="reference-anchor"></span><a id="x1-30004r10"></a>
+                                                                          
+
+                                                                          
+<span class="ecbx-1200">Theorem 4.10 </span>(Stability of measurable functions under limits)<span class="ecbx-1200">.</span>  </span> <span class="ecti-1200">Let</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-open" stretchy="false">(</mo><mi>X</mi><mo class="MathClass-punc" stretchy="false">,</mo><mstyle mathvariant="script"><mi>A</mi></mstyle><mo class="MathClass-close" stretchy="false">)</mo></mrow></math> <span class="ecti-1200">be a measurable
+space. Let </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>ℝ</mi></math> <span class="ecti-1200">and</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mover accent="false" class="mml-overline"><mrow><mi>ℝ</mi></mrow><mo accent="true">¯</mo></mover></math> <span class="ecti-1200">be given their respective
+Borel </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>σ</mi></math><span class="ecti-1200">-algebras.</span>
+      </p><dl class="enumerate-enumitem"><dt class="enumerate-enumitem">
+   <span class="ecti-1200">1.</span> </dt><dd class="enumerate-enumitem"><span class="ecti-1200">If </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>f</mi> <mo class="MathClass-punc" stretchy="false">:</mo> <mi>X</mi> <mo class="MathClass-rel" stretchy="false">→</mo> <mi>ℝ</mi></mrow></math>
+      <span class="ecti-1200">is measurable, then </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-rel" stretchy="false">|</mo><mi>f</mi><mo class="MathClass-rel" stretchy="false">|</mo></mrow></math>
+      <span class="ecti-1200">is also measurable.</span>
+      </dd><dt class="enumerate-enumitem">
+   <span class="ecti-1200">2.</span> </dt><dd class="enumerate-enumitem"><span class="ecti-1200">If </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>f</mi><mo class="MathClass-punc" stretchy="false">,</mo><mi>g</mi><mo class="MathClass-punc" stretchy="false">:</mo> <mi>X</mi> <mo class="MathClass-rel" stretchy="false">→</mo> <mi>ℝ</mi></mrow></math>
+      <span class="ecti-1200">are measurable, then the maps </span><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+      <math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                          <mi>f</mi> <mo class="MathClass-bin" stretchy="false">+</mo> <mi>g</mi><mo class="MathClass-punc" stretchy="false">,</mo><mspace class="qquad" width="2em"></mspace><mi>f</mi> <mo class="MathClass-bin" stretchy="false">×</mo> <mi>g</mi><mo class="MathClass-punc" stretchy="false">,</mo><mspace class="qquad" width="2em"></mspace><mtext class="qopname"> max</mtext><mo> ⁡</mo><mo class="MathClass-open" stretchy="false">(</mo><mi>f</mi><mo class="MathClass-punc" stretchy="false">,</mo><mi>g</mi><mo class="MathClass-close" stretchy="false">)</mo><mo class="MathClass-punc" stretchy="false">,</mo><mspace class="qquad" width="2em"></mspace><mtext class="qopname"> min</mtext><mo> ⁡</mo><mo class="MathClass-open" stretchy="false">(</mo><mi>f</mi><mo class="MathClass-punc" stretchy="false">,</mo><mi>g</mi><mo class="MathClass-close" stretchy="false">)</mo>
+</mrow></math></td></tr></table>
+      </div><p class="noindent"><span class="ecti-1200">are measurable.</span>
+      </p></dd><dt class="enumerate-enumitem">
+   <span class="ecti-1200">3.</span> </dt><dd class="enumerate-enumitem"><span class="ecti-1200">If </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mrow><mi>f</mi></mrow><mrow><mi>k</mi></mrow></msub><mo class="MathClass-punc" stretchy="false">:</mo> <mi>X</mi> <mo class="MathClass-rel" stretchy="false">→</mo><mover accent="false" class="mml-overline"><mrow><mi>ℝ</mi></mrow><mo accent="true">¯</mo></mover></mrow></math> <span class="ecti-1200">is the general
+      term of a sequence </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mi>f</mi></mrow><mrow><mi>k</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow><mrow><mi>k</mi><mo class="MathClass-rel" stretchy="false">≥</mo><mn>1</mn></mrow></msub></math>
+      <span class="ecti-1200">of measurable functions, then the following maps from</span>
+      <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>X</mi></math> <span class="ecti-1200">to</span>
+      <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mover accent="false" class="mml-overline"><mrow><mi>ℝ</mi></mrow><mo accent="true">¯</mo></mover></math><span class="ecti-1200">:</span>
+      <div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+                                                                          
+
+                                                                          
+      <math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                               <munder class="msub"><mrow><mtext class="qopname">inf</mtext><mo> ⁡</mo> </mrow><mrow><mi>k</mi></mrow></munder><msub><mrow><mi>f</mi></mrow><mrow><mi>k</mi></mrow></msub><mo class="MathClass-punc" stretchy="false">,</mo><mspace class="qquad" width="2em"></mspace><munder class="msub"><mrow><mtext class="qopname"> sup</mtext><mo> ⁡</mo> </mrow><mrow><mi>k</mi></mrow></munder><msub><mrow><mi>f</mi></mrow><mrow><mi>k</mi></mrow></msub><mo class="MathClass-punc" stretchy="false">,</mo><mspace class="qquad" width="2em"></mspace><munder class="msub"><mrow><mstyle class="qopname"><mi>lim</mi><mspace class="thinspace" width="0.17em"></mspace><mi>sup</mi><mspace class="thinspace" width="0.17em"></mspace></mstyle><mo> ⁡</mo></mrow><mrow><mi>k</mi></mrow></munder><msub><mrow><mi>f</mi></mrow><mrow><mi>k</mi></mrow></msub><mo class="MathClass-punc" stretchy="false">,</mo><mspace class="qquad" width="2em"></mspace><munder class="msub"><mrow><mstyle class="qopname"><mi>lim</mi><mspace class="thinspace" width="0.17em"></mspace><mi>inf</mi><mspace class="thinspace" width="0.17em"></mspace></mstyle><mo> ⁡</mo></mrow><mrow><mi>k</mi></mrow></munder><msub><mrow><mi>f</mi></mrow><mrow><mi>k</mi></mrow></msub>
+</mrow></math></td></tr></table>
+      </div><p class="noindent"><span class="ecti-1200">are measurable.</span>
+      </p></dd><dt class="enumerate-enumitem">
+   <span class="ecti-1200">4.</span> </dt><dd class="enumerate-enumitem"><span class="ecti-1200">If </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mi>f</mi></mrow><mrow><mi>k</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow><mrow><mi>k</mi><mo class="MathClass-rel" stretchy="false">≥</mo><mn>1</mn></mrow></msub></math>
+      <span class="ecti-1200">is a sequence of measurable functions from</span>
+      <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>X</mi></math> <span class="ecti-1200">to</span>
+      <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mover accent="false" class="mml-overline"><mrow><mi>ℝ</mi></mrow><mo accent="true">¯</mo></mover></math> <span class="ecti-1200">and if</span>
+      <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mi>f</mi></mrow><mrow><mi>k</mi></mrow></msub></math> <span class="ecti-1200">converges pointwise
+      to a function </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>f</mi> <mo class="MathClass-punc" stretchy="false">:</mo> <mi>X</mi> <mo class="MathClass-rel" stretchy="false">→</mo><mover accent="false" class="mml-overline"><mrow><mi>ℝ</mi></mrow><mo accent="true">¯</mo></mover></mrow></math><span class="ecti-1200">,
+      then </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>f</mi></math>
+      <span class="ecti-1200">is measurable.</span></dd></dl>
+   </div>
+</div>
+   <div class="proof">
+<p class="indent">   <span class="head">
+<span class="ecti-1200">Proof.</span> </span>For 1), we apply Proposition <a href="#ref-prop-phi">4.9</a> with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>u</mi> <mo class="MathClass-rel" stretchy="false">=</mo> <mi>v</mi> <mo class="MathClass-rel" stretchy="false">=</mo> <mi>f</mi></mrow></math> and
+</p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+                                                                          
+
+                                                                          
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                               <mi>ϕ</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-punc" stretchy="false">,</mo><mi>y</mi><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-rel" stretchy="false">=</mo> <mo class="MathClass-rel" stretchy="false">|</mo><mi>x</mi><mo class="MathClass-rel" stretchy="false">|</mo><mo class="MathClass-punc" stretchy="false">.</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   The function <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>ϕ</mi></math>
+is continuous on <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msup><mrow><mi>ℝ</mi></mrow><mrow><mn>2</mn></mrow></msup></math>,
+hence <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-rel" stretchy="false">|</mo><mi>f</mi><mo class="MathClass-rel" stretchy="false">|</mo></mrow></math>
+is measurable.
+</p><p class="indent">   For 2), we apply Proposition <a href="#ref-prop-phi">4.9</a> with the continuous functions </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+  <msub><mrow><mi>ϕ</mi></mrow><mrow><mn>1</mn></mrow></msub><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-punc" stretchy="false">,</mo><mi>y</mi><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-rel" stretchy="false">=</mo> <mi>x</mi> <mo class="MathClass-bin" stretchy="false">+</mo> <mi>y</mi><mo class="MathClass-punc" stretchy="false">,</mo><mspace class="qquad" width="2em"></mspace><msub><mrow><mi>ϕ</mi></mrow><mrow><mn>2</mn></mrow></msub><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-punc" stretchy="false">,</mo><mi>y</mi><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-rel" stretchy="false">=</mo> <mi mathvariant="italic">xy</mi><mo class="MathClass-punc" stretchy="false">,</mo><mspace class="qquad" width="2em"></mspace><msub><mrow><mi>ϕ</mi></mrow><mrow><mn>3</mn></mrow></msub><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-punc" stretchy="false">,</mo><mi>y</mi><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-rel" stretchy="false">=</mo><mtext class="qopname"> max</mtext><mo> ⁡</mo><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-punc" stretchy="false">,</mo><mi>y</mi><mo class="MathClass-close" stretchy="false">)</mo><mo class="MathClass-punc" stretchy="false">,</mo><mspace class="qquad" width="2em"></mspace><msub><mrow><mi>ϕ</mi></mrow><mrow><mn>4</mn></mrow></msub><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-punc" stretchy="false">,</mo><mi>y</mi><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-rel" stretchy="false">=</mo><mtext class="qopname"> min</mtext><mo> ⁡</mo><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-punc" stretchy="false">,</mo><mi>y</mi><mo class="MathClass-close" stretchy="false">)</mo><mo class="MathClass-punc" stretchy="false">.</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   This gives the measurability of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>f</mi> <mo class="MathClass-bin" stretchy="false">+</mo> <mi>g</mi></mrow></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>f</mi> <mo class="MathClass-bin" stretchy="false">×</mo> <mi>g</mi></mrow></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mtext class="qopname"> max</mtext><mo> ⁡</mo><mo class="MathClass-open" stretchy="false">(</mo><mi>f</mi><mo class="MathClass-punc" stretchy="false">,</mo><mi>g</mi><mo class="MathClass-close" stretchy="false">)</mo></mrow></math>, and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mtext class="qopname"> min</mtext><mo> ⁡</mo><mo class="MathClass-open" stretchy="false">(</mo><mi>f</mi><mo class="MathClass-punc" stretchy="false">,</mo><mi>g</mi><mo class="MathClass-close" stretchy="false">)</mo></mrow></math>.
+</p><p class="indent">   For 3), we use Proposition <a href="#ref-prop-criterionmeas">4.4</a>. The family
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-open" stretchy="false">{</mo><mo class="MathClass-open" stretchy="false">[</mo><mo class="MathClass-bin" stretchy="false">−</mo><mi>∞</mi><mo class="MathClass-punc" stretchy="false">,</mo><mi>a</mi><mo class="MathClass-open" stretchy="false">[</mo><mo class="MathClass-punc" stretchy="false">:</mo> <mi>a</mi> <mo class="MathClass-rel" stretchy="false">∈</mo> <mi>ℝ</mi><mo class="MathClass-close" stretchy="false">}</mo></mrow></math> generates
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mstyle mathvariant="script"><mi>B</mi></mstyle><mo class="MathClass-open" stretchy="false">(</mo><mover accent="false" class="mml-overline"><mrow><mi>ℝ</mi></mrow><mo accent="true">¯</mo></mover><mo class="MathClass-close" stretchy="false">)</mo></mrow></math>: indeed,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-open" stretchy="false">[</mo><mo class="MathClass-bin" stretchy="false">−</mo><mi>∞</mi><mo class="MathClass-punc" stretchy="false">,</mo><mi>a</mi><mo class="MathClass-close" stretchy="false">]</mo> <mo class="MathClass-rel" stretchy="false">=</mo><msub><mrow> <mi class="MathClass-op">⋂</mi><mo> ⁡</mo>
+  </mrow><mrow><mi>m</mi><mo class="MathClass-rel" stretchy="false">≥</mo><mn>1</mn></mrow></msub><mo class="MathClass-open" stretchy="false">[</mo><mo class="MathClass-bin" stretchy="false">−</mo><mi>∞</mi><mo class="MathClass-punc" stretchy="false">,</mo><mi>a</mi> <mo class="MathClass-bin" stretchy="false">+</mo> <mn>1</mn><mo class="MathClass-bin" stretchy="false">∕</mo><mi>m</mi><mo class="MathClass-open" stretchy="false">[</mo></mrow></math>,
+while <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-close" stretchy="false">]</mo><mi>a</mi><mo class="MathClass-punc" stretchy="false">,</mo> <mo class="MathClass-bin" stretchy="false">+</mo><mi>∞</mi><mo class="MathClass-close" stretchy="false">]</mo> <mo class="MathClass-rel" stretchy="false">=</mo> <msup><mrow><mo class="MathClass-open" stretchy="false">[</mo><mo class="MathClass-bin" stretchy="false">−</mo><mi>∞</mi><mo class="MathClass-punc" stretchy="false">,</mo><mi>a</mi><mo class="MathClass-close" stretchy="false">]</mo></mrow><mrow><mi>c</mi></mrow></msup></mrow></math>
+and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-close" stretchy="false">]</mo><mi>a</mi><mo class="MathClass-punc" stretchy="false">,</mo><mi>b</mi><mo class="MathClass-open" stretchy="false">[</mo><mo class="MathClass-rel" stretchy="false">=</mo> <mo class="MathClass-open" stretchy="false">[</mo><mo class="MathClass-bin" stretchy="false">−</mo><mi>∞</mi><mo class="MathClass-punc" stretchy="false">,</mo><mi>b</mi><mo class="MathClass-open" stretchy="false">[</mo><mo class="MathClass-bin" stretchy="false">∩</mo><msup><mrow><mo class="MathClass-open" stretchy="false">[</mo><mo class="MathClass-bin" stretchy="false">−</mo><mi>∞</mi><mo class="MathClass-punc" stretchy="false">,</mo><mi>a</mi><mo class="MathClass-close" stretchy="false">]</mo></mrow><mrow><mi>c</mi></mrow></msup></mrow></math>.
+Thus it is enough to consider these generating intervals. Let </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+                                                                          
+
+                                                                          
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+               <mi>g</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-punc" stretchy="false">:</mo><mo class="MathClass-rel" stretchy="false">=</mo><munder class="msub"><mrow><mtext class="qopname"> sup</mtext><mo> ⁡</mo> </mrow><mrow><mi>k</mi><mo class="MathClass-rel" stretchy="false">≥</mo><mn>1</mn></mrow></munder><msub><mrow><mi>f</mi></mrow><mrow><mi>k</mi></mrow></msub><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo><mspace class="qquad" width="2em"></mspace><mstyle class="text"><mtext>and</mtext></mstyle><mspace class="qquad" width="2em"></mspace><mi>h</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-punc" stretchy="false">:</mo><mo class="MathClass-rel" stretchy="false">=</mo><munder class="msub"><mrow><mtext class="qopname"> inf</mtext><mo> ⁡</mo> </mrow><mrow><mi>k</mi><mo class="MathClass-rel" stretchy="false">≥</mo><mn>1</mn></mrow></munder><msub><mrow><mi>f</mi></mrow><mrow><mi>k</mi></mrow></msub><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo><mo class="MathClass-punc" stretchy="false">.</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   For every <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>a</mi></math>
+in <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>ℝ</mi></math>,
+we have
+</p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mtable class="align-star" columnalign="left" displaystyle="true">
+                     <mtr><mtd class="align-odd" columnalign="right"><msup><mrow><mi>g</mi></mrow><mrow><mo class="MathClass-bin" stretchy="false">−</mo><mn>1</mn></mrow></msup><mo class="MathClass-open" stretchy="false">(</mo><mo class="MathClass-open" stretchy="false">[</mo><mo class="MathClass-bin" stretchy="false">−</mo><mi>∞</mi><mo class="MathClass-punc" stretchy="false">,</mo><mi>a</mi><mo class="MathClass-open" stretchy="false">[</mo><mo class="MathClass-close" stretchy="false">)</mo></mtd>                     <mtd class="align-even"> <mo class="MathClass-rel" stretchy="false">=</mo><munder class="msub"><mrow><mo> ⋂</mo>
+  </mrow><mrow><mi>k</mi><mo class="MathClass-rel" stretchy="false">≥</mo><mn>1</mn></mrow></munder><msubsup><mrow><mi>f</mi></mrow><mrow><mi>k</mi></mrow><mrow><mo class="MathClass-bin" stretchy="false">−</mo><mn>1</mn></mrow></msubsup><mo class="MathClass-open" stretchy="false">(</mo><mo class="MathClass-open" stretchy="false">[</mo><mo class="MathClass-bin" stretchy="false">−</mo><mi>∞</mi><mo class="MathClass-punc" stretchy="false">,</mo><mi>a</mi><mo class="MathClass-open" stretchy="false">[</mo><mo class="MathClass-close" stretchy="false">)</mo><mo class="MathClass-punc" stretchy="false">,</mo><mspace width="2em"></mspace></mtd>                     <mtd class="align-label" columnalign="right"></mtd>                     <mtd class="align-label">
+                     <mspace width="2em"></mspace></mtd></mtr><mtr><mtd class="align-odd" columnalign="right"><msup><mrow><mi>h</mi></mrow><mrow><mo class="MathClass-bin" stretchy="false">−</mo><mn>1</mn></mrow></msup><mo class="MathClass-open" stretchy="false">(</mo><mo class="MathClass-open" stretchy="false">[</mo><mo class="MathClass-bin" stretchy="false">−</mo><mi>∞</mi><mo class="MathClass-punc" stretchy="false">,</mo><mi>a</mi><mo class="MathClass-open" stretchy="false">[</mo><mo class="MathClass-close" stretchy="false">)</mo></mtd>                     <mtd class="align-even"> <mo class="MathClass-rel" stretchy="false">=</mo><munder class="msub"><mrow><mo> ⋃</mo>
+  </mrow><mrow><mi>k</mi><mo class="MathClass-rel" stretchy="false">≥</mo><mn>1</mn></mrow></munder><msubsup><mrow><mi>f</mi></mrow><mrow><mi>k</mi></mrow><mrow><mo class="MathClass-bin" stretchy="false">−</mo><mn>1</mn></mrow></msubsup><mo class="MathClass-open" stretchy="false">(</mo><mo class="MathClass-open" stretchy="false">[</mo><mo class="MathClass-bin" stretchy="false">−</mo><mi>∞</mi><mo class="MathClass-punc" stretchy="false">,</mo><mi>a</mi><mo class="MathClass-open" stretchy="false">[</mo><mo class="MathClass-close" stretchy="false">)</mo><mo class="MathClass-punc" stretchy="false">.</mo><mspace width="2em"></mspace></mtd>                     <mtd class="align-label" columnalign="right"></mtd>                     <mtd class="align-label">
+   <mspace width="2em"></mspace></mtd></mtr></mtable></math>
+</div><p class="noindent">The right-hand sides are measurable, so
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>g</mi></math> and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>h</mi></math> are
+measurable.
+</p><p class="indent">   For each <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>n</mi> <mo class="MathClass-rel" stretchy="false">≥</mo> <mn>1</mn></mrow></math>,
+let </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+                                                                          
+
+                                                                          
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                    <msub><mrow><mi>g</mi></mrow><mrow><mi>n</mi></mrow></msub> <mo class="MathClass-punc" stretchy="false">:</mo><mo class="MathClass-rel" stretchy="false">=</mo><munder class="msub"><mrow><mtext class="qopname"> sup</mtext><mo> ⁡</mo> </mrow><mrow><mi>k</mi><mo class="MathClass-rel" stretchy="false">≥</mo><mi>n</mi></mrow></munder><msub><mrow><mi>f</mi></mrow><mrow><mi>k</mi></mrow></msub><mspace class="qquad" width="2em"></mspace><mstyle class="text"><mtext>and</mtext></mstyle><mspace class="qquad" width="2em"></mspace><msub><mrow><mi>h</mi></mrow><mrow><mi>n</mi></mrow></msub> <mo class="MathClass-punc" stretchy="false">:</mo><mo class="MathClass-rel" stretchy="false">=</mo><munder class="msub"><mrow><mtext class="qopname"> inf</mtext><mo> ⁡</mo> </mrow><mrow><mi>k</mi><mo class="MathClass-rel" stretchy="false">≥</mo><mi>n</mi></mrow></munder><msub><mrow><mi>f</mi></mrow><mrow><mi>k</mi></mrow></msub><mo class="MathClass-punc" stretchy="false">.</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   By the first part of 3), applied to the tails
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mi>f</mi></mrow><mrow><mi>k</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow><mrow><mi>k</mi><mo class="MathClass-rel" stretchy="false">≥</mo><mi>n</mi></mrow></msub></math>, each
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mi>g</mi></mrow><mrow><mi>n</mi></mrow></msub></math> and
+each <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mi>h</mi></mrow><mrow><mi>n</mi></mrow></msub></math>
+is measurable. Since </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                   <munder class="msub"><mrow><mstyle class="qopname"><mi>lim</mi><mspace class="thinspace" width="0.17em"></mspace><mi>sup</mi><mspace class="thinspace" width="0.17em"></mspace></mstyle><mo> ⁡</mo> </mrow><mrow><mi>k</mi></mrow></munder><msub><mrow><mi>f</mi></mrow><mrow><mi>k</mi></mrow></msub> <mo class="MathClass-rel" stretchy="false">=</mo><munder class="msub"><mrow><mtext class="qopname"> inf</mtext><mo> ⁡</mo> </mrow><mrow><mi>n</mi><mo class="MathClass-rel" stretchy="false">≥</mo><mn>1</mn></mrow></munder><msub><mrow><mi>g</mi></mrow><mrow><mi>n</mi></mrow></msub><mspace class="qquad" width="2em"></mspace><mstyle class="text"><mtext>and</mtext></mstyle><mspace class="qquad" width="2em"></mspace><munder class="msub"><mrow><mstyle class="qopname"> <mi>lim</mi><mspace class="thinspace" width="0.17em"></mspace><mi>inf</mi><mspace class="thinspace" width="0.17em"></mspace></mstyle><mo> ⁡</mo> </mrow><mrow><mi>k</mi></mrow></munder><msub><mrow><mi>f</mi></mrow><mrow><mi>k</mi></mrow></msub> <mo class="MathClass-rel" stretchy="false">=</mo><munder class="msub"><mrow><mtext class="qopname"> sup</mtext><mo> ⁡</mo> </mrow><mrow><mi>n</mi><mo class="MathClass-rel" stretchy="false">≥</mo><mn>1</mn></mrow></munder><msub><mrow><mi>h</mi></mrow><mrow><mi>n</mi></mrow></msub><mo class="MathClass-punc" stretchy="false">,</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   another application of the same argument shows that
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mrow><mstyle class="qopname"> <mi>lim</mi><mspace class="thinspace" width="0.17em"></mspace><mi>sup</mi><mspace class="thinspace" width="0.17em"></mspace></mstyle><mo> ⁡</mo> </mrow><mrow><mi>k</mi></mrow></msub><msub><mrow><mi>f</mi></mrow><mrow><mi>k</mi></mrow></msub></mrow></math> and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mrow><mstyle class="qopname"> <mi>lim</mi><mspace class="thinspace" width="0.17em"></mspace><mi>inf</mi><mspace class="thinspace" width="0.17em"></mspace></mstyle><mo> ⁡</mo> </mrow><mrow><mi>k</mi></mrow></msub><msub><mrow><mi>f</mi></mrow><mrow><mi>k</mi></mrow></msub></mrow></math> are
+measurable.
+</p><p class="indent">   This proves 3). If <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><munder class="msub"><mrow><mtext class="qopname"> lim</mtext><mo> ⁡</mo> </mrow><mrow><mi>k</mi></mrow></munder><msub><mrow><mi>f</mi></mrow><mrow><mi>k</mi></mrow></msub><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo></mrow></math>
+exists for all <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>x</mi></math> in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>X</mi></math>, then it coincides
+pointwise with both <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mrow><mstyle class="qopname"> <mi>lim</mi><mspace class="thinspace" width="0.17em"></mspace><mi>sup</mi><mspace class="thinspace" width="0.17em"></mspace></mstyle><mo> ⁡</mo> </mrow><mrow><mi>k</mi></mrow></msub><msub><mrow><mi>f</mi></mrow><mrow><mi>k</mi></mrow></msub></mrow></math>
+and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mrow><mstyle class="qopname"> <mi>lim</mi><mspace class="thinspace" width="0.17em"></mspace><mi>inf</mi><mspace class="thinspace" width="0.17em"></mspace></mstyle><mo> ⁡</mo> </mrow><mrow><mi>k</mi></mrow></msub><msub><mrow><mi>f</mi></mrow><mrow><mi>k</mi></mrow></msub></mrow></math>.
+Hence the limit function is measurable, which proves 4).                        □
+</p>
+   </div>
+                                                                          
+
+                                                                          
+   <nav class="previous-next" aria-label="Previous and next chapter"><a class="previous" href="chapter-03.html"><span>Previous</span>Outer measures and Carathéodory’s extension theorem</a><a class="next" href="chapter-05.html"><span>Next</span>Simple functions and their Lebesgue integral</a></nav>
+<footer class="chapter-footer"><a href="#chapter">Back to the beginning</a><a href="course.pdf#page=46">This chapter in the PDF</a></footer></main></div></body></html>

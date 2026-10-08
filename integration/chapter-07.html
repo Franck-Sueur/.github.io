@@ -1,0 +1,564 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lebesgue’s monotone convergence theorem · Franck Sueur</title><meta name="description" content="Lebesgue’s monotone convergence theorem. Integration and measure theory lecture notes by Franck Sueur, University of Luxembourg.">
+<link rel="canonical" href="https://franck-sueur.github.io/.github.io/integration/chapter-07.html">
+<link rel="stylesheet" href="course.css"><link rel="stylesheet" href="reading.css">
+<script>window.MathJax={options:{enableMenu:false},svg:{fontCache:'global'}};</script><script defer src="assets/mathjax-mml-svg.js"></script><script defer src="reading.js"></script>
+</head><body><a class="skip-link" href="#chapter">Skip to content</a>
+<header class="course-header"><a class="author" href="https://franck-sueur.github.io/.github.io/">Franck Sueur</a><span class="course-meta">University of Luxembourg · Lecture notes</span></header>
+<div class="reading-layout"><aside class="sidebar"><p class="course-label">Lecture notes</p><a class="course-name" href="index.html">Integration and<br> measure theory</a>
+<label class="picker-label" for="chapter-picker">Choose a chapter</label><select class="chapter-picker" id="chapter-picker" aria-label="Choose a chapter"><option value="index.html">Course contents</option><option value="chapter-01.html">1. σ-algebras</option><option value="chapter-02.html">2. Measures</option><option value="chapter-03.html">3. Outer measures and Carathéodory’s extension theorem</option><option value="chapter-04.html">4. Measurable functions</option><option value="chapter-05.html">5. Simple functions and their Lebesgue integral</option><option value="chapter-06.html">6. Lebesgue integral of positive measurable functions</option><option value="chapter-07.html" selected>7. Lebesgue’s monotone convergence theorem</option><option value="chapter-08.html">8. Dominated convergence, ℒ¹(μ) and L¹(μ)</option><option value="chapter-09.html">9. Integrals with parameters</option><option value="chapter-10.html">10. Product measures, the Fubini and Tonelli theorems</option><option value="chapter-11.html">11. Modes of convergence</option><option value="chapter-12.html">12. Absolute continuity, Lebesgue decomposition and the Radon–Nikodym theorem</option><option value="chapter-13.html">13. Fundamental theorem of calculus and change of variables</option><option value="chapter-14.html">14. Radon measures, Riesz representation and the Lebesgue measure</option><option value="chapter-15.html">15. Lebesgue spaces Lᵖ(μ)</option><option value="chapter-16.html">16. Appendix. Topology and functional analysis reminders</option></select>
+<div class="course-links"><a href="index.html">All chapters</a><a href="course.pdf">Full course PDF</a><a href="history.html">Historical milestones</a><a href="bibliography.html">Bibliography</a></div>
+<details class="contents" open><summary>On this page</summary><nav aria-label="Page contents"><a class="toc-link section" href="#monotone-convergence-theorem"><span class="toc-number">7.1</span><span>Monotone convergence theorem</span></a>
+<a class="toc-link section" href="#linearity-of-the-integral-of-positive-measurable-functions"><span class="toc-number">7.2</span><span>Linearity of the integral of positive measurable functions</span></a>
+<a class="toc-link section" href="#monotone-convergence-theorem-for-series-of-positive-functions"><span class="toc-number">7.3</span><span>Monotone convergence theorem for series of positive functions</span></a>
+<a class="toc-link section" href="#chasles-property-for-positive-functions"><span class="toc-number">7.4</span><span>Chasles property for positive functions</span></a>
+<a class="toc-link section" href="#fatous-lemma"><span class="toc-number">7.5</span><span>Fatou’s Lemma</span></a></nav></details><p class="sidebar-note">Bachelor in Mathematics<br>Summer semester 2025–26</p></aside><main class="chapter" id="chapter" tabindex="-1"><h1 class="chapterHead" id="lebesgues-monotone-convergence-theorem"><span class="titlemark">Chapter 7</span><br><a id="x1-420007"></a>Lebesgue’s monotone convergence theorem</h1>
+<p class="noindent">This chapter contains the first major convergence theorem of the course. Once
+monotone convergence has been proved, the linearity of the integral for positive
+functions, the series version, the generalized Chasles property, and Fatou’s lemma
+follow in a systematic way.
+</p>
+   <h2 class="sectionHead" id="monotone-convergence-theorem"><span class="titlemark">7.1   </span> <a id="x1-430007.1"></a>Monotone convergence theorem</h2>
+<p class="noindent">An ingredient for establishing the linearity of the integral of positive measurable
+functions, which is also one of the most important results of this course, is the
+following theorem.
+</p>
+   <div class="statement statement-brown">
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<span id="ref-th-monotone-convergence" class="reference-anchor"></span><a id="x1-43001r1"></a>
+<span class="ecbx-1200">Theorem 7.1 </span>(Monotone convergence theorem, or Beppo Levi theorem)<span class="ecbx-1200">.</span>  </span> <span class="ecti-1200">Let</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-open" stretchy="false">(</mo><mi>X</mi><mo class="MathClass-punc" stretchy="false">,</mo><mstyle mathvariant="script"><mi>A</mi></mstyle><mo class="MathClass-punc" stretchy="false">,</mo><mi>μ</mi><mo class="MathClass-close" stretchy="false">)</mo></mrow></math> <span class="ecti-1200">be a measure space and
+let </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mi>f</mi></mrow><mrow><mi>n</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow><mrow><mi>n</mi><mo class="MathClass-rel" stretchy="false">≥</mo><mn>1</mn></mrow></msub></math> <span class="ecti-1200">be a sequence of
+measurable functions from </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>X</mi></math>
+<span class="ecti-1200">to </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-open" stretchy="false">[</mo><mn>0</mn><mo class="MathClass-punc" stretchy="false">,</mo><mi>∞</mi><mo class="MathClass-close" stretchy="false">]</mo></mrow></math>
+<span class="ecti-1200">such that</span> </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                    <mi class="MathClass-op">∀</mi><mo> ⁡</mo><mi>n</mi> <mo class="MathClass-rel" stretchy="false">≥</mo> <mn>1</mn><mo class="MathClass-punc" stretchy="false">,</mo><mspace class="nbsp" width="0.33em"></mspace><mi class="MathClass-op">∀</mi><mo> ⁡</mo><mi>x</mi><mstyle class="text"><mtext> in </mtext></mstyle><mi>X</mi><mo class="MathClass-punc" stretchy="false">,</mo><mspace class="qquad" width="2em"></mspace><msub><mrow><mi>f</mi></mrow><mrow><mi>n</mi></mrow></msub><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-rel" stretchy="false">≤</mo> <msub><mrow><mi>f</mi></mrow><mrow><mi>n</mi><mo class="MathClass-bin" stretchy="false">+</mo><mn>1</mn></mrow></msub><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo><mo class="MathClass-punc" stretchy="false">.</mo>
+</mrow></math></td></tr></table>
+                                                                          
+
+                                                                          
+</div><p class="indent">   <span class="ecti-1200">For every </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>x</mi></math>
+<span class="ecti-1200">in </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>X</mi></math><span class="ecti-1200">,
+we define</span> </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                          <mi>f</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-punc" stretchy="false">:</mo><mo class="MathClass-rel" stretchy="false">=</mo><munder class="msub"><mrow><mtext class="qopname"> lim</mtext><mo> ⁡</mo> </mrow><mrow><mi>n</mi><mo class="MathClass-rel" stretchy="false">→</mo><mi>∞</mi></mrow></munder><msub><mrow><mi>f</mi></mrow><mrow><mi>n</mi></mrow></msub><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo><mo class="MathClass-punc" stretchy="false">.</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   <span class="ecti-1200">Then </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>f</mi></math> <span class="ecti-1200">is measurable,
+the sequence </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow> <mrow><mo fence="true" form="prefix"> (</mo><mrow><msub><mrow><mo>∫</mo>
+ </mrow><mrow><mi>X</mi></mrow></msub><msub><mrow><mi>f</mi></mrow><mrow><mi>n</mi></mrow></msub><mi mathvariant="italic">dμ</mi></mrow><mo fence="true" form="postfix">)</mo></mrow></mrow><mrow><mi>n</mi><mo class="MathClass-rel" stretchy="false">≥</mo><mn>1</mn></mrow></msub></math>
+<span class="ecti-1200">converges in </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-open" stretchy="false">[</mo><mn>0</mn><mo class="MathClass-punc" stretchy="false">,</mo><mi>∞</mi><mo class="MathClass-close" stretchy="false">]</mo></mrow></math><span class="ecti-1200">,
+and</span> </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                       <munder class="msub"><mrow><mtext class="qopname">lim</mtext><mo> ⁡</mo> </mrow><mrow><mi>n</mi><mo class="MathClass-rel" stretchy="false">→</mo><mi>∞</mi></mrow></munder><msub><mrow><mo>∫
+ </mo></mrow><mrow><mi>X</mi></mrow></msub><msub><mrow><mi>f</mi></mrow><mrow><mi>n</mi></mrow></msub><mi mathvariant="italic">dμ</mi> <mo class="MathClass-rel" stretchy="false">=</mo><msub><mrow><mo> ∫
+ </mo></mrow><mrow><mi>X</mi></mrow></msub><mi mathvariant="italic">fdμ</mi><mspace class="thinspace" width="0.17em"></mspace><mo class="MathClass-punc" stretchy="false">.</mo>
+</mrow></math></td></tr></table>
+   </div></div>
+</div>
+   <div class="proof">
+<p class="indent">   <span class="head">
+                                                                          
+
+                                                                          
+<span class="ecti-1200">Proof.</span> </span><span class="ecbx-1200">Step      1.      The      easy      inequality.     </span>The      function
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>f</mi></math>
+is measurable by Theorem <a href="chapter-04.html#ref-th-propfctsmes">4.10</a>, since it is the pointwise limit of measurable
+functions.
+</p><p class="indent">   For every <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>n</mi> <mo class="MathClass-rel" stretchy="false">≥</mo> <mn>1</mn></mrow></math>,
+we have <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mn>0</mn> <mo class="MathClass-rel" stretchy="false">≤</mo> <msub><mrow><mi>f</mi></mrow><mrow><mi>n</mi></mrow></msub> <mo class="MathClass-rel" stretchy="false">≤</mo> <mi>f</mi></mrow></math>
+on <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>X</mi></math>,
+so Theorem <a href="chapter-06.html#ref-th-prempropint">6.3</a> gives </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                           <msub><mrow><mo>∫
+ </mo></mrow><mrow><mi>X</mi></mrow></msub><msub><mrow><mi>f</mi></mrow><mrow><mi>n</mi></mrow></msub><mspace class="thinspace" width="0.17em"></mspace><mi mathvariant="italic">dμ</mi> <mo class="MathClass-rel" stretchy="false">≤</mo><msub><mrow><mo>∫ 
+</mo></mrow><mrow><mi>X</mi></mrow></msub><mi>f</mi><mspace class="thinspace" width="0.17em"></mspace><mi mathvariant="italic">dμ</mi><mo class="MathClass-punc" stretchy="false">.</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   Moreover, since <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mrow><mi>f</mi></mrow><mrow><mi>n</mi></mrow></msub> <mo class="MathClass-rel" stretchy="false">≤</mo> <msub><mrow><mi>f</mi></mrow><mrow><mi>n</mi><mo class="MathClass-bin" stretchy="false">+</mo><mn>1</mn></mrow></msub></mrow></math>,
+the sequence <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow> <mrow><mo fence="true" form="prefix"> (</mo><mrow><msub><mrow><mo>∫</mo>
+ </mrow><mrow><mi>X</mi></mrow></msub><msub><mrow><mi>f</mi></mrow><mrow><mi>n</mi></mrow></msub><mspace class="thinspace" width="0.17em"></mspace><mi mathvariant="italic">dμ</mi></mrow><mo fence="true" form="postfix">)</mo></mrow></mrow><mrow><mi>n</mi><mo class="MathClass-rel" stretchy="false">≥</mo><mn>1</mn></mrow></msub></math>
+is increasing. Hence its limit </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                          <mi>ℓ</mi> <mo class="MathClass-punc" stretchy="false">:</mo><mo class="MathClass-rel" stretchy="false">=</mo><munder class="msub"><mrow><mtext class="qopname"> lim</mtext><mo> ⁡</mo> </mrow><mrow><mi>n</mi><mo class="MathClass-rel" stretchy="false">→</mo><mi>∞</mi></mrow></munder><msub><mrow><mo>∫
+ </mo></mrow><mrow><mi>X</mi></mrow></msub><msub><mrow><mi>f</mi></mrow><mrow><mi>n</mi></mrow></msub><mspace class="thinspace" width="0.17em"></mspace><mi mathvariant="italic">dμ</mi>
+</mrow></math></td></tr></table>
+</div><p class="indent">   exists in <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-open" stretchy="false">[</mo><mn>0</mn><mo class="MathClass-punc" stretchy="false">,</mo><mi>∞</mi><mo class="MathClass-close" stretchy="false">]</mo></mrow></math>
+and satisfies </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+                                                                          
+
+                                                                          
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                               <mi>ℓ</mi> <mo class="MathClass-rel" stretchy="false">≤</mo><msub><mrow><mo>∫
+ </mo></mrow><mrow><mi>X</mi></mrow></msub><mi>f</mi><mspace class="thinspace" width="0.17em"></mspace><mi mathvariant="italic">dμ</mi><mo class="MathClass-punc" stretchy="false">.</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   <span class="ecbx-1200">Step 2. Testing against a simple function below</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>f</mi></math><span class="ecbx-1200">. </span>Let
+now <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>s</mi></math>
+be a simple positive measurable function such that
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>s</mi> <mo class="MathClass-rel" stretchy="false">≤</mo> <mi>f</mi></mrow></math> on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>X</mi></math>, and
+let <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>c</mi></math> in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-close" stretchy="false">]</mo><mn>0</mn><mo class="MathClass-punc" stretchy="false">,</mo> <mn>1</mn><mo class="MathClass-open" stretchy="false">[</mo></mrow></math>. For
+every <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>n</mi> <mo class="MathClass-rel" stretchy="false">≥</mo> <mn>1</mn></mrow></math>,
+we define </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                      <msub><mrow><mi>X</mi></mrow><mrow><mi>n</mi></mrow></msub> <mo class="MathClass-punc" stretchy="false">:</mo><mo class="MathClass-rel" stretchy="false">=</mo> <mo class="MathClass-open" stretchy="false">{</mo><mi>x</mi> <mo class="MathClass-rel" stretchy="false">∈</mo> <mi>X</mi> <mo class="MathClass-punc" stretchy="false">:</mo> <msub><mrow><mi>f</mi></mrow><mrow><mi>n</mi></mrow></msub><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-rel" stretchy="false">≥</mo> <mi mathvariant="italic">cs</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo><mo class="MathClass-close" stretchy="false">}</mo><mo class="MathClass-punc" stretchy="false">.</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   Each set <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mi>X</mi></mrow><mrow><mi>n</mi></mrow></msub></math>
+belongs to <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mstyle mathvariant="script"><mi>A</mi></mstyle></math>, and
+the sequence <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mi>X</mi></mrow><mrow><mi>n</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow><mrow><mi>n</mi><mo class="MathClass-rel" stretchy="false">≥</mo><mn>1</mn></mrow></msub></math>
+is increasing. Moreover, </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+                                                                          
+
+                                                                          
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                              <munder class="msub"><mrow><mo>⋃</mo>
+  </mrow><mrow><mi>n</mi><mo class="MathClass-rel" stretchy="false">≥</mo><mn>1</mn></mrow></munder><msub><mrow><mi>X</mi></mrow><mrow><mi>n</mi></mrow></msub> <mo class="MathClass-rel" stretchy="false">=</mo> <mi>X</mi><mo class="MathClass-punc" stretchy="false">.</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   Indeed, let <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>x</mi></math>
+in <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>X</mi></math>. If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>s</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-rel" stretchy="false">=</mo> <mn>0</mn></mrow></math>, then
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>x</mi></math> belongs
+to <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mi>X</mi></mrow><mrow><mi>n</mi></mrow></msub></math> for
+every <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>n</mi> <mo class="MathClass-rel" stretchy="false">≥</mo> <mn>1</mn></mrow></math>. If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>s</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-rel" stretchy="false">&gt;</mo> <mn>0</mn></mrow></math>, then
+</p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+              <msub><mrow><mi>f</mi></mrow><mrow><mi>n</mi></mrow></msub><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-rel" stretchy="false">→</mo> <mi>f</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo><mspace class="quad" width="1em"></mspace><mstyle class="text"><mtext>as </mtext></mstyle><mi>n</mi> <mo class="MathClass-rel" stretchy="false">→</mo> <mo class="MathClass-bin" stretchy="false">+</mo><mi>∞</mi><mo class="MathClass-punc" stretchy="false">,</mo><mspace class="qquad" width="2em"></mspace><mi>f</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-rel" stretchy="false">≥</mo> <mi>s</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-rel" stretchy="false">&gt;</mo> <mi mathvariant="italic">cs</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo><mo class="MathClass-punc" stretchy="false">,</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   so there exists <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>n</mi> <mo class="MathClass-rel" stretchy="false">≥</mo> <mn>1</mn></mrow></math>
+such that <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>x</mi></math>
+belongs to <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mi>X</mi></mrow><mrow><mi>n</mi></mrow></msub></math>.
+</p><p class="indent">   Let </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+                                                                          
+
+                                                                          
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                             <mi>s</mi> <mo class="MathClass-rel" stretchy="false">=</mo><munderover accent="false" accentunder="false"><mrow><mo> ∑</mo>
+  </mrow><mrow><mi>i</mi><mo class="MathClass-rel" stretchy="false">=</mo><mn>1</mn></mrow><mrow><mi>r</mi></mrow></munderover><msub><mrow><mi>α</mi></mrow><mrow>
+<mi>i</mi></mrow></msub><msub><mrow><mi mathvariant="bold">1</mi></mrow><mrow><msub><mrow><mi>A</mi></mrow><mrow><mi>i</mi></mrow></msub></mrow></msub>
+</mrow></math></td></tr></table>
+</div><p class="indent">   be the canonical decomposition of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>s</mi></math>. For
+every <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>n</mi> <mo class="MathClass-rel" stretchy="false">≥</mo> <mn>1</mn></mrow></math>,
+we have </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                     <msub><mrow><mo>∫
+ </mo></mrow><mrow><msub><mrow><mi>X</mi></mrow><mrow><mi>n</mi></mrow></msub></mrow></msub><mi>s</mi><mspace class="thinspace" width="0.17em"></mspace><mi mathvariant="italic">dμ</mi> <mo class="MathClass-rel" stretchy="false">=</mo><munderover accent="false" accentunder="false"><mrow><mo> ∑</mo>
+  </mrow><mrow><mi>i</mi><mo class="MathClass-rel" stretchy="false">=</mo><mn>1</mn></mrow><mrow><mi>r</mi></mrow></munderover><msub><mrow><mi>α</mi></mrow><mrow>
+<mi>i</mi></mrow></msub><mi>μ</mi><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mi>A</mi></mrow><mrow><mi>i</mi></mrow></msub> <mo class="MathClass-bin" stretchy="false">∩</mo> <msub><mrow><mi>X</mi></mrow><mrow><mi>n</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo><mo class="MathClass-punc" stretchy="false">.</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   For every <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>i</mi> <mo class="MathClass-rel" stretchy="false">∈</mo><mo class="MathClass-open" stretchy="false">{</mo><mn>1</mn><mo class="MathClass-punc" stretchy="false">,</mo><mo>…</mo><mo class="MathClass-punc" stretchy="false">,</mo><mi>r</mi><mo class="MathClass-close" stretchy="false">}</mo></mrow></math>,
+the sequence <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mi>A</mi></mrow><mrow><mi>i</mi></mrow></msub> <mo class="MathClass-bin" stretchy="false">∩</mo> <msub><mrow><mi>X</mi></mrow><mrow><mi>n</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow><mrow><mi>n</mi><mo class="MathClass-rel" stretchy="false">≥</mo><mn>1</mn></mrow></msub></math>
+is increasing and </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                          <munder class="msub"><mrow><mo>⋃</mo>
+  </mrow><mrow><mi>n</mi><mo class="MathClass-rel" stretchy="false">≥</mo><mn>1</mn></mrow></munder><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mi>A</mi></mrow><mrow><mi>i</mi></mrow></msub> <mo class="MathClass-bin" stretchy="false">∩</mo> <msub><mrow><mi>X</mi></mrow><mrow><mi>n</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-rel" stretchy="false">=</mo> <msub><mrow><mi>A</mi></mrow><mrow><mi>i</mi></mrow></msub><mo class="MathClass-punc" stretchy="false">.</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   The first item of Theorem <a href="chapter-02.html#ref-unionC">2.3</a> therefore yields </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+                                                                          
+
+                                                                          
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                     <mi>μ</mi><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mi>A</mi></mrow><mrow><mi>i</mi></mrow></msub> <mo class="MathClass-bin" stretchy="false">∩</mo> <msub><mrow><mi>X</mi></mrow><mrow><mi>n</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-rel" stretchy="false">→</mo> <mi>μ</mi><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mi>A</mi></mrow><mrow><mi>i</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo><mspace class="qquad" width="2em"></mspace><mstyle class="text"><mtext>as </mtext></mstyle><mi>n</mi> <mo class="MathClass-rel" stretchy="false">→</mo> <mo class="MathClass-bin" stretchy="false">+</mo><mi>∞</mi><mo class="MathClass-punc" stretchy="false">.</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   Since the sum is finite, we deduce that </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation"><tr><td>
+<span id="ref-eq-mct-simple" class="reference-anchor"></span><math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                     <mstyle class="label" id="x1-43002r1"></mstyle><msub><mrow><mo>∫
+  </mo></mrow><mrow><msub><mrow><mi>X</mi></mrow><mrow><mi>n</mi></mrow></msub></mrow></msub><mi>s</mi><mspace class="thinspace" width="0.17em"></mspace><mi mathvariant="italic">dμ</mi> <mo class="MathClass-rel" stretchy="false">→</mo><msub><mrow><mo>∫ 
+</mo></mrow><mrow><mi>X</mi></mrow></msub><mi>s</mi><mspace class="thinspace" width="0.17em"></mspace><mi mathvariant="italic">dμ</mi><mspace class="qquad" width="2em"></mspace><mstyle class="text"><mtext>as </mtext></mstyle><mi>n</mi> <mo class="MathClass-rel" stretchy="false">→</mo> <mo class="MathClass-bin" stretchy="false">+</mo><mi>∞</mi><mo class="MathClass-punc" stretchy="false">.</mo>
+</mrow></math></td><td class="eq-no">(7.1)</td></tr></table>
+</div><p class="indent">   <span class="ecbx-1200">Step 3. Passage to the supremum over simple functions. </span>For every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>n</mi> <mo class="MathClass-rel" stretchy="false">≥</mo> <mn>1</mn></mrow></math>, we
+have </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                   <msub><mrow><mo>∫
+ </mo></mrow><mrow><mi>X</mi></mrow></msub><msub><mrow><mi>f</mi></mrow><mrow><mi>n</mi></mrow></msub><mspace class="thinspace" width="0.17em"></mspace><mi mathvariant="italic">dμ</mi> <mo class="MathClass-rel" stretchy="false">≥</mo><msub><mrow><mo>∫ 
+</mo></mrow><mrow><msub><mrow><mi>X</mi></mrow><mrow><mi>n</mi></mrow></msub></mrow></msub><msub><mrow><mi>f</mi></mrow><mrow><mi>n</mi></mrow></msub><mspace class="thinspace" width="0.17em"></mspace><mi mathvariant="italic">dμ</mi> <mo class="MathClass-rel" stretchy="false">≥</mo> <mi>c</mi><msub><mrow><mo>∫ 
+</mo></mrow><mrow><msub><mrow><mi>X</mi></mrow><mrow><mi>n</mi></mrow></msub></mrow></msub><mi>s</mi><mspace class="thinspace" width="0.17em"></mspace><mi mathvariant="italic">dμ</mi><mo class="MathClass-punc" stretchy="false">.</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   Passing to the limit and using (<a href="#ref-eq-mct-simple">7.1</a>), we obtain </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+                                                                          
+
+                                                                          
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                              <mi>ℓ</mi> <mo class="MathClass-rel" stretchy="false">≥</mo> <mi>c</mi><msub><mrow><mo>∫
+ </mo></mrow><mrow><mi>X</mi></mrow></msub><mi>s</mi><mspace class="thinspace" width="0.17em"></mspace><mi mathvariant="italic">dμ</mi><mo class="MathClass-punc" stretchy="false">.</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   Letting <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>c</mi></math>
+tend to <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mn>1</mn></math>, which
+is valid in <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-open" stretchy="false">[</mo><mn>0</mn><mo class="MathClass-punc" stretchy="false">,</mo> <mo class="MathClass-bin" stretchy="false">+</mo><mi>∞</mi><mo class="MathClass-close" stretchy="false">]</mo></mrow></math>
+also when <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mrow> <mo>∫</mo>
+ </mrow><mrow><mi>X</mi></mrow></msub><mi>s</mi><mspace class="thinspace" width="0.17em"></mspace><mspace class="thinspace" width="0.17em"></mspace><mi mathvariant="italic">dμ</mi> <mo class="MathClass-rel" stretchy="false">=</mo> <mo class="MathClass-bin" stretchy="false">+</mo><mi>∞</mi></mrow></math>,
+we get </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                               <mi>ℓ</mi> <mo class="MathClass-rel" stretchy="false">≥</mo><msub><mrow><mo>∫
+ </mo></mrow><mrow><mi>X</mi></mrow></msub><mi>s</mi><mspace class="thinspace" width="0.17em"></mspace><mi mathvariant="italic">dμ</mi><mo class="MathClass-punc" stretchy="false">.</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   Since this is true for every simple positive measurable function
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>s</mi></math> such
+that <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>s</mi> <mo class="MathClass-rel" stretchy="false">≤</mo> <mi>f</mi></mrow></math>,
+Definition <a href="chapter-06.html#ref-defilpo">6.1</a> yields </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+                                                                          
+
+                                                                          
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                               <mi>ℓ</mi> <mo class="MathClass-rel" stretchy="false">≥</mo><msub><mrow><mo>∫
+ </mo></mrow><mrow><mi>X</mi></mrow></msub><mi>f</mi><mspace class="thinspace" width="0.17em"></mspace><mi mathvariant="italic">dμ</mi><mo class="MathClass-punc" stretchy="false">.</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   Therefore </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                               <mi>ℓ</mi> <mo class="MathClass-rel" stretchy="false">=</mo><msub><mrow><mo> ∫
+ </mo></mrow><mrow><mi>X</mi></mrow></msub><mi>f</mi><mspace class="thinspace" width="0.17em"></mspace><mi mathvariant="italic">dμ</mi><mo class="MathClass-punc" stretchy="false">,</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   which concludes the proof.                                                           □
+</p>
+   </div>
+   <div class="statement statement-orange">
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-43003r2"></a>
+<span class="ecbx-1200">Example 7.2 </span>(Monotone approximation by simple truncations)<span class="ecbx-1200">.</span>  </span><span class="ecti-1200">Let</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-open" stretchy="false">(</mo><mi>X</mi><mo class="MathClass-punc" stretchy="false">,</mo><mstyle mathvariant="script"><mi>A</mi></mstyle><mo class="MathClass-punc" stretchy="false">,</mo><mi>μ</mi><mo class="MathClass-close" stretchy="false">)</mo></mrow></math> <span class="ecti-1200">be a measure
+space and let </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>f</mi> <mo class="MathClass-punc" stretchy="false">:</mo> <mi>X</mi> <mo class="MathClass-rel" stretchy="false">→</mo> <mo class="MathClass-open" stretchy="false">[</mo><mn>0</mn><mo class="MathClass-punc" stretchy="false">,</mo><mi>∞</mi><mo class="MathClass-close" stretchy="false">]</mo></mrow></math> <span class="ecti-1200">be
+measurable. For every </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>n</mi> <mo class="MathClass-rel" stretchy="false">≥</mo> <mn>1</mn></mrow></math><span class="ecti-1200">,
+we define</span> </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+                                                                          
+
+                                                                          
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                             <msub><mrow><mi>f</mi></mrow><mrow><mi>n</mi></mrow></msub> <mo class="MathClass-punc" stretchy="false">:</mo><mo class="MathClass-rel" stretchy="false">=</mo><mtext class="qopname"> min</mtext><mo> ⁡</mo><mo class="MathClass-open" stretchy="false">(</mo><mi>f</mi><mo class="MathClass-punc" stretchy="false">,</mo><mi>n</mi><mo class="MathClass-close" stretchy="false">)</mo><mo class="MathClass-punc" stretchy="false">.</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   <span class="ecti-1200">Then each </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mi>f</mi></mrow><mrow><mi>n</mi></mrow></msub></math> <span class="ecti-1200">is
+measurable, the sequence </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mi>f</mi></mrow><mrow><mi>n</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow><mrow><mi>n</mi><mo class="MathClass-rel" stretchy="false">≥</mo><mn>1</mn></mrow></msub></math>
+<span class="ecti-1200">is increasing, and</span> </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                                <mn>0</mn> <mo class="MathClass-rel" stretchy="false">≤</mo> <msub><mrow><mi>f</mi></mrow><mrow><mi>n</mi></mrow></msub> <mo class="MathClass-rel" stretchy="false">≤</mo> <mi>f</mi>
+</mrow></math></td></tr></table>
+</div><p class="indent">   <span class="ecti-1200">on </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>X</mi></math><span class="ecti-1200">. Moreover,
+for every </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>x</mi></math>
+<span class="ecti-1200">in </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>X</mi></math><span class="ecti-1200">, the
+sequence </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mi>f</mi></mrow><mrow><mi>n</mi></mrow></msub><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo><mo class="MathClass-close" stretchy="false">)</mo></mrow><mrow><mi>n</mi><mo class="MathClass-rel" stretchy="false">≥</mo><mn>1</mn></mrow></msub></math>
+<span class="ecti-1200">increases to </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>f</mi><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo></mrow></math><span class="ecti-1200">.
+This is the most basic monotone approximation of a positive measurable
+function. By the monotone convergence theorem just proved, it follows that</span>
+</p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+                                                                          
+
+                                                                          
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                           <msub><mrow><mo>∫
+ </mo></mrow><mrow><mi>X</mi></mrow></msub><msub><mrow><mi>f</mi></mrow><mrow><mi>n</mi></mrow></msub><mspace class="thinspace" width="0.17em"></mspace><mi mathvariant="italic">dμ</mi> <mi>↑</mi><msub><mrow><mo>∫ 
+</mo></mrow><mrow><mi>X</mi></mrow></msub><mi>f</mi><mspace class="thinspace" width="0.17em"></mspace><mi mathvariant="italic">dμ</mi><mo class="MathClass-punc" stretchy="false">.</mo>
+</mrow></math></td></tr></table>
+   </div></div>
+</div>
+<h2 class="sectionHead" id="linearity-of-the-integral-of-positive-measurable-functions"><span class="titlemark">7.2   </span> <a id="x1-440007.2"></a>Linearity of the integral of positive measurable functions</h2>
+<p class="noindent">The monotone convergence theorem combined with Theorem <a href="chapter-06.html#ref-th-approx">6.6</a> and Lemma <a href="chapter-05.html#ref-lem-linesc">5.13</a>
+finally allows us to obtain the desired general linearity properties.
+</p>
+   <div class="statement statement-brown">
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<span id="ref-th-lin" class="reference-anchor"></span><a id="x1-44001r3"></a>
+<span class="ecbx-1200">Corollary 7.3 </span>(Linearity of the integral)<span class="ecbx-1200">.</span>  </span> <span class="ecti-1200">Let</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-open" stretchy="false">(</mo><mi>X</mi><mo class="MathClass-punc" stretchy="false">,</mo><mstyle mathvariant="script"><mi>A</mi></mstyle><mo class="MathClass-punc" stretchy="false">,</mo><mi>μ</mi><mo class="MathClass-close" stretchy="false">)</mo></mrow></math> <span class="ecti-1200">be a measure space.
+If </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>f</mi><mo class="MathClass-punc" stretchy="false">,</mo><mi>g</mi><mo class="MathClass-punc" stretchy="false">:</mo> <mi>X</mi> <mo class="MathClass-rel" stretchy="false">→</mo> <mo class="MathClass-open" stretchy="false">[</mo><mn>0</mn><mo class="MathClass-punc" stretchy="false">,</mo><mi>∞</mi><mo class="MathClass-close" stretchy="false">]</mo></mrow></math> <span class="ecti-1200">are measurable,
+then for all </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>E</mi> <mo class="MathClass-rel" stretchy="false">∈</mo><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow></math><span class="ecti-1200">,</span>
+</p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+                                                                          
+
+                                                                          
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                   <msub><mrow><mo>∫
+ </mo></mrow><mrow><mi>E</mi></mrow></msub><mo class="MathClass-open" stretchy="false">(</mo><mi>f</mi> <mo class="MathClass-bin" stretchy="false">+</mo> <mi>g</mi><mo class="MathClass-close" stretchy="false">)</mo><mi mathvariant="italic">dμ</mi> <mo class="MathClass-rel" stretchy="false">=</mo><msub><mrow><mo> ∫ 
+</mo></mrow><mrow><mi>E</mi></mrow></msub><mi mathvariant="italic">fdμ</mi> <mo class="MathClass-bin" stretchy="false">+</mo><msub><mrow><mo> ∫ 
+</mo></mrow><mrow><mi>E</mi></mrow></msub><mi mathvariant="italic">gdμ</mi><mspace class="thinspace" width="0.17em"></mspace><mo class="MathClass-punc" stretchy="false">.</mo>
+</mrow></math></td></tr></table>
+   </div></div>
+</div>
+   <div class="proof">
+<p class="indent">   <span class="head">
+<span class="ecti-1200">Proof.</span> </span>By Theorem <a href="chapter-06.html#ref-th-approx">6.6</a>, there exist two sequences
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mi>s</mi></mrow><mrow><mi>k</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow><mrow><mi>k</mi><mo class="MathClass-rel" stretchy="false">≥</mo><mn>1</mn></mrow></msub></math> and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mi>t</mi></mrow><mrow><mi>k</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow><mrow><mi>k</mi><mo class="MathClass-rel" stretchy="false">≥</mo><mn>1</mn></mrow></msub></math> of
+simple positive measurable functions such that </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                               <msub><mrow><mi>s</mi></mrow><mrow><mi>k</mi></mrow></msub> <mi>↑</mi> <mi>f</mi><mo class="MathClass-punc" stretchy="false">,</mo><mspace class="qquad" width="2em"></mspace><msub><mrow><mi>t</mi></mrow><mrow><mi>k</mi></mrow></msub> <mi>↑</mi> <mi>g</mi>
+</mrow></math></td></tr></table>
+</div><p class="indent">   pointwise on <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>X</mi></math>.
+For every <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>k</mi> <mo class="MathClass-rel" stretchy="false">≥</mo> <mn>1</mn></mrow></math>,
+the function <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mrow><mi>s</mi></mrow><mrow><mi>k</mi></mrow></msub> <mo class="MathClass-bin" stretchy="false">+</mo> <msub><mrow><mi>t</mi></mrow><mrow><mi>k</mi></mrow></msub></mrow></math>
+is simple, positive, and measurable, and </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+                                                                          
+
+                                                                          
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                              <msub><mrow><mi>s</mi></mrow><mrow><mi>k</mi></mrow></msub> <mo class="MathClass-bin" stretchy="false">+</mo> <msub><mrow><mi>t</mi></mrow><mrow><mi>k</mi></mrow></msub> <mi>↑</mi> <mi>f</mi> <mo class="MathClass-bin" stretchy="false">+</mo> <mi>g</mi>
+</mrow></math></td></tr></table>
+</div><p class="indent">   pointwise on <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>X</mi></math>.
+</p><p class="indent">   By Lemma <a href="chapter-05.html#ref-lem-linesc">5.13</a>, for every <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>k</mi> <mo class="MathClass-rel" stretchy="false">≥</mo> <mn>1</mn></mrow></math>,
+</p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                  <msub><mrow><mo>∫
+ </mo></mrow><mrow><mi>X</mi></mrow></msub><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mi>s</mi></mrow><mrow><mi>k</mi></mrow></msub> <mo class="MathClass-bin" stretchy="false">+</mo> <msub><mrow><mi>t</mi></mrow><mrow><mi>k</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo><mi mathvariant="italic">dμ</mi> <mo class="MathClass-rel" stretchy="false">=</mo><msub><mrow><mo> ∫ 
+</mo></mrow><mrow><mi>X</mi></mrow></msub><msub><mrow><mi>s</mi></mrow><mrow><mi>k</mi></mrow></msub><mi mathvariant="italic">dμ</mi> <mo class="MathClass-bin" stretchy="false">+</mo><msub><mrow><mo> ∫ 
+</mo></mrow><mrow><mi>X</mi></mrow></msub><msub><mrow><mi>t</mi></mrow><mrow><mi>k</mi></mrow></msub><mi mathvariant="italic">dμ</mi><mo class="MathClass-punc" stretchy="false">.</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   Applying the monotone convergence theorem to the three increasing sequences
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mi>s</mi></mrow><mrow><mi>k</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow><mrow><mi>k</mi><mo class="MathClass-rel" stretchy="false">≥</mo><mn>1</mn></mrow></msub></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mi>t</mi></mrow><mrow><mi>k</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow><mrow><mi>k</mi><mo class="MathClass-rel" stretchy="false">≥</mo><mn>1</mn></mrow></msub></math>, and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mi>s</mi></mrow><mrow><mi>k</mi></mrow></msub> <mo class="MathClass-bin" stretchy="false">+</mo> <msub><mrow><mi>t</mi></mrow><mrow><mi>k</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow><mrow><mi>k</mi><mo class="MathClass-rel" stretchy="false">≥</mo><mn>1</mn></mrow></msub></math>, we
+obtain </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+                                                                          
+
+                                                                          
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                   <msub><mrow><mo>∫
+ </mo></mrow><mrow><mi>X</mi></mrow></msub><mo class="MathClass-open" stretchy="false">(</mo><mi>f</mi> <mo class="MathClass-bin" stretchy="false">+</mo> <mi>g</mi><mo class="MathClass-close" stretchy="false">)</mo><mi mathvariant="italic">dμ</mi> <mo class="MathClass-rel" stretchy="false">=</mo><msub><mrow><mo> ∫ 
+</mo></mrow><mrow><mi>X</mi></mrow></msub><mi mathvariant="italic">fdμ</mi> <mo class="MathClass-bin" stretchy="false">+</mo><msub><mrow><mo> ∫ 
+</mo></mrow><mrow><mi>X</mi></mrow></msub><mi mathvariant="italic">gdμ</mi><mo class="MathClass-punc" stretchy="false">.</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   Finally, item 1 of Theorem <a href="chapter-06.html#ref-th-prempropint2">6.4</a> gives
+</p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mtable class="align-star" columnalign="left" displaystyle="true">
+                  <mtr><mtd class="align-odd" columnalign="right"><msub><mrow><mo> ∫
+ </mo></mrow><mrow><mi>E</mi></mrow></msub><mo class="MathClass-open" stretchy="false">(</mo><mi>f</mi> <mo class="MathClass-bin" stretchy="false">+</mo> <mi>g</mi><mo class="MathClass-close" stretchy="false">)</mo><mi mathvariant="italic">dμ</mi></mtd>                  <mtd class="align-even"> <mo class="MathClass-rel" stretchy="false">=</mo><msub><mrow><mo> ∫
+ </mo></mrow><mrow><mi>X</mi></mrow></msub><mo class="MathClass-open" stretchy="false">(</mo><mi>f</mi> <mo class="MathClass-bin" stretchy="false">+</mo> <mi>g</mi><mo class="MathClass-close" stretchy="false">)</mo><msub><mrow><mi mathvariant="bold">1</mi></mrow><mrow><mi>E</mi></mrow></msub><mspace class="thinspace" width="0.17em"></mspace><mi mathvariant="italic">dμ</mi><mspace width="2em"></mspace></mtd>                          <mtd class="align-label" columnalign="right"></mtd>                  <mtd class="align-label">
+                  <mspace width="2em"></mspace></mtd></mtr><mtr><mtd class="align-odd" columnalign="right"></mtd>                                <mtd class="align-even"> <mo class="MathClass-rel" stretchy="false">=</mo><msub><mrow><mo> ∫
+ </mo></mrow><mrow><mi>X</mi></mrow></msub><mo class="MathClass-open" stretchy="false">(</mo><mi>f</mi><msub><mrow><mi mathvariant="bold">1</mi></mrow><mrow><mi>E</mi></mrow></msub> <mo class="MathClass-bin" stretchy="false">+</mo> <mi>g</mi><msub><mrow><mi mathvariant="bold">1</mi></mrow><mrow><mi>E</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo><mspace class="thinspace" width="0.17em"></mspace><mi mathvariant="italic">dμ</mi><mspace width="2em"></mspace></mtd>                       <mtd class="align-label" columnalign="right"></mtd>                  <mtd class="align-label">
+                  <mspace width="2em"></mspace></mtd></mtr><mtr><mtd class="align-odd" columnalign="right"></mtd>                                <mtd class="align-even"> <mo class="MathClass-rel" stretchy="false">=</mo><msub><mrow><mo> ∫
+ </mo></mrow><mrow><mi>X</mi></mrow></msub><mi>f</mi><msub><mrow><mi mathvariant="bold">1</mi></mrow><mrow><mi>E</mi></mrow></msub><mspace class="thinspace" width="0.17em"></mspace><mi mathvariant="italic">dμ</mi> <mo class="MathClass-bin" stretchy="false">+</mo><msub><mrow><mo> ∫
+ </mo></mrow><mrow><mi>X</mi></mrow></msub><mi>g</mi><msub><mrow><mi mathvariant="bold">1</mi></mrow><mrow><mi>E</mi></mrow></msub><mspace class="thinspace" width="0.17em"></mspace><mi mathvariant="italic">dμ</mi><mspace width="2em"></mspace></mtd>                  <mtd class="align-label" columnalign="right"></mtd>                  <mtd class="align-label">
+                  <mspace width="2em"></mspace></mtd></mtr><mtr><mtd class="align-odd" columnalign="right"></mtd>                                <mtd class="align-even"> <mo class="MathClass-rel" stretchy="false">=</mo><msub><mrow><mo> ∫
+ </mo></mrow><mrow><mi>E</mi></mrow></msub><mi mathvariant="italic">fdμ</mi> <mo class="MathClass-bin" stretchy="false">+</mo><msub><mrow><mo> ∫
+ </mo></mrow><mrow><mi>E</mi></mrow></msub><mi mathvariant="italic">gdμ</mi><mo class="MathClass-punc" stretchy="false">.</mo><mspace width="2em"></mspace></mtd>                       <mtd class="align-label" columnalign="right"></mtd>                  <mtd class="align-label">
+   <mspace width="2em"></mspace></mtd></mtr></mtable></math>
+</div><p class="noindent">This is the desired identity. The same identity extends by induction to every finite
+sum of positive measurable functions.                                                 □
+</p>
+   </div>
+<h2 class="sectionHead" id="monotone-convergence-theorem-for-series-of-positive-functions"><span class="titlemark">7.3   </span> <a id="x1-450007.3"></a>Monotone convergence theorem for series of positive functions</h2>
+<p class="noindent">Another corollary of the monotone convergence theorem concerns a series of
+positive functions. </p><div class="statement statement-brown">
+                                                                          
+
+                                                                          
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<span id="ref-series" class="reference-anchor"></span><a id="x1-45001r4"></a>
+<span class="ecbx-1200">Corollary 7.4 </span>(Integration of normally convergent series)<span class="ecbx-1200">.</span>  </span> <span class="ecti-1200">Let</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-open" stretchy="false">(</mo><mi>X</mi><mo class="MathClass-punc" stretchy="false">,</mo><mstyle mathvariant="script"><mi>A</mi></mstyle><mo class="MathClass-punc" stretchy="false">,</mo><mi>μ</mi><mo class="MathClass-close" stretchy="false">)</mo></mrow></math> <span class="ecti-1200">be a measure space,
+and let </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mi>f</mi></mrow><mrow><mi>n</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow><mrow><mi>n</mi><mo class="MathClass-rel" stretchy="false">≥</mo><mn>1</mn></mrow></msub></math> <span class="ecti-1200">be a sequence of
+measurable functions from </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>X</mi></math>
+<span class="ecti-1200">to </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-open" stretchy="false">[</mo><mn>0</mn><mo class="MathClass-punc" stretchy="false">,</mo><mi>∞</mi><mo class="MathClass-close" stretchy="false">]</mo></mrow></math><span class="ecti-1200">.
+Then the function</span> </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                             <mi>f</mi> <mo class="MathClass-punc" stretchy="false">:</mo><mo class="MathClass-rel" stretchy="false">=</mo><munderover accent="false" accentunder="false"><mrow><mo> ∑</mo>
+  </mrow><mrow><mi>n</mi><mo class="MathClass-rel" stretchy="false">=</mo><mn>1</mn></mrow><mrow><mi>∞</mi></mrow></munderover><msub><mrow><mi>f</mi></mrow><mrow>
+<mi>n</mi></mrow></msub>
+</mrow></math></td></tr></table>
+</div><p class="indent">   <span class="ecti-1200">is measurable, and for all </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>E</mi> <mo class="MathClass-rel" stretchy="false">∈</mo><mstyle mathvariant="script"><mi>A</mi></mstyle></mrow></math><span class="ecti-1200">,
+we have</span> </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                      <msub><mrow><mo>∫
+ </mo></mrow><mrow><mi>E</mi></mrow></msub><mi mathvariant="italic">fdμ</mi> <mo class="MathClass-rel" stretchy="false">=</mo><munderover accent="false" accentunder="false"><mrow><mo> ∑</mo>
+  </mrow><mrow><mi>n</mi><mo class="MathClass-rel" stretchy="false">=</mo><mn>1</mn></mrow><mrow><mi>∞</mi></mrow></munderover><mstyle mathsize="1.19em"><mrow><mo fence="true" form="prefix"> (</mo><mrow></mrow><mo fence="true" form="postfix"></mo></mrow></mstyle><msub><mrow><mo>∫ 
+</mo></mrow><mrow><mi>E</mi></mrow></msub><msub><mrow><mi>f</mi></mrow><mrow><mi>n</mi></mrow></msub><mi mathvariant="italic">dμ</mi><mstyle mathsize="1.19em"><mrow><mo fence="true" form="prefix"> )</mo><mrow></mrow><mo fence="true" form="postfix"></mo></mrow></mstyle><mspace class="thinspace" width="0.17em"></mspace><mo class="MathClass-punc" stretchy="false">.</mo>
+</mrow></math></td></tr></table>
+                                                                          
+
+                                                                          
+   </div></div>
+</div>
+   <div class="proof">
+<p class="indent">   <span class="head">
+<span class="ecti-1200">Proof.</span> </span>For every <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>N</mi> <mo class="MathClass-rel" stretchy="false">≥</mo> <mn>1</mn></mrow></math>,
+we define the partial sum </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                            <msub><mrow><mi>S</mi></mrow><mrow><mi>N</mi></mrow></msub> <mo class="MathClass-punc" stretchy="false">:</mo><mo class="MathClass-rel" stretchy="false">=</mo><munderover accent="false" accentunder="false"><mrow><mo> ∑</mo>
+  </mrow><mrow><mi>n</mi><mo class="MathClass-rel" stretchy="false">=</mo><mn>1</mn></mrow><mrow><mi>N</mi></mrow></munderover><msub><mrow><mi>f</mi></mrow><mrow>
+<mi>n</mi></mrow></msub><mo class="MathClass-punc" stretchy="false">.</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   Each function <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mi>S</mi></mrow><mrow><mi>N</mi></mrow></msub></math> is
+measurable, the sequence <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mi>S</mi></mrow><mrow><mi>N</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow><mrow><mi>N</mi><mo class="MathClass-rel" stretchy="false">≥</mo><mn>1</mn></mrow></msub></math>
+is increasing, and </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                                  <msub><mrow><mi>S</mi></mrow><mrow><mi>N</mi></mrow></msub> <mi>↑</mi> <mi>f</mi>
+</mrow></math></td></tr></table>
+</div><p class="indent">   pointwise on <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>X</mi></math>. By the
+previous corollary, for every <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>N</mi> <mo class="MathClass-rel" stretchy="false">≥</mo> <mn>1</mn></mrow></math>
+we have </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+                                                                          
+
+                                                                          
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                      <msub><mrow><mo>∫
+ </mo></mrow><mrow><mi>E</mi></mrow></msub><msub><mrow><mi>S</mi></mrow><mrow><mi>N</mi></mrow></msub><mi mathvariant="italic">dμ</mi> <mo class="MathClass-rel" stretchy="false">=</mo><munderover accent="false" accentunder="false"><mrow><mo> ∑</mo>
+  </mrow><mrow><mi>n</mi><mo class="MathClass-rel" stretchy="false">=</mo><mn>1</mn></mrow><mrow><mi>N</mi></mrow></munderover><msub><mrow><mo> ∫ 
+</mo></mrow><mrow><mi>E</mi></mrow></msub><msub><mrow><mi>f</mi></mrow><mrow><mi>n</mi></mrow></msub><mi mathvariant="italic">dμ</mi><mo class="MathClass-punc" stretchy="false">.</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   Applying the monotone convergence theorem to the sequence
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mi>S</mi></mrow><mrow><mi>N</mi></mrow></msub><msub><mrow><mi mathvariant="bold">1</mi></mrow><mrow><mi>E</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow><mrow><mi>N</mi><mo class="MathClass-rel" stretchy="false">≥</mo><mn>1</mn></mrow></msub></math> on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>X</mi></math> yields
+</p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+<msub><mrow><mo>∫
+  </mo></mrow><mrow><mi>E</mi></mrow></msub><mi mathvariant="italic">fdμ</mi> <mo class="MathClass-rel" stretchy="false">=</mo><munder class="msub"><mrow><mtext class="qopname"> lim</mtext><mo> ⁡</mo> </mrow><mrow><mi>N</mi><mo class="MathClass-rel" stretchy="false">→</mo><mi>∞</mi></mrow></munder><msub><mrow><mo>∫ 
+</mo></mrow><mrow><mi>E</mi></mrow></msub><msub><mrow><mi>S</mi></mrow><mrow><mi>N</mi></mrow></msub><mi mathvariant="italic">dμ</mi> <mo class="MathClass-rel" stretchy="false">=</mo><munder class="msub"><mrow><mtext class="qopname"> lim</mtext><mo> ⁡</mo> </mrow><mrow><mi>N</mi><mo class="MathClass-rel" stretchy="false">→</mo><mi>∞</mi></mrow></munder><munderover accent="false" accentunder="false"><mrow><mo>∑</mo>
+  </mrow><mrow><mi>n</mi><mo class="MathClass-rel" stretchy="false">=</mo><mn>1</mn></mrow><mrow><mi>N</mi></mrow></munderover><msub><mrow><mo> ∫ 
+</mo></mrow><mrow><mi>E</mi></mrow></msub><msub><mrow><mi>f</mi></mrow><mrow><mi>n</mi></mrow></msub><mi mathvariant="italic">dμ</mi> <mo class="MathClass-rel" stretchy="false">=</mo><munderover accent="false" accentunder="false"><mrow><mo> ∑</mo>
+  </mrow><mrow><mi>n</mi><mo class="MathClass-rel" stretchy="false">=</mo><mn>1</mn></mrow><mrow><mi>∞</mi></mrow></munderover><msub><mrow><mo>∫ 
+</mo></mrow><mrow><mi>E</mi></mrow></msub><msub><mrow><mi>f</mi></mrow><mrow><mi>n</mi></mrow></msub><mi mathvariant="italic">dμ</mi><mo class="MathClass-punc" stretchy="false">.</mo>
+</mrow></math></td></tr></table>
+                                                                         □
+   </div></div>
+<h2 class="sectionHead" id="chasles-property-for-positive-functions"><span class="titlemark">7.4   </span> <a id="x1-460007.4"></a>Chasles property for positive functions</h2>
+<p class="noindent">We can also deduce a Chasles-type result, which generalizes the statement seen for
+simple functions.
+</p>
+   <div class="statement statement-brown">
+                                                                          
+
+                                                                          
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-46001r5"></a>
+<span class="ecbx-1200">Corollary 7.5 </span>(Integrals over increasing domains)<span class="ecbx-1200">.</span>  </span><span class="ecti-1200">Let</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-open" stretchy="false">(</mo><mi>X</mi><mo class="MathClass-punc" stretchy="false">,</mo><mstyle mathvariant="script"><mi>A</mi></mstyle><mo class="MathClass-punc" stretchy="false">,</mo><mi>μ</mi><mo class="MathClass-close" stretchy="false">)</mo></mrow></math> <span class="ecti-1200">be a measure space.
+Let </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>f</mi> <mo class="MathClass-punc" stretchy="false">:</mo> <mi>X</mi> <mo class="MathClass-rel" stretchy="false">→</mo> <mo class="MathClass-open" stretchy="false">[</mo><mn>0</mn><mo class="MathClass-punc" stretchy="false">,</mo><mi>∞</mi><mo class="MathClass-close" stretchy="false">]</mo></mrow></math> <span class="ecti-1200">be a measurable
+function. If </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mi>E</mi></mrow><mrow><mi>n</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow><mrow><mi>n</mi><mo class="MathClass-rel" stretchy="false">≥</mo><mn>1</mn></mrow></msub></math> <span class="ecti-1200">is a
+sequence of elements of </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mstyle mathvariant="script"><mi>A</mi></mstyle></math>
+<span class="ecti-1200">which are pairwise disjoint, then</span> </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+           <msub><mrow><mo>∫
+ </mo></mrow><mrow><mi>E</mi></mrow></msub><mi mathvariant="italic">fdμ</mi> <mo class="MathClass-rel" stretchy="false">=</mo><munderover accent="false" accentunder="false"><mrow><mo> ∑</mo>
+  </mrow><mrow><mi>n</mi><mo class="MathClass-rel" stretchy="false">=</mo><mn>1</mn></mrow><mrow><mi>∞</mi></mrow></munderover><msub><mrow><mo>∫ 
+</mo></mrow><mrow><msub><mrow><mi>E</mi></mrow><mrow><mi>n</mi></mrow></msub></mrow></msub><mi mathvariant="italic">fdμ</mi><mo class="MathClass-punc" stretchy="false">,</mo><mspace class="qquad" width="2em"></mspace><mstyle class="text"><mtext>where </mtext></mstyle><mi>E</mi> <mo class="MathClass-punc" stretchy="false">:</mo><mo class="MathClass-rel" stretchy="false">=</mo><munderover accent="false" accentunder="false"><mrow><mo> ⋃</mo>
+  </mrow><mrow><mi>n</mi><mo class="MathClass-rel" stretchy="false">=</mo><mn>1</mn></mrow><mrow><mi>∞</mi></mrow></munderover><msub><mrow><mi>E</mi></mrow><mrow>
+<mi>n</mi></mrow></msub><mo class="MathClass-punc" stretchy="false">.</mo>
+</mrow></math></td></tr></table>
+   </div></div>
+</div>
+   <div class="proof">
+<p class="indent">   <span class="head">
+<span class="ecti-1200">Proof.</span> </span>For every <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>n</mi> <mo class="MathClass-rel" stretchy="false">≥</mo> <mn>1</mn></mrow></math>,
+we define </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+                                                                          
+
+                                                                          
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                               <msub><mrow><mi>g</mi></mrow><mrow><mi>n</mi></mrow></msub> <mo class="MathClass-punc" stretchy="false">:</mo><mo class="MathClass-rel" stretchy="false">=</mo> <mi>f</mi><msub><mrow><mi mathvariant="bold">1</mi></mrow><mrow><msub><mrow><mi>E</mi></mrow><mrow><mi>n</mi></mrow></msub></mrow></msub><mo class="MathClass-punc" stretchy="false">.</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   The functions <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mi>g</mi></mrow><mrow><mi>n</mi></mrow></msub></math>
+are positive and measurable. Since the sets
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mi>E</mi></mrow><mrow><mi>n</mi></mrow></msub></math> are
+pairwise disjoint, we have </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                            <munderover accent="false" accentunder="false"><mrow><mo>∑</mo>
+  </mrow><mrow><mi>n</mi><mo class="MathClass-rel" stretchy="false">=</mo><mn>1</mn></mrow><mrow><mi>∞</mi></mrow></munderover><msub><mrow><mi>g</mi></mrow><mrow>
+<mi>n</mi></mrow></msub> <mo class="MathClass-rel" stretchy="false">=</mo> <mi>f</mi><msub><mrow><mi mathvariant="bold">1</mi></mrow><mrow><mi>E</mi></mrow></msub>
+</mrow></math></td></tr></table>
+</div><p class="indent">   pointwise on <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>X</mi></math>.
+By Corollary <a href="#ref-series">7.4</a> and by item 1 of Theorem <a href="chapter-06.html#ref-th-prempropint2">6.4</a>, we obtain
+                                                                          
+
+                                                                          
+</p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mtable class="align-star" columnalign="left" displaystyle="true">
+                          <mtr><mtd class="align-odd" columnalign="right"><msub><mrow><mo> ∫
+ </mo></mrow><mrow><mi>E</mi></mrow></msub><mi mathvariant="italic">fdμ</mi></mtd>                          <mtd class="align-even"> <mo class="MathClass-rel" stretchy="false">=</mo><msub><mrow><mo> ∫
+ </mo></mrow><mrow><mi>X</mi></mrow></msub><mi>f</mi><msub><mrow><mi mathvariant="bold">1</mi></mrow><mrow><mi>E</mi></mrow></msub><mspace class="thinspace" width="0.17em"></mspace><mi mathvariant="italic">dμ</mi><mspace width="2em"></mspace></mtd>                                  <mtd class="align-label" columnalign="right"></mtd>                          <mtd class="align-label">
+                          <mspace width="2em"></mspace></mtd></mtr><mtr><mtd class="align-odd" columnalign="right"></mtd>                                  <mtd class="align-even"> <mo class="MathClass-rel" stretchy="false">=</mo><msub><mrow><mo> ∫
+ </mo></mrow><mrow><mi>X</mi></mrow></msub><munderover accent="false" accentunder="false"><mrow><mo> ∑</mo>
+  </mrow><mrow><mi>n</mi><mo class="MathClass-rel" stretchy="false">=</mo><mn>1</mn></mrow><mrow><mi>∞</mi></mrow></munderover><msub><mrow><mi>g</mi></mrow><mrow>
+<mi>n</mi></mrow></msub><mspace class="thinspace" width="0.17em"></mspace><mi mathvariant="italic">dμ</mi><mspace width="2em"></mspace></mtd>                           <mtd class="align-label" columnalign="right"></mtd>                          <mtd class="align-label">
+                          <mspace width="2em"></mspace></mtd></mtr><mtr><mtd class="align-odd" columnalign="right"></mtd>                                  <mtd class="align-even"> <mo class="MathClass-rel" stretchy="false">=</mo><munderover accent="false" accentunder="false"><mrow><mo> ∑</mo>
+  </mrow><mrow><mi>n</mi><mo class="MathClass-rel" stretchy="false">=</mo><mn>1</mn></mrow><mrow><mi>∞</mi></mrow></munderover><msub><mrow><mo>∫
+ </mo></mrow><mrow><mi>X</mi></mrow></msub><msub><mrow><mi>g</mi></mrow><mrow><mi>n</mi></mrow></msub><mspace class="thinspace" width="0.17em"></mspace><mi mathvariant="italic">dμ</mi><mspace width="2em"></mspace></mtd>                           <mtd class="align-label" columnalign="right"></mtd>                          <mtd class="align-label">
+                          <mspace width="2em"></mspace></mtd></mtr><mtr><mtd class="align-odd" columnalign="right"></mtd>                                  <mtd class="align-even"> <mo class="MathClass-rel" stretchy="false">=</mo><munderover accent="false" accentunder="false"><mrow><mo> ∑</mo>
+  </mrow><mrow><mi>n</mi><mo class="MathClass-rel" stretchy="false">=</mo><mn>1</mn></mrow><mrow><mi>∞</mi></mrow></munderover><msub><mrow><mo>∫
+ </mo></mrow><mrow><msub><mrow><mi>E</mi></mrow><mrow><mi>n</mi></mrow></msub></mrow></msub><mi>f</mi><mspace class="thinspace" width="0.17em"></mspace><mi mathvariant="italic">dμ</mi><mo class="MathClass-punc" stretchy="false">.</mo><mspace width="2em"></mspace></mtd>                          <mtd class="align-label" columnalign="right"></mtd>                          <mtd class="align-label">
+   <mspace width="2em"></mspace></mtd></mtr></mtable></math>
+                                                                         □
+   </div></div>
+<h2 class="sectionHead" id="fatous-lemma"><span class="titlemark">7.5   </span> <a id="x1-470007.5"></a>Fatou’s Lemma</h2>
+<p class="noindent">Finally, let us end this chapter with the following corollary of the monotone
+convergence theorem which does not require considering a convergent sequence
+but only allows us to prove an inequality.
+</p>
+   <div class="statement statement-brown">
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-47001r6"></a>
+<span class="ecbx-1200">Corollary 7.6 </span>(Fatou’s lemma)<span class="ecbx-1200">.</span>  </span><span class="ecti-1200">Let</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-open" stretchy="false">(</mo><mi>X</mi><mo class="MathClass-punc" stretchy="false">,</mo><mstyle mathvariant="script"><mi>A</mi></mstyle><mo class="MathClass-punc" stretchy="false">,</mo><mi>μ</mi><mo class="MathClass-close" stretchy="false">)</mo></mrow></math> <span class="ecti-1200">be a measure space and
+let </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mi>f</mi></mrow><mrow><mi>n</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow><mrow><mi>n</mi><mo class="MathClass-rel" stretchy="false">≥</mo><mn>1</mn></mrow></msub></math> <span class="ecti-1200">be a sequence of
+measurable functions from </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>X</mi></math>
+<span class="ecti-1200">to </span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo class="MathClass-open" stretchy="false">[</mo><mn>0</mn><mo class="MathClass-punc" stretchy="false">,</mo><mi>∞</mi><mo class="MathClass-close" stretchy="false">]</mo></mrow></math><span class="ecti-1200">.
+Then</span> </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+                                                                          
+
+                                                                          
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                     <msub><mrow><mo>∫
+ </mo></mrow><mrow><mi>X</mi></mrow></msub><munder class="msub"><mrow><mstyle class="qopname"> <mi>lim</mi><mspace class="thinspace" width="0.17em"></mspace><mi>inf</mi><mspace class="thinspace" width="0.17em"></mspace></mstyle><mo> ⁡</mo> </mrow><mrow><mi>n</mi><mo class="MathClass-rel" stretchy="false">→</mo><mi>∞</mi></mrow></munder><msub><mrow><mi>f</mi></mrow><mrow><mi>n</mi></mrow></msub><mspace class="thinspace" width="0.17em"></mspace><mi mathvariant="italic">dμ</mi> <mo class="MathClass-rel" stretchy="false">≤</mo><munder class="msub"><mrow><mstyle class="qopname"><mi>lim</mi><mspace class="thinspace" width="0.17em"></mspace><mi>inf</mi><mspace class="thinspace" width="0.17em"></mspace></mstyle><mo> ⁡</mo></mrow><mrow><mi>n</mi><mo class="MathClass-rel" stretchy="false">→</mo><mi>∞</mi></mrow></munder><msub><mrow><mo>∫ 
+</mo></mrow><mrow><mi>X</mi></mrow></msub><msub><mrow><mi>f</mi></mrow><mrow><mi>n</mi></mrow></msub><mspace class="thinspace" width="0.17em"></mspace><mi mathvariant="italic">dμ</mi><mspace class="thinspace" width="0.17em"></mspace><mo class="MathClass-punc" stretchy="false">.</mo>
+</mrow></math></td></tr></table>
+   </div></div>
+</div>
+   <div class="proof">
+<p class="indent">   <span class="head">
+<span class="ecti-1200">Proof.</span> </span>For every <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>n</mi> <mo class="MathClass-rel" stretchy="false">≥</mo> <mn>1</mn></mrow></math>,
+we define </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                           <msub><mrow><mi>g</mi></mrow><mrow><mi>n</mi></mrow></msub><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo> <mo class="MathClass-punc" stretchy="false">:</mo><mo class="MathClass-rel" stretchy="false">=</mo><munder class="msub"><mrow><mtext class="qopname"> inf</mtext><mo> ⁡</mo> </mrow><mrow><mi>i</mi><mo class="MathClass-rel" stretchy="false">≥</mo><mi>n</mi></mrow></munder><msub><mrow><mi>f</mi></mrow><mrow><mi>i</mi></mrow></msub><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo><mo class="MathClass-punc" stretchy="false">.</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   Each function <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mi>g</mi></mrow><mrow><mi>n</mi></mrow></msub></math>
+is positive and measurable by Theorem <a href="chapter-04.html#ref-th-propfctsmes">4.10</a>, and the sequence
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow><mo class="MathClass-open" stretchy="false">(</mo><msub><mrow><mi>g</mi></mrow><mrow><mi>n</mi></mrow></msub><mo class="MathClass-close" stretchy="false">)</mo></mrow><mrow><mi>n</mi><mo class="MathClass-rel" stretchy="false">≥</mo><mn>1</mn></mrow></msub></math> is increasing.
+Moreover, for every <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>x</mi></math>
+in <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>X</mi></math>,
+we have </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+                                                                          
+
+                                                                          
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                            <msub><mrow><mi>g</mi></mrow><mrow><mi>n</mi></mrow></msub><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo> <mi>↑</mi><munder class="msub"><mrow><mstyle class="qopname"><mi>lim</mi><mspace class="thinspace" width="0.17em"></mspace><mi>inf</mi><mspace class="thinspace" width="0.17em"></mspace></mstyle><mo> ⁡</mo></mrow><mrow><mi>n</mi><mo class="MathClass-rel" stretchy="false">→</mo><mi>∞</mi></mrow></munder><msub><mrow><mi>f</mi></mrow><mrow><mi>n</mi></mrow></msub><mo class="MathClass-open" stretchy="false">(</mo><mi>x</mi><mo class="MathClass-close" stretchy="false">)</mo><mo class="MathClass-punc" stretchy="false">.</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   The monotone convergence theorem therefore yields </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                    <msub><mrow><mo>∫
+ </mo></mrow><mrow><mi>X</mi></mrow></msub><munder class="msub"><mrow><mstyle class="qopname"> <mi>lim</mi><mspace class="thinspace" width="0.17em"></mspace><mi>inf</mi><mspace class="thinspace" width="0.17em"></mspace></mstyle><mo> ⁡</mo> </mrow><mrow><mi>n</mi><mo class="MathClass-rel" stretchy="false">→</mo><mi>∞</mi></mrow></munder><msub><mrow><mi>f</mi></mrow><mrow><mi>n</mi></mrow></msub><mspace class="thinspace" width="0.17em"></mspace><mi mathvariant="italic">dμ</mi> <mo class="MathClass-rel" stretchy="false">=</mo><munder class="msub"><mrow><mtext class="qopname"> lim</mtext><mo> ⁡</mo> </mrow><mrow><mi>n</mi><mo class="MathClass-rel" stretchy="false">→</mo><mi>∞</mi></mrow></munder><msub><mrow><mo>∫ 
+</mo></mrow><mrow><mi>X</mi></mrow></msub><msub><mrow><mi>g</mi></mrow><mrow><mi>n</mi></mrow></msub><mspace class="thinspace" width="0.17em"></mspace><mi mathvariant="italic">dμ</mi><mo class="MathClass-punc" stretchy="false">.</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   Now let <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>n</mi> <mo class="MathClass-rel" stretchy="false">≥</mo> <mn>1</mn></mrow></math>.
+For every <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>i</mi> <mo class="MathClass-rel" stretchy="false">≥</mo> <mi>n</mi></mrow></math>,
+we have <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mrow><mi>g</mi></mrow><mrow><mi>n</mi></mrow></msub> <mo class="MathClass-rel" stretchy="false">≤</mo> <msub><mrow><mi>f</mi></mrow><mrow><mi>i</mi></mrow></msub></mrow></math>,
+hence </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                          <msub><mrow><mo>∫
+ </mo></mrow><mrow><mi>X</mi></mrow></msub><msub><mrow><mi>g</mi></mrow><mrow><mi>n</mi></mrow></msub><mspace class="thinspace" width="0.17em"></mspace><mi mathvariant="italic">dμ</mi> <mo class="MathClass-rel" stretchy="false">≤</mo><msub><mrow><mo>∫ 
+</mo></mrow><mrow><mi>X</mi></mrow></msub><msub><mrow><mi>f</mi></mrow><mrow><mi>i</mi></mrow></msub><mspace class="thinspace" width="0.17em"></mspace><mi mathvariant="italic">dμ</mi><mo class="MathClass-punc" stretchy="false">.</mo>
+</mrow></math></td></tr></table>
+                                                                          
+
+                                                                          
+</div><p class="indent">   Taking the infimum over all <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>i</mi> <mo class="MathClass-rel" stretchy="false">≥</mo> <mi>n</mi></mrow></math>,
+we obtain </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+                       <msub><mrow><mo>∫
+ </mo></mrow><mrow><mi>X</mi></mrow></msub><msub><mrow><mi>g</mi></mrow><mrow><mi>n</mi></mrow></msub><mspace class="thinspace" width="0.17em"></mspace><mi mathvariant="italic">dμ</mi> <mo class="MathClass-rel" stretchy="false">≤</mo><munder class="msub"><mrow><mtext class="qopname"> inf</mtext><mo> ⁡</mo> </mrow><mrow><mi>i</mi><mo class="MathClass-rel" stretchy="false">≥</mo><mi>n</mi></mrow></munder><msub><mrow><mo> ∫ 
+</mo></mrow><mrow><mi>X</mi></mrow></msub><msub><mrow><mi>f</mi></mrow><mrow><mi>i</mi></mrow></msub><mspace class="thinspace" width="0.17em"></mspace><mi mathvariant="italic">dμ</mi><mo class="MathClass-punc" stretchy="false">.</mo>
+</mrow></math></td></tr></table>
+</div><p class="indent">   Passing to the limit in <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mi>n</mi></math>,
+we conclude that </p><div class="math-display" tabindex="0" aria-label="Displayed equation; scroll horizontally if needed"><table class="equation-star"><tr><td>
+<math class="equation" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow>
+        <msub><mrow><mo>∫
+ </mo></mrow><mrow><mi>X</mi></mrow></msub><munder class="msub"><mrow><mstyle class="qopname"> <mi>lim</mi><mspace class="thinspace" width="0.17em"></mspace><mi>inf</mi><mspace class="thinspace" width="0.17em"></mspace></mstyle><mo> ⁡</mo> </mrow><mrow><mi>n</mi><mo class="MathClass-rel" stretchy="false">→</mo><mi>∞</mi></mrow></munder><msub><mrow><mi>f</mi></mrow><mrow><mi>n</mi></mrow></msub><mspace class="thinspace" width="0.17em"></mspace><mi mathvariant="italic">dμ</mi> <mo class="MathClass-rel" stretchy="false">≤</mo><munder class="msub"><mrow><mtext class="qopname"> lim</mtext><mo> ⁡</mo> </mrow><mrow><mi>n</mi><mo class="MathClass-rel" stretchy="false">→</mo><mi>∞</mi></mrow></munder><munder class="msub"><mrow><mtext class="qopname"> inf</mtext><mo> ⁡</mo> </mrow><mrow><mi>i</mi><mo class="MathClass-rel" stretchy="false">≥</mo><mi>n</mi></mrow></munder><msub><mrow><mo> ∫ 
+</mo></mrow><mrow><mi>X</mi></mrow></msub><msub><mrow><mi>f</mi></mrow><mrow><mi>i</mi></mrow></msub><mspace class="thinspace" width="0.17em"></mspace><mi mathvariant="italic">dμ</mi> <mo class="MathClass-rel" stretchy="false">=</mo><munder class="msub"><mrow><mstyle class="qopname"> <mi>lim</mi><mspace class="thinspace" width="0.17em"></mspace><mi>inf</mi><mspace class="thinspace" width="0.17em"></mspace></mstyle><mo> ⁡</mo> </mrow><mrow><mi>n</mi><mo class="MathClass-rel" stretchy="false">→</mo><mi>∞</mi></mrow></munder><msub><mrow><mo>∫ 
+</mo></mrow><mrow><mi>X</mi></mrow></msub><msub><mrow><mi>f</mi></mrow><mrow><mi>n</mi></mrow></msub><mspace class="thinspace" width="0.17em"></mspace><mi mathvariant="italic">dμ</mi><mo class="MathClass-punc" stretchy="false">.</mo>
+</mrow></math></td></tr></table>
+                                                                         □
+   </div></div>
+<nav class="previous-next" aria-label="Previous and next chapter"><a class="previous" href="chapter-06.html"><span>Previous</span>Lebesgue integral of positive measurable functions</a><a class="next" href="chapter-08.html"><span>Next</span>Dominated convergence, ℒ¹(μ) and L¹(μ)</a></nav>
+<footer class="chapter-footer"><a href="#chapter">Back to the beginning</a><a href="course.pdf#page=66">This chapter in the PDF</a></footer></main></div></body></html>
